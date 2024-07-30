@@ -1,7 +1,8 @@
 package com.ohgiraffers.lovematchproject.match.matchcontroller;
 
-import com.ohgiraffers.loveMatchProject.match.matchrepository.MatchRepository;
-import com.ohgiraffers.loveMatchProject.match.matchservice.MatchService;
+
+import com.ohgiraffers.lovematchproject.match.matchrepository.MatchRepository;
+import com.ohgiraffers.lovematchproject.match.matchservice.MatchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +17,10 @@ public class MatchController {
         this.matchService = matchService;
         this.matchRepository = matchRepository;
     }
+
+    
+
+
 
     
 
