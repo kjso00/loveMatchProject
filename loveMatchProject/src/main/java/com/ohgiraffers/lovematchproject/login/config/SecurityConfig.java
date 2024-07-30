@@ -23,7 +23,6 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf.disable())
                 .formLogin((login) -> login.disable())
                 .httpBasic((basic) -> basic.disable())
-                .oauth2Login(Customizer.withDefaults())
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
                         .anyRequest().authenticated())

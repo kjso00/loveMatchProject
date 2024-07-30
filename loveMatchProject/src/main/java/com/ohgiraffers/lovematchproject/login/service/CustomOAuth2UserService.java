@@ -2,6 +2,7 @@ package com.ohgiraffers.lovematchproject.login.service;
 
 import com.ohgiraffers.lovematchproject.login.dto.CustomOAuth2User;
 import com.ohgiraffers.lovematchproject.login.dto.GoogleResponse;
+import com.ohgiraffers.lovematchproject.login.dto.NaverResponse;
 import com.ohgiraffers.lovematchproject.login.dto.OAuth2Response;
 import com.ohgiraffers.lovematchproject.login.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
@@ -29,13 +30,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 네이버인지 구글인지 어떤 인증 provider인지
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
-//        if (registrationId.equals("naver")) {
-//            oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
-//        }
         if (registrationId.equals("google")) {
             oAuth2Response = new GoogleResponse(oAuth2User.getAttributes()); // dto 객체에 담음
-        }
-        else {
+        } else if (registrationId.equals("naver")) {
+            oAuth2Response = new NaverResponse(oAuth2User.getAttributes()); // dto 객체에 담음
+        } else {
             return null;
         }
 
