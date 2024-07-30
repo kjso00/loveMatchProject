@@ -3,24 +3,26 @@ package com.ohgiraffers.lovematchproject.match.matchmodel.dto;
 public class MatchDTO {
 
     private Long id;
-    private String userName;
-    private String gender;
-    private int userAge;
-    private int height;
-    private String mbti;
-    private String location;
+    private String profiName;
+    private String profiGender;
+    private int profiAge;
+    private int profiHeight;
+    private String profiMbti;
+    private String profiLocation;
+    private int totalScore; // 추가된 속성
 
     public MatchDTO() {
     }
 
-    public MatchDTO(Long id, String userName, String gender, int userAge, int height, String mbti, String location) {
+    public MatchDTO(Long id, String profiName, String profiGender, int profiAge, int profiHeight, String profiMbti, String profiLocation) {
         this.id = id;
-        this.userName = userName;
-        this.gender = gender;
-        this.userAge = userAge;
-        this.height = height;
-        this.mbti = mbti;
-        this.location = location;
+        this.profiName = profiName;
+        this.profiGender = profiGender;
+        this.profiAge = profiAge;
+        this.profiHeight = profiHeight;
+        this.profiMbti = profiMbti;
+        this.profiLocation = profiLocation;
+        this.totalScore = totalScore;
     }
 
     public Long getId() {
@@ -31,64 +33,73 @@ public class MatchDTO {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getProfiName() {
+        return profiName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setProfiName(String profiName) {
+        this.profiName = profiName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getProfiGender() {
+        return profiGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setProfiGender(String profiGender) {
+        this.profiGender = profiGender;
     }
 
-    public int getUserAge() {
-        return userAge;
+    public int getProfiAge() {
+        return profiAge;
     }
 
-    public void setUserAge(int userAge) {
-        this.userAge = userAge;
+    public void setProfiAge(int profiAge) {
+        this.profiAge = profiAge;
     }
 
-    public int getHeight() {
-        return height;
+    public int getProfiHeight() {
+        return profiHeight;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setProfiHeight(int profiHeight) {
+        this.profiHeight = profiHeight;
     }
 
-    public String getMbti() {
-        return mbti;
+    public String getProfiMbti() {
+        return profiMbti;
     }
 
-    public void setMbti(String mbti) {
-        this.mbti = mbti;
+    public void setProfiMbti(String profiMbti) {
+        this.profiMbti = profiMbti;
     }
 
-    public String getLocation() {
-        return location;
+    public String getProfiLocation() {
+        return profiLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setProfiLocation(String profiLocation) {
+        this.profiLocation = profiLocation;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 
     @Override
     public String toString() {
         return "MatchDTO{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", userAge=" + userAge +
-                ", height=" + height +
-                ", mbti='" + mbti + '\'' +
-                ", location='" + location + '\'' +
+                ", profiName='" + profiName + '\'' +
+                ", profiGender='" + profiGender + '\'' +
+                ", profiAge=" + profiAge +
+                ", profiHeight=" + profiHeight +
+                ", profiMbti='" + profiMbti + '\'' +
+                ", profiLocation='" + profiLocation + '\'' +
+                ", totalScore=" + totalScore +
                 '}';
     }
 }
