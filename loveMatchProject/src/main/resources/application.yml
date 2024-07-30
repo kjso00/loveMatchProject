@@ -14,3 +14,5 @@ spring:
     username: lovematch
     password: lovematch
     driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    include: oauth
