@@ -16,13 +16,13 @@ public class MatchService {
     @Autowired
     private MatchRepository matchRepository;
 
-    public MatchDTO getLoginUser(Long userId) {
-        MatchEntity entity = matchRepository.findById(userId).orElse(null);
+    public MatchDTO getLoginUser(Long priofiId) {
+        MatchEntity entity = matchRepository.findById(priofiId).orElse(null);
         if (entity == null) {
-            throw new IllegalArgumentException("User not found with ID: " + userId);
+            throw new IllegalArgumentException("User not found with ID: " + priofiId);
         }
         MatchDTO matchDTO = new MatchDTO();
-        matchDTO.setId(entity.getId());
+        matchDTO.setPriofiId(entity.getProfiId());
         matchDTO.setProfiGender(entity.getProfiGender());
         matchDTO.setProfiName(entity.getProfiName());
         matchDTO.setProfiAge(entity.getProfiAge());
@@ -40,9 +40,9 @@ public class MatchService {
         List<MatchEntity> entities = matchRepository.findAll();
         List<MatchDTO> matchDTOList = new ArrayList<>();
         for (MatchEntity entity : entities) {
-            if (!entity.getId().equals(loginUserId) && entity.getProfiGender().equalsIgnoreCase(targetGender)) {
+            if (!entity.getProfiId().equals(loginUserId) && entity.getProfiGender().equalsIgnoreCase(targetGender)) {
                 MatchDTO matchDTO = new MatchDTO();
-                matchDTO.setId(entity.getId());
+                matchDTO.setPriofiId(entity.getProfiId());
                 matchDTO.setProfiGender(entity.getProfiGender());
                 matchDTO.setProfiName(entity.getProfiName());
                 matchDTO.setProfiAge(entity.getProfiAge());
@@ -91,33 +91,33 @@ public class MatchService {
         return 0;
     }
 
-    public List<MatchDTO> calculatematchScores(Long userId){
+    public List<MatchDTO> calculatematchScores(Long priofiId){
         List<MatchEntity> allProfiles = matchRepository.findAll();
-        MatchEntity userProfile = matchRepository.findById(userId).orElse(null);
+        MatchEntity userProfile = matchRepository.findById(priofiId).orElse(null);
 
         if(userProfile == null){
             throw new IllegalArgumentException("User profile not found");
         }
 
+        String targetGender = userProfile.getProfiGender().equalsIgnoreCase("여") ? "남" : "여";
+
         List<MatchDTO> matchScores = new ArrayList<>();
         for (MatchEntity profile : allProfiles){
-            if (!profile.getId().equals(userProfile.getId())) {
+            if (!profile.getProfiId().equals(userProfile.getProfiId()) && profile.getProfiGender().equalsIgnoreCase(targetGender)) {
                 int heightScore = calculateHeightScore(userProfile.getProfiGender(), profile.getProfiHeight());
                 int ageScore = calculateAgeScore(userProfile.getProfiAge(), profile.getProfiAge());
 
                 // 나중에 거주지 점수도 추가
                 int totalScore = heightScore + ageScore;
 
-                MatchDTO matchDTO = new MatchDTO(
-                        profile.getId(),
-                        profile.getProfiName(),
-                        profile.getProfiGender(),
-                        profile.getProfiAge(),
-                        profile.getProfiHeight(),
-                        profile.getProfiMbti(),
-                        profile.getProfiLocation()
-                );
-
+                MatchDTO matchDTO = new MatchDTO();
+                matchDTO.setPriofiId(profile.getProfiId());
+                matchDTO.setProfiGender(profile.getProfiGender());
+                matchDTO.setProfiName(profile.getProfiName());
+                matchDTO.setProfiAge(profile.getProfiAge());
+                matchDTO.setProfiHeight(profile.getProfiHeight());
+                matchDTO.setProfiMbti(profile.getProfiMbti());
+                matchDTO.setProfiLocation(profile.getProfiLocation());
                 matchDTO.setTotalScore(totalScore);
                 matchScores.add(matchDTO);
             }

@@ -2,7 +2,7 @@ package com.ohgiraffers.lovematchproject.match.matchmodel.dto;
 
 public class MatchDTO {
 
-    private Long id;
+    private Long priofiId;
     private String profiName;
     private String profiGender;
     private int profiAge;
@@ -14,8 +14,8 @@ public class MatchDTO {
     public MatchDTO() {
     }
 
-    public MatchDTO(Long id, String profiName, String profiGender, int profiAge, int profiHeight, String profiMbti, String profiLocation) {
-        this.id = id;
+    public MatchDTO(Long priofiId, String profiName, String profiGender, int profiAge, int profiHeight, String profiMbti, String profiLocation, int totalScore) {
+        this.priofiId = priofiId;
         this.profiName = profiName;
         this.profiGender = profiGender;
         this.profiAge = profiAge;
@@ -25,12 +25,12 @@ public class MatchDTO {
         this.totalScore = totalScore;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPriofiId() {
+        return priofiId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPriofiId(Long priofiId) {
+        this.priofiId = priofiId;
     }
 
     public String getProfiName() {
@@ -92,7 +92,7 @@ public class MatchDTO {
     @Override
     public String toString() {
         return "MatchDTO{" +
-                "id=" + id +
+                "priofiId=" + priofiId +
                 ", profiName='" + profiName + '\'' +
                 ", profiGender='" + profiGender + '\'' +
                 ", profiAge=" + profiAge +

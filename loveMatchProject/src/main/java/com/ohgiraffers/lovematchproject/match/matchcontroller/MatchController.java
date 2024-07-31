@@ -30,12 +30,9 @@ public class MatchController {
         model.addAttribute("loginUser", loginUser);
         model.addAttribute("filterGender", targetGender);
         model.addAttribute("matchResults", matchResults);
-        return "/match/matchProfiles";
+        return "match/matchProfiles";
 
 //        long loginUser = 1; //현재 사용자의 ID를 하드코딩 -> 로그인사용자로 변경필요
     }
-
-    
-
 
 }
