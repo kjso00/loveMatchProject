@@ -91,7 +91,7 @@ public class DateEntity {
      * 0.00에서 5.00 사이의 값을 가집니다.
      */
     @Column(precision = 3, scale = 2)
-    private double dateAverageRating;
+    private BigDecimal dateAverageRating;
 
     /**
      * 데이트 장소에 대한 리뷰 목록
@@ -107,7 +107,7 @@ public class DateEntity {
     public DateEntity(Long dateId, String dateName, String dateDescription, String dateAddress,
                       double dateLatitude, double dateLongitude, BigDecimal datePrice, DateCategory dateCategory,
                       DateSubCategory dateSubCategory, String dateImageUrl, String dateOperatingHours,
-                      double dateAverageRating, List<String> dateReviews) {
+                      BigDecimal dateAverageRating, List<String> dateReviews) {
         this.dateId = dateId;
         this.dateName = dateName;
         this.dateDescription = dateDescription;
@@ -147,7 +147,7 @@ public class DateEntity {
 
     public String getDateOperatingHours() {return dateOperatingHours;}
 
-    public double getDateAverageRating() {return dateAverageRating;}
+    public BigDecimal getDateAverageRating() {return dateAverageRating;}
 
     public List<String> getDateReviews() {return dateReviews;}
 
@@ -176,7 +176,7 @@ public class DateEntity {
 
     public void setDateOperatingHours(String dateOperatingHours) {this.dateOperatingHours = dateOperatingHours;}
 
-    public void setDateAverageRating(double dateAverageRating) {this.dateAverageRating = dateAverageRating;}
+    public void setDateAverageRating(BigDecimal dateAverageRating) {this.dateAverageRating = dateAverageRating;}
 
     public void setDateReviews(List<String> dateReviews) {this.dateReviews = dateReviews;}
 

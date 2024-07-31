@@ -1,19 +1,26 @@
 server:
   port: 8080
 spring:
+  profiles:
+    include: oauth
   jpa:
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         hbm2ddl:
-          auto: create
+          auto: update
     database: mysql
   datasource:
     url: jdbc:mysql://localhost:3306/lovematch
     username: lovematch
     password: lovematch
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/static/
 api:
   culture:
     key: 9f2fa7ad-c4b1-47ea-873d-81094462a602
@@ -27,10 +34,3 @@ api:
   culture3:
     key: 84a3cde9-fbbe-4764-b61f-d5527bc09b61
 #    ??????? ?_?? ???? - ???
-  profiles:
-    include: oauth
-  mvc:
-    static-path-pattern: /static/**
-  web:
-    resources:
-      static-locations: classpath:/static/

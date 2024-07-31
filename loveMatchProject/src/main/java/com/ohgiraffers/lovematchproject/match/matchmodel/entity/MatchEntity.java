@@ -9,7 +9,7 @@ public class MatchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profiId")
-    private Long id;
+    private Long profiId;
 
     @Column(name = "profiName")
     private String profiName;
@@ -27,8 +27,8 @@ public class MatchEntity {
     public MatchEntity() {
     }
 
-    public MatchEntity(Long id, String profiName, String profiGender, int profiAge, int profiHeight, String profiMbti, String profiLocation) {
-        this.id = id;
+    public MatchEntity(Long profiId, String profiName, String profiGender, int profiAge, int profiHeight, String profiMbti, String profiLocation) {
+        this.profiId = profiId;
         this.profiName = profiName;
         this.profiGender = profiGender;
         this.profiAge = profiAge;
@@ -37,12 +37,12 @@ public class MatchEntity {
         this.profiLocation = profiLocation;
     }
 
-    public Long getId() {
-        return id;
+    public Long getProfiId() {
+        return profiId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProfiId(Long profiId) {
+        this.profiId = profiId;
     }
 
     public String getProfiName() {
@@ -96,7 +96,7 @@ public class MatchEntity {
     @Override
     public String toString() {
         return "MatchEntity{" +
-                "id=" + id +
+                "profiId=" + profiId +
                 ", profiName='" + profiName + '\'' +
                 ", profiGender='" + profiGender + '\'' +
                 ", profiAge=" + profiAge +
