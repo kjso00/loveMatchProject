@@ -3,36 +3,38 @@ package com.ohgiraffers.lovematchproject.match.matchmodel.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "matchProfile")
+@Table(name = "profile")
 public class MatchEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "profiId")
     private Long id;
-    @Column(name = "userName")
-    private String userName;
-    @Column(name = "gender")
-    private String gender;
-    @Column(name = "userAge")
-    private int userAge;
-    @Column(name = "height")
-    private int height;
-    @Column(name = "MBTI")
-    private String mbti;
-    @Column(name = "location")
-    private String location;
+
+    @Column(name = "profiName")
+    private String profiName;
+    @Column(name = "profiGender")
+    private String profiGender;
+    @Column(name = "profiAge")
+    private int profiAge;
+    @Column(name = "profiHeight")
+    private int profiHeight;
+    @Column(name = "profiMBTI")
+    private String profiMbti;
+    @Column(name = "profiLocation")
+    private String profiLocation;
 
     public MatchEntity() {
     }
 
-    public MatchEntity(Long id, String userName, String gender, int userAge, int height, String mbti, String location) {
+    public MatchEntity(Long id, String profiName, String profiGender, int profiAge, int profiHeight, String profiMbti, String profiLocation) {
         this.id = id;
-        this.userName = userName;
-        this.gender = gender;
-        this.userAge = userAge;
-        this.height = height;
-        this.mbti = mbti;
-        this.location = location;
+        this.profiName = profiName;
+        this.profiGender = profiGender;
+        this.profiAge = profiAge;
+        this.profiHeight = profiHeight;
+        this.profiMbti = profiMbti;
+        this.profiLocation = profiLocation;
     }
 
     public Long getId() {
@@ -43,64 +45,64 @@ public class MatchEntity {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getProfiName() {
+        return profiName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setProfiName(String profiName) {
+        this.profiName = profiName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getProfiGender() {
+        return profiGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setProfiGender(String profiGender) {
+        this.profiGender = profiGender;
     }
 
-    public int getUserAge() {
-        return userAge;
+    public int getProfiAge() {
+        return profiAge;
     }
 
-    public void setUserAge(int userAge) {
-        this.userAge = userAge;
+    public void setProfiAge(int profiAge) {
+        this.profiAge = profiAge;
     }
 
-    public int getHeight() {
-        return height;
+    public int getProfiHeight() {
+        return profiHeight;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setProfiHeight(int profiHeight) {
+        this.profiHeight = profiHeight;
     }
 
-    public String getMbti() {
-        return mbti;
+    public String getProfiMbti() {
+        return profiMbti;
     }
 
-    public void setMbti(String mbti) {
-        this.mbti = mbti;
+    public void setProfiMbti(String profiMbti) {
+        this.profiMbti = profiMbti;
     }
 
-    public String getLocation() {
-        return location;
+    public String getProfiLocation() {
+        return profiLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setProfiLocation(String profiLocation) {
+        this.profiLocation = profiLocation;
     }
 
     @Override
     public String toString() {
-        return "MatchDTO{" +
+        return "MatchEntity{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", userAge=" + userAge +
-                ", height=" + height +
-                ", mbti='" + mbti + '\'' +
-                ", location='" + location + '\'' +
+                ", profiName='" + profiName + '\'' +
+                ", profiGender='" + profiGender + '\'' +
+                ", profiAge=" + profiAge +
+                ", profiHeight=" + profiHeight +
+                ", profiMbti='" + profiMbti + '\'' +
+                ", profiLocation='" + profiLocation + '\'' +
                 '}';
     }
 }
