@@ -41,14 +41,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId(); // 임의로 만들어준 id
         UserEntity existData = userRepository.findByUsername(username); // id값으로 repo에서 찾아서 넣어줌
 
-        // 추후에 수정할 부분, 권한은 "ADMIN", "FEMALE", "MALE"로 분류
+        // 추후에 수정할 부분, 권한은 "ADMIN", "GUEST", "USER"로 분류
         String role = null;
 
         if (existData == null) { // 데이터가 없으면 신규회원
             UserEntity userEntity = new UserEntity();
             userEntity.setUsername(username);
             userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setRole("GUEST"); // 신규회원일경우 일단 성별을 모르니 GUEST로 권한줌
+            userEntity.setRole("USER"); // 신규회원일경우 일단 성별을 모르니 GUEST로 권한줌
             userRepository.save(userEntity); // 제공자에게 받아온 정보 넣어주고 entity 저장
         }
         else { // 존재하는경우 새로 업데이트 시켜줌
