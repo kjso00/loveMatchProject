@@ -29,3 +29,8 @@ api:
 #    ??????? ?_?? ???? - ???
   profiles:
     include: oauth
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/static/

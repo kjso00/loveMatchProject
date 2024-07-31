@@ -54,6 +54,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         else { // 존재하는경우 새로 업데이트 시켜줌
             existData.setUsername(username);
             existData.setEmail(oAuth2Response.getEmail());
+            existData.setRole("USER");
             role = existData.getRole();
             userRepository.save(existData); // 업데이트 한 정보 저장
         }
