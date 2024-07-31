@@ -2,14 +2,14 @@ package com.ohgiraffers.lovematchproject.login.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-@ResponseBody
+@RequestMapping("/my")
 public class MyController {
 
-    @GetMapping("/my")
+    @GetMapping("/")
     public String myPage() {
-        return "my";
+        return "login/my";
     }
 }
