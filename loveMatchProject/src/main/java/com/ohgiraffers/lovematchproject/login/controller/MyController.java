@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/my")
 public class MyController {
 
-    @GetMapping("/")
+    @GetMapping
     public String myPage() {
         return "login/my";
     }

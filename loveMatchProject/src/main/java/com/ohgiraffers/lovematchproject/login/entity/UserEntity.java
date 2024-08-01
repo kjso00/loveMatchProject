@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.login.entity;
 
+import com.ohgiraffers.lovematchproject.login.dto.Role;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +17,9 @@ public class UserEntity {
     @Column(name = "user_email")
     private String email;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
-    private String role;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -43,21 +45,15 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+    public String getRoleKey(){
+        return this.role.getKey();
     }
 }
