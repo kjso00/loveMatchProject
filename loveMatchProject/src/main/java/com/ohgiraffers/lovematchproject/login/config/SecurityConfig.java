@@ -29,12 +29,13 @@ public class SecurityConfig {
                         .requestMatchers("/", "/oauth2/**", "/login/**","/static/**", "/image/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login((oauth2) -> oauth2
-                        .loginPage("/my")
+                        .loginPage("/login")
+//                        .loginPage("/my")
                         .defaultSuccessUrl("/",true)// 로그인 성공하면 여기로 리다이렉트
                         .userInfoEndpoint((userInfoEndpointConfig) ->
                                 userInfoEndpointConfig.userService(customOAuth2UserService)))
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+//                        .logoutUrl("/logout")
                         .logoutSuccessHandler(logoutSuccessHandler())
                         .permitAll());
         return http.build();
@@ -45,4 +46,5 @@ public class SecurityConfig {
         logoutSuccessHandler.setDefaultTargetUrl("/"); // 로그아웃후에 매핑할 주소
         return logoutSuccessHandler;
     }
+
 }

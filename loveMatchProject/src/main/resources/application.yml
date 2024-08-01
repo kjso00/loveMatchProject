@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8090
 spring:
   jpa:
     show-sql: true
@@ -16,8 +16,3 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     include: oauth
-  mvc:
-    static-path-pattern: /static/**
-  web:
-    resources:
-      static-locations: classpath:/static/
