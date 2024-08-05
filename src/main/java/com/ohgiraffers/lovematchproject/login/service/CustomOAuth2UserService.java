@@ -1,9 +1,6 @@
 package com.ohgiraffers.lovematchproject.login.service;
 
-import com.ohgiraffers.lovematchproject.login.dto.CustomOAuth2User;
-import com.ohgiraffers.lovematchproject.login.dto.GoogleResponse;
-import com.ohgiraffers.lovematchproject.login.dto.NaverResponse;
-import com.ohgiraffers.lovematchproject.login.dto.OAuth2Response;
+import com.ohgiraffers.lovematchproject.login.dto.*;
 import com.ohgiraffers.lovematchproject.login.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -41,23 +38,22 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId(); // 임의로 만들어준 id
         UserEntity existData = userRepository.findByUsername(username); // id값으로 repo에서 찾아서 넣어줌
 
-        // 추후에 수정할 부분, 권한은 "ADMIN", "GUEST", "USER"로 분류
-        String role = null;
-
+        Role role; // enum 타입의 Role 클래스를 쓰기 위해 선언
         if (existData == null) { // 데이터가 없으면 신규회원
             UserEntity userEntity = new UserEntity();
             userEntity.setUsername(username);
             userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setRole("USER"); // 신규회원일경우 일단 성별을 모르니 GUEST로 권한줌
+            role = Role.USER;
+            userEntity.setRole(role);
             userRepository.save(userEntity); // 제공자에게 받아온 정보 넣어주고 entity 저장
         }
         else { // 존재하는경우 새로 업데이트 시켜줌
             existData.setUsername(username);
             existData.setEmail(oAuth2Response.getEmail());
-            existData.setRole("USER");
             role = existData.getRole();
+            existData.setRole(role);
             userRepository.save(existData); // 업데이트 한 정보 저장
         }
-        return new CustomOAuth2User(oAuth2Response, role);
+        return new CustomOAuth2User(oAuth2Response, role.getKey());
     }
 }
