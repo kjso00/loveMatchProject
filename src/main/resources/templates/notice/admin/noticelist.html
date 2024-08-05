@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 목록</title>
+    <link rel="stylesheet" type="text/css" href="/styleSJY.css">
+
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <nav>
+            <a href="/noticeList">공지사항</a>
+            <a href="#">데이트 컨텐츠</a>
+            <a href="#">로그아웃</a>
+        </nav>
+    </header>
+<h1>공지사항 목록</h1>
+<div th:if="${noPost}">
+    <p>현재 게시물이 없습니다.</p>
+</div>
+</div>
+<form>
+<!--//noPost 변수가 false일 때만 해당 부분 표시-->
+<div class="board-entry" th:unless="${noPost}">
+    <ul>
+        <li th:each="notice : ${noticelist}">
+            <a th:href="@{/notice/admin/noticelist/{id}(id=${notice.id})}" th:text="${notice.noticeTitle}"></a>
+        </li>
+    </ul>
+</div>
+
+
+    <footer>
+        <p>Copyright &copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+</form>
+</body>
+</html>
