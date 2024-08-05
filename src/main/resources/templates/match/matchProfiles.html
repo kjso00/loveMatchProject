@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match Profile List</title>
+</head>
+<body>
+<h3>Login User</h3>
+<h1>Match for <span th:text="${loginUser.profiName}"></span></h1>
+<div>
+    <p th:text="'Name: ' + ${loginUser.profiName}"></p>
+    <p th:text="'Gender: ' + ${loginUser.profiGender}"></p>
+    <p th:text="'Age: ' + ${loginUser.profiAge}"></p>
+    <p th:text="'Height: ' + ${loginUser.profiHeight}"></p>
+    <p th:text="'MBTI: ' + ${loginUser.profiMbti}"></p>
+    <p th:text="'Location: ' + ${loginUser.profiLocation}"></p>
+</div>
+
+<h1>Matches profile</h1>
+<!--<div th:each="user : ${filterGender}">-->
+<!--    <p th:text="'Name: ' + ${user.profiName}"></p>
+    <p th:text="'Gender: ' + ${user.profiGender}"></p>
+    <p th:text="'Age: ' + ${user.profiAge}"></p>
+    <p th:text="'Height: ' + ${user.profiHeight}"></p>
+    <p th:text="'MBTI: ' + ${user.profiMbti}"></p>
+    <p th:text="'Location: ' + ${user.profiLocation}"></p>
+    <h1>Match Profiles</h1>-->
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Height</th>
+            <th>MBTI</th>
+            <th>Location</th>
+            <th>Total Score</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="profile : ${matchResults}">
+            <td th:text="${profile.profiName}"></td>
+            <td th:text="${profile.profiGender}"></td>
+            <td th:text="${profile.profiAge}"></td>
+            <td th:text="${profile.profiHeight}"></td>
+            <td th:text="${profile.profiMbti}"></td>
+            <td th:text="${profile.profiLocation}"></td>
+            <td th:text="${profile.totalScore}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+<!--</div>-->
+
+</body>
+</html>
