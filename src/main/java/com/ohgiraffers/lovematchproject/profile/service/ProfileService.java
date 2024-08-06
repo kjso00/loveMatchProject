@@ -23,7 +23,6 @@ public class ProfileService {
         profileEntity.setProfileHeight(profileDTO.getProfileHeight());
         profileEntity.setProfileMBTI(profileDTO.getProfileMBTI());
         profileEntity.setProfileLocation(profileDTO.getProfileLocation());
-        profileEntity.setTotalScore(0);
         profileRepository.save(profileEntity);
         return profileDTO;
     }

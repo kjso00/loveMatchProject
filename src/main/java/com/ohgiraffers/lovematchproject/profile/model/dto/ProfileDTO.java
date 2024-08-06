@@ -2,7 +2,7 @@ package com.ohgiraffers.lovematchproject.profile.model.dto;
 
 public class ProfileDTO {
 
-    public int profileNo; // 폼에서 입력x
+    public Long profileNo; // 폼에서 입력x
 
     public String profileName; // 실명 인증 받아야 하는데
     // private String profileEmail; 이메일 인증 받아야 하는데
@@ -21,7 +21,7 @@ public class ProfileDTO {
     public ProfileDTO() {
     }
 
-    public ProfileDTO(int profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, int totalScore) {
+    public ProfileDTO(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, int totalScore) {
         this.profileNo = profileNo;
         this.profileName = profileName;
         this.profileGender = profileGender;
@@ -32,11 +32,11 @@ public class ProfileDTO {
         this.totalScore = totalScore;
     }
 
-    public int getProfileNo() {
+    public Long getProfileNo() {
         return profileNo;
     }
 
-    public void setProfileNo(int profileNo) {
+    public void setProfileNo(Long profileNo) {
         this.profileNo = profileNo;
     }
 

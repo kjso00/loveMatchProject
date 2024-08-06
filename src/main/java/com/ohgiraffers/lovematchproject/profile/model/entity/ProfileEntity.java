@@ -9,7 +9,7 @@ public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")
-    public int profileNo;
+    public Long profileNo;
 
     @Column(name = "profileName")
     public String profileName;
@@ -29,13 +29,13 @@ public class ProfileEntity {
     @Column(name = "profileLocation")
     public String profileLocation;
 
-    @Column(name = "totalScore")
-    public int totalScore;
+//    @Column(name = "totalScore")
+//    public int totalScore;
 
     public ProfileEntity() {
     }
 
-    public ProfileEntity(int profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, int totalScore) {
+    public ProfileEntity(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation) {
         this.profileNo = profileNo;
         this.profileName = profileName;
         this.profileGender = profileGender;
@@ -43,14 +43,13 @@ public class ProfileEntity {
         this.profileHeight = profileHeight;
         this.profileMBTI = profileMBTI;
         this.profileLocation = profileLocation;
-        this.totalScore = totalScore;
     }
 
-    public int getProfileNo() {
+    public Long getProfileNo() {
         return profileNo;
     }
 
-    public void setProfileNo(int profileNo) {
+    public void setProfileNo(Long profileNo) {
         this.profileNo = profileNo;
     }
 
@@ -102,14 +101,6 @@ public class ProfileEntity {
         this.profileLocation = profileLocation;
     }
 
-    public int getTotalScore() {
-        return totalScore;
-    }
-
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
-    }
-
     @Override
     public String toString() {
         return "ProfileEntity{" +
@@ -120,7 +111,6 @@ public class ProfileEntity {
                 ", profileHeight=" + profileHeight +
                 ", profileMBTI='" + profileMBTI + '\'' +
                 ", profileLocation='" + profileLocation + '\'' +
-                ", totalScore=" + totalScore +
                 '}';
     }
 }
