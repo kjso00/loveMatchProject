@@ -1,9 +1,9 @@
 package com.ohgiraffers.lovematchproject.notice.controller;
 
 
-import com.ohgiraffers.lovematchproject.notice.model.dto.NoticeDTO;
-import com.ohgiraffers.lovematchproject.notice.model.entity.Notice;
-import com.ohgiraffers.lovematchproject.notice.service.NoticeService;
+import com.ohgiraffers.lovematchproject_private.notice.model.dto.NoticeDTO;
+import com.ohgiraffers.lovematchproject_private.notice.model.entity.Notice;
+import com.ohgiraffers.lovematchproject_private.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,7 @@ public class NoticeController {
     }
 
     // 메인 페이지 요청 처리
-    @GetMapping("/")
+    @GetMapping("/manager")
     public String mainpage() {
         return "notice/admin/mainpage";
     }
@@ -37,6 +37,7 @@ public class NoticeController {
     // 게시판 페이지 요청 처리
     @GetMapping("/noticeregist")
     public String regist() {
+
         return "notice/admin/noticeregist";
     }
 
@@ -134,9 +135,9 @@ public class NoticeController {
 
     //[삭제]
     //게시글 삭제 요청 처리
-    @PostMapping("/notice/admin/noticelist/deletepost/{id}")
+    @PostMapping("/notice/admin/noticelist/{id}")
     public String deletePost(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
-        String resultMessage = String.valueOf(noticeService.deletePost(id)); // 삭제 결과와 메시지를 반환받음
+        String resultMessage = noticeService.deletePost(id); // 삭제 결과와 메시지를 반환받음
 
         // 메시지를 Flash Attribute로 추가
         if (resultMessage.contains("성공")) {
