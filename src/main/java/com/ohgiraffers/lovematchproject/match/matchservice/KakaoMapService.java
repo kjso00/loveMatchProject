@@ -20,12 +20,16 @@ public class KakaoMapService {
     // api 사용하기 //@Value를 이용해 yml에 있는 key를 비공개로 불러온다
     @Value("${api.kakaoMap.key}")
     private String kakaoMapApiKey;
+    // .yml 에서 api.kakaoMap.key 라는 키를 읽어와 kakaoMapApikey변수에 값을 대입한다.
 
     private final RestTemplate restTemplate;
+    // RESTful 웹 서비스와의 통신을 쉽게 도와주는 Spring 클래스 입니다.
+    // 여기서는 restTemplate 변수를 통해 REST API 요청을 보낼 때 사용 됩니다.
 
     public KakaoMapService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+    // 이 클래스의 생성자로, RestTemplate 인스턴스를 주입받아 restTemplate 변수에 할당한다.
 
     // 주소를 api로 검색해서 좌표 구하기
     public JSONObject getCoordinates(String address) {
@@ -81,10 +85,6 @@ public class KakaoMapService {
 
         return distance;
     }
-
-
-
-
 
 /*
     // 두 좌표간의 거리 구하기 //kakao api버전
