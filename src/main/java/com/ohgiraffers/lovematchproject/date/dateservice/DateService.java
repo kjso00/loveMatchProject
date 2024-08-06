@@ -1,13 +1,20 @@
 package com.ohgiraffers.lovematchproject.date.dateservice;
 
-import com.ohgiraffers.lovematchproject.date.datemodel.dateentity.DateEntity;
 import com.ohgiraffers.lovematchproject.date.datemodel.datedto.DateDTO;
+import com.ohgiraffers.lovematchproject.date.datemodel.dateentity.DateEntity;
 import com.ohgiraffers.lovematchproject.date.daterepository.DateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -20,10 +27,21 @@ import java.util.stream.Collectors;
 public class DateService {
 
     private final DateRepository dateRepository;
+    private final RestTemplate restTemplate;
+
+    @Value("${culture.key}")
+    private String cultureApiKey;
+
+    @Value("${culture2.key}")
+    private String culture2ApiKey;
+
+    @Value("${culture.kakao.key}")
+    private String kakaoApiKey;
 
     @Autowired
-    public DateService(DateRepository dateRepository) {
+    public DateService(DateRepository dateRepository, RestTemplate restTemplate) {
         this.dateRepository = dateRepository;
+        this.restTemplate = restTemplate;
     }
 
     /**
@@ -99,6 +117,82 @@ public class DateService {
                 .collect(Collectors.toList());
     }
 
+    //API
+
+    /**
+     * 문화 활동 정보를 가져옵니다.
+     * @return 문화 활동 정보 목록
+     */
+    public List<Map<String, Object>> getCultureActivities() {
+        String url = "https://www.culture.go.kr/openapi/rest/publicperformancedisplays/area" +
+                "?serviceKey=" + cultureApiKey +
+                "&sido=서울&gugun=종로구&from=20230101&to=20231231&cPage=1&rows=10&sortStdr=1";
+
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        // API 응답 구조에 따라 적절히 파싱
+        return (List<Map<String, Object>>) response.getBody().get("items");
+    }
+
+    /**
+     * 공연 정보를 가져옵니다.
+     * @return 공연 정보 목록
+     */
+    public List<Map<String, Object>> getPerformances() {
+        String url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period" +
+                "?serviceKey=" + culture2ApiKey +
+                "&from=20230101&to=20231231&cPage=1&rows=10&sortStdr=1";
+
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        // API 응답 구조에 따라 적절히 파싱
+        return (List<Map<String, Object>>) response.getBody().get("items");
+    }
+
+    /**
+     * 주변 식당 정보를 가져옵니다.
+     * @param latitude 위도
+     * @param longitude 경도
+     * @return 식당 정보 목록
+     */
+    public List<Map<String, Object>> getRestaurants(double latitude, double longitude) {
+        String url = "https://dapi.kakao.com/v2/local/search/category.json" +
+                "?category_group_code=FD6&x=" + longitude + "&y=" + latitude + "&radius=5000";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "KakaoAK " + kakaoApiKey);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
+        // API 응답 구조에 따라 적절히 파싱
+        return (List<Map<String, Object>>) response.getBody().get("documents");
+    }
+
+    /**
+     * 카테고리별 데이트 장소 정보를 가져옵니다.
+     * @param category 카테고리 (enjoy, view, eat)
+     * @param latitude 위도 (선택적)
+     * @param longitude 경도 (선택적)
+     * @return 카테고리별 데이트 장소 정보 목록
+     */
+    public List<Map<String, Object>> getDatesByCategory(String category, Double latitude, Double longitude) {
+        switch (category) {
+            case "enjoy":
+                return getCultureActivities();
+            case "view":
+                return getPerformances();
+            case "eat":
+                if (latitude != null && longitude != null) {
+                    return getRestaurants(latitude, longitude);
+                } else {
+                    throw new IllegalArgumentException("Latitude and longitude are required for restaurants");
+                }
+            default:
+                throw new IllegalArgumentException("Invalid category: " + category);
+        }
+    }
+
+    //API
+
+
     /**
      * DateEntity를 DateDTO로 변환합니다.
      */
@@ -114,4 +208,6 @@ public class DateService {
         // 변환 로직
         return new DateEntity(/* 필드 매핑 */);
     }
+
+
 }
