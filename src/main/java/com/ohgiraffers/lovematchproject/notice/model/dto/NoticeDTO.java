@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.notice.model.dto;
 
+
 import java.util.Date;
 
 public class NoticeDTO {

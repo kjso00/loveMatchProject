@@ -1,8 +1,9 @@
 package com.ohgiraffers.lovematchproject.notice.service;
 
-import com.ohgiraffers.lovematchproject.notice.model.dto.NoticeDTO;
-import com.ohgiraffers.lovematchproject.notice.model.entity.Notice;
-import com.ohgiraffers.lovematchproject.notice.repository.NoticeRepository;
+
+import com.ohgiraffers.lovematchproject_private.notice.model.dto.NoticeDTO;
+import com.ohgiraffers.lovematchproject_private.notice.model.entity.Notice;
+import com.ohgiraffers.lovematchproject_private.notice.repository.NoticeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Date;
 import java.util.List;
 
+
 @Service
 public class NoticeService {
 
+    @Autowired
     private static NoticeRepository noticeRepository;
 
     @Autowired
@@ -48,13 +51,13 @@ public class NoticeService {
 
     // 모든 게시물 목록 조회
     public List<Notice> getAllPosts() {
-        return noticeRepository.findAll();
-//        List<Notice> lists = noticeRepository.findAll();
-//
-//        if (lists.isEmpty()) {
-//            throw new RuntimeException("게시글 목록이 비어 있습니다.");
-//        }
-//        return lists;
+//        return noticeRepository.findAll();
+        List<Notice> lists = noticeRepository.findAll();
+
+        if (lists.isEmpty()) {
+            throw new RuntimeException("게시글 목록이 비어 있습니다.");
+        }
+        return lists;
     }
 
 
