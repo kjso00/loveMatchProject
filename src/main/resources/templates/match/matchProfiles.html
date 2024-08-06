@@ -6,14 +6,14 @@
 </head>
 <body>
 <h3>Login User</h3>
-<h1>Match for <span th:text="${loginUser.profiName}"></span></h1>
+<h1>Match for <span th:text="${loginUser.profileName}"></span></h1>
 <div>
-    <p th:text="'Name: ' + ${loginUser.profiName}"></p>
-    <p th:text="'Gender: ' + ${loginUser.profiGender}"></p>
-    <p th:text="'Age: ' + ${loginUser.profiAge}"></p>
-    <p th:text="'Height: ' + ${loginUser.profiHeight}"></p>
-    <p th:text="'MBTI: ' + ${loginUser.profiMbti}"></p>
-    <p th:text="'Location: ' + ${loginUser.profiLocation}"></p>
+    <p th:text="'Name: ' + ${loginUser.profileName}"></p>
+    <p th:text="'Gender: ' + ${loginUser.profileGender}"></p>
+    <p th:text="'Age: ' + ${loginUser.profileAge}"></p>
+    <p th:text="'Height: ' + ${loginUser.profileHeight}"></p>
+    <p th:text="'MBTI: ' + ${loginUser.profileMBTI}"></p>
+    <p th:text="'Location: ' + ${loginUser.profileLocation}"></p>
 </div>
 
 <h1>Matches profile</h1>
@@ -32,12 +32,12 @@
 
         <tbody>
         <tr th:each="profile : ${matchResults}">
-            <td th:text="${profile.profiName}"></td>
-            <td th:text="${profile.profiGender}"></td>
-            <td th:text="${profile.profiAge}"></td>
-            <td th:text="${profile.profiHeight}"></td>
-            <td th:text="${profile.profiMbti}"></td>
-            <td th:text="${profile.profiLocation}"></td>
+            <td th:text="${profile.profileName}"></td>
+            <td th:text="${profile.profileGender}"></td>
+            <td th:text="${profile.profileAge}"></td>
+            <td th:text="${profile.profileHeight}"></td>
+            <td th:text="${profile.profileMBTI}"></td>
+            <td th:text="${profile.profileLocation}"></td>
             <td th:text="${profile.totalScore}"></td>
         </tr>
         </tbody>
