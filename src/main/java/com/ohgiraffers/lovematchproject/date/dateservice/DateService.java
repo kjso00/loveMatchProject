@@ -35,7 +35,7 @@ public class DateService {
     @Value("${culture2.key}")
     private String culture2ApiKey;
 
-    @Value("${culture.kakao.key}")
+    @Value("${kakao.key}")
     private String kakaoApiKey;
 
     @Autowired
