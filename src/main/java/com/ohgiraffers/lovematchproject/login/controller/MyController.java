@@ -13,4 +13,5 @@ public class MyController {
     public String myPage() {
         return "login/my";
     }
+
 }

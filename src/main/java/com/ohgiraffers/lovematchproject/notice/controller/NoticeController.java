@@ -1,9 +1,9 @@
 package com.ohgiraffers.lovematchproject.notice.controller;
 
 
-import com.ohgiraffers.lovematchproject_private.notice.model.dto.NoticeDTO;
-import com.ohgiraffers.lovematchproject_private.notice.model.entity.Notice;
-import com.ohgiraffers.lovematchproject_private.notice.service.NoticeService;
+import com.ohgiraffers.lovematchproject.notice.model.dto.NoticeDTO;
+import com.ohgiraffers.lovematchproject.notice.model.entity.Notice;
+import com.ohgiraffers.lovematchproject.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,9 +1,9 @@
 package com.ohgiraffers.lovematchproject.notice.service;
 
 
-import com.ohgiraffers.lovematchproject_private.notice.model.dto.NoticeDTO;
-import com.ohgiraffers.lovematchproject_private.notice.model.entity.Notice;
-import com.ohgiraffers.lovematchproject_private.notice.repository.NoticeRepository;
+import com.ohgiraffers.lovematchproject.notice.model.dto.NoticeDTO;
+import com.ohgiraffers.lovematchproject.notice.model.entity.Notice;
+import com.ohgiraffers.lovematchproject.notice.repository.NoticeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
