@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.date.dateconfig;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -13,18 +14,19 @@ import org.springframework.web.client.RestTemplate;
 public class DateConfig {
 
     /**
-     * RestTemplate 빈을 생성합니다.
-     * 이 빈은 외부 API와의 통신에 사용될 수 있습니다.
+     * RestTemplate 빈을 생성
+     * 이 빈은 외부 API와의 통신에 사용될 수 있음.
      *
      * @return 구성된 RestTemplate 객체
      */
     @Bean
+    @ConditionalOnMissingBean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
     /**
-     * 데이트 장소 검색 반경의 기본값을 설정합니다.
+     * 데이트 장소 검색 반경의 기본값을 설정.
      *
      * @return 기본 검색 반경 (km 단위)
      */
@@ -34,7 +36,7 @@ public class DateConfig {
     }
 
     /**
-     * 데이트 장소 리뷰의 최대 길이를 설정합니다.
+     * 데이트 장소 리뷰의 최대 길이를 설정.
      *
      * @return 리뷰의 최대 길이
      */

@@ -1,0 +1,128 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #FFB6C1, #87CEFA);
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.logo {
+    font-size: 2rem;
+    color: #FF69B4;
+}
+
+.nav-btn {
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #FF69B4;
+    color: white;
+}
+
+/* 메인 컨텐츠 영역 스타일 */
+main {
+    display: flex;
+    padding: 2rem;
+}
+
+.left-section, .right-section {
+    flex: 1;
+    padding: 1rem;
+}
+
+.highlight {
+    color: #FF4500;
+    font-size: 2.5rem;
+}
+
+/* 검색 영역 스타일 */
+.search-container {
+    margin-top: 1rem;
+}
+
+#location-search {
+    padding: 0.5rem;
+    width: 70%;
+}
+
+#nearby-btn {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* 카테고리 버튼 스타일 */
+.category-buttons {
+    margin-top: 2rem;
+}
+
+.category-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category-btn:hover {
+    background-color: #FF69B4;
+    color: white;
+}
+
+/* 서브카테고리 컨테이너 스타일 */
+.subcategory-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+/* 컨텐츠 리스트 스타일 */
+.content-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.content-item {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}

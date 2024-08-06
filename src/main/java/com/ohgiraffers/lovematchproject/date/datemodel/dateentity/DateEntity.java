@@ -1,8 +1,7 @@
 package com.ohgiraffers.lovematchproject.date.datemodel.dateentity;
 
-import jakarta.persistence.Entity;
-
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * 각 필드는 데이트 장소의 특정 속성을 나타냅니다.
  */
 @Entity
-@Table(name = "date")
+@Table(name = "dateContent")
 public class DateEntity {
 
     /**
@@ -38,64 +37,64 @@ public class DateEntity {
     @Column(length = 1000)
     private String dateDescription;
 
-    /**
+    /*
      * 데이트 장소의 주소
-     * null이 될 수 없습니다.
+     * null이 될 수 없닥
      */
     @Column(nullable = false)
     private String dateAddress;
 
-    /**
+    /*
      * 데이트 장소의 위도
      */
     private double dateLatitude;
 
-    /**
+    /*
      * 데이트 장소의 경도
      */
     private double dateLongitude;
 
-    /**
+    /*
      * 데이트 장소의 이용 가격
      * 최대 10자리 숫자와 소수점 이하 2자리까지 저장할수있음
      */
     @Column(precision = 10, scale = 2)
     private BigDecimal datePrice;
 
-    /**
+    /*
      * 데이트 장소의 대분류 카테고리
      * ENJOY(즐길거리), EAT(먹을거리), VIEW(볼거리) 중 하나의 값을 가진다
      */
     @Enumerated(EnumType.STRING)
     private DateCategory dateCategory;
 
-    /**
+    /*
      * 데이트 장소의 소분류 카테고리
      * 각 대분류에 따른 세부 카테고리 값을 가진다.
      */
     @Enumerated(EnumType.STRING)
     private DateSubCategory dateSubCategory;
 
-    /**
+    /*
      * 데이트 장소의 대표 이미지 URL
      */
     private String dateImageUrl;
 
-    /**
+    /*
      * 데이트 장소의 운영 시간
      */
     private String dateOperatingHours;
 
-    /**
+    /*
      * 데이트 장소의 평균 평점
      * 0.00에서 5.00 사이의 값을 가집니다.
      */
     @Column(precision = 3, scale = 2)
     private BigDecimal dateAverageRating;
 
-    /**
+    /*
      * 데이트 장소에 대한 리뷰 목록
-     * 별도의 테이블에 저장되며, dateId와 조인됩니다.
+     * 별도의 테이블에 저장되며, dateId와 조인
      */
     @ElementCollection
     @CollectionTable(name = "date_reviews", joinColumns = @JoinColumn(name = "date_id"))
