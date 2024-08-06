@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list Profile</title>
+    <!--개인회원 프로필 등록 완료된 페이지-->
+    <style>
+        .profile-container {
+            border: 1px black;
+            display: inline-block;
+            flex-wrap: wrap;
+            margin: 0 auto; /* 중앙 정렬 */
+        }
+
+        .profile-box{
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+            height: 300px;
+            box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>전체 회원들</h1>
+    <div class="profile-container" th:each="profileList: ${profileDTOList}">
+        <div class="profile-box">
+        <p th:text="${profileList.profileNo}"></p>
+        <p th:text="${profileList.profileName}"></p>
+        <p th:text="${profileList.profileGender}"></p>
+        </div>
+    </div>
+    <br>
+    <button onclick="findMyStyle()" > 내 이상형 찾기 </button>
+</body>
+<script>
+    const findMyStyle = () => {
+        location.href="/lovematch/match"
+    }
+</script>
+</html>
+
+
