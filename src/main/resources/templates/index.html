@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveLink Intro</title>
+    <style>
+        /* 전체 페이지 기본 스타일 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* 스크롤바 제거 */
+            font-family: Arial, sans-serif;
+        }
+
+        /* 배경 이미지 스타일 - 화면 전체를 커버 */
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
+            z-index: -3; /* 다른 요소들 뒤에 위치 */
+        }
+
+        /* 헤더와 푸터 이미지 스타일 */
+        #header, #footer {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            z-index: -2; /* 배경 위, 다른 요소들 아래에 위치 */
+        }
+        #header { top: 0; }
+        #footer { bottom: 0; }
+
+        /* 메인 컨테이너 스타일 */
+        #container {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* LOVELINK 타이틀 스타일 */
+        #title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px; /* 하트 캐릭터와의 간격 조정 */
+        }
+
+        /* 개별 글자 이미지 스타일 */
+        .letter {
+            width: 80px; /* 글자 크기 증가 */
+            height: 100px;
+            margin: 0 2px; /* 글자 간 간격 축소 */
+            opacity: 0; /* 초기에는 투명하게 설정 */
+        }
+
+        /* 하트 캐릭터 컨테이너 스타일 */
+        #hearts-container {
+            position: relative;
+            width: 500px;
+            height: 200px;
+        }
+
+        /* 하트 캐릭터 이미지 스타일 */
+        .heart {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            opacity: 0; /* 초기에는 투명하게 설정 */
+        }
+
+        /* 중앙 작은 하트들 스타일 */
+        #center-hearts {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            opacity: 0; /* 초기에는 투명하게 설정 */
+        }
+
+        /* 떠다니는 하트들 컨테이너 스타일 */
+        #floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 마우스 이벤트 무시 */
+            z-index: -1;
+        }
+
+        /* 개별 떠다니는 하트 스타일 */
+        .floating-heart {
+            position: absolute;
+            opacity: 0; /* 초기에는 투명하게 설정 */
+        }
+    </style>
+</head>
+<body>
+<!-- 배경, 헤더, 푸터 이미지 -->
+<img src="../static/image/BG.svg" alt="Background" id="bg">
+<img src="../static/image/header.svg" alt="Header" id="header">
+<img src="../static/image/footer.svg" alt="Footer" id="footer">
+
+<div id="container">
+    <!-- LOVELINK 타이틀 -->
+    <div id="title">
+        <img src="../static/image/L.svg" alt="L" class="letter">
+        <img src="../static/image/O.svg" alt="O" class="letter">
+        <img src="../static/image/V.svg" alt="V" class="letter">
+        <img src="../static/image/E.svg" alt="E" class="letter">
+        <img src="../static/image/purple-L.svg" alt="L" class="letter">
+        <img src="../static/image/I.svg" alt="i" class="letter">
+        <img src="../static/image/N.svg" alt="n" class="letter">
+        <img src="../static/image/K.svg" alt="k" class="letter">
+    </div>
+
+    <!-- 하트 캐릭터들과 중앙 작은 하트들 -->
+    <div id="hearts-container">
+        <img src="../static/image/pink-heart.svg" alt="Pink Heart" class="heart" id="pink-heart">
+        <img src="../static/image/blue-heart.svg" alt="Blue Heart" class="heart" id="blue-heart">
+        <img src="../static/image/hearts.svg" alt="Center Hearts" id="center-hearts">
+    </div>
+</div>
+
+<!-- 떠다니는 하트들을 위한 컨테이너 -->
+<div id="floating-hearts"></div>
+
+<script>
+    // 글자 애니메이션 함수
+    function animateLetters() {
+        const letters = document.querySelectorAll('.letter');
+        letters.forEach((letter, index) => {
+            // 각 글자를 순차적으로 나타나게 함
+            setTimeout(() => {
+                letter.style.opacity = '1';
+                letter.style.transition = 'opacity 0.5s ease';
+            }, index * 100); // 100ms 간격으로 각 글자 애니메이션 (더 빠르게 조정)
+        });
+    }
+
+    // 하트 캐릭터 애니메이션 함수
+    function animateHearts() {
+        const pinkHeart = document.getElementById('pink-heart');
+        const blueHeart = document.getElementById('blue-heart');
+        const centerHearts = document.getElementById('center-hearts');
+
+        // 초기 위치 및 투명도 설정
+        pinkHeart.style.left = '-200px';
+        blueHeart.style.right = '-200px';
+        pinkHeart.style.opacity = '0';
+        blueHeart.style.opacity = '0';
+        centerHearts.style.opacity = '0';
+
+        // 핑크 하트 애니메이션
+        setTimeout(() => {
+            pinkHeart.style.opacity = '1';
+            pinkHeart.style.left = '50px';
+            pinkHeart.style.transition = 'left 1s ease, opacity 1s ease';
+        }, 500);
+
+        // 파란 하트 애니메이션
+        setTimeout(() => {
+            blueHeart.style.opacity = '1';
+            blueHeart.style.right = '50px';
+            blueHeart.style.transition = 'right 1s ease, opacity 1s ease';
+        }, 1000);
+
+        // 중앙 작은 하트들 애니메이션
+        setTimeout(() => {
+            centerHearts.style.opacity = '1';
+            centerHearts.style.transition = 'opacity 1s ease';
+        }, 1500);
+    }
+
+    // 떠다니는 하트 생성 함수
+    function createFloatingHearts() {
+        const container = document.getElementById('floating-hearts');
+        for (let i = 0; i < 15; i++) { // 15개의 하트 생성 (약간 줄임)
+            const heart = document.createElement('img');
+            heart.src = '../static/image/hearts.svg';
+            heart.className = 'floating-heart';
+            // 랜덤 위치 설정
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.top = `${Math.random() * 100}%`;
+            // 랜덤 크기 설정 (15px ~ 30px)
+            const size = Math.random() * 15 + 15;
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            container.appendChild(heart);
+
+            animateFloatingHeart(heart);
+        }
+    }
+
+    // 개별 떠다니는 하트 애니메이션 함수
+    function animateFloatingHeart(heart) {
+        heart.style.opacity = '0.7'; // 약간 투명하게 설정
+        heart.style.transform = 'translateY(0)';
+        heart.style.transition = 'opacity 1s ease, transform 3s ease';
+
+        // 주기적으로 하트 위치 변경
+        setInterval(() => {
+            const randomX = Math.random() * 50 - 25; // -25px ~ 25px
+            const randomY = Math.random() * 50 - 25; // -25px ~ 25px
+            heart.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            heart.style.transition = 'transform 3s ease';
+        }, 3000); // 3초마다 위치 변경
+    }
+
+    // 페이지 로드 시 모든 애니메이션 시작
+    window.onload = () => {
+        animateLetters();
+        animateHearts();
+        createFloatingHearts();
+    };
+</script>
+</body>
+</html>
