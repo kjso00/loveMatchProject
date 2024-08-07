@@ -1,6 +1,7 @@
 package com.ohgiraffers.lovematchproject.login.service;
 
 import com.ohgiraffers.lovematchproject.login.dto.*;
+import com.ohgiraffers.lovematchproject.login.entity.Role;
 import com.ohgiraffers.lovematchproject.login.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
