@@ -1,7 +1,5 @@
 package com.ohgiraffers.lovematchproject.notice.controller;
 
-
-
 import com.ohgiraffers.lovematchproject.notice.model.dto.NoticeDTO;
 import com.ohgiraffers.lovematchproject.notice.model.entity.Notice;
 import com.ohgiraffers.lovematchproject.notice.service.NoticeService;

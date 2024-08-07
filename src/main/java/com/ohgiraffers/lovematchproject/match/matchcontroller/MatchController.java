@@ -1,38 +1,46 @@
 package com.ohgiraffers.lovematchproject.match.matchcontroller;
 
-import com.ohgiraffers.lovematchproject.match.matchmodel.dto.MatchDTO;
+import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.match.matchservice.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.List;
 
-@Controller
+@RestController
 public class MatchController {
 
-    @Autowired
     private final MatchService matchService;
 
+    @Autowired
     public MatchController(MatchService matchService) {
         this.matchService = matchService;
     }
 
     @GetMapping("/match/matchProfiles")
-    public String getMatches(Model model) {
-        long loginUserId = 1; // 현재 사용자의 ID를 하드코딩
-        MatchDTO loginUser = matchService.getLoginUser(loginUserId);
-        List<MatchDTO> targetGender = matchService.getFilteringGender(loginUserId);
-        List<MatchDTO> matchResults = matchService.calculatematchScores(loginUserId);
+    public ModelAndView getMatches(ModelAndView mv) {
 
-        model.addAttribute("loginUser", loginUser);
-        model.addAttribute("filterGender", targetGender);
-        model.addAttribute("matchResults", matchResults);
-        return "match/matchProfiles";
+        long loginUserId = 7; // 현재 사용자의 ID를 하드코딩
+//        long loginUserId =  // 현재 사용자의 ID
+        ProfileDTO loginUser = matchService.getLoginUser(loginUserId);
+        List<ProfileDTO> targetGender = matchService.getFilteringGender(loginUserId);
+        List<ProfileDTO> matchResults = matchService.calculatematchScores(loginUserId);
+
+        mv.addObject("loginUser", loginUser);
+        mv.addObject("filterGender", targetGender);
+        mv.addObject("matchResults", matchResults);
+
+        mv.setViewName("match/matchProfiles");
+
+        return mv;
 
 //        long loginUser = 1; //현재 사용자의 ID를 하드코딩 -> 로그인사용자로 변경필요
     }
+
+
+
 
 }

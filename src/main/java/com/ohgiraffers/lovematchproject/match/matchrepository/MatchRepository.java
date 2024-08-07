@@ -1,9 +1,8 @@
 package com.ohgiraffers.lovematchproject.match.matchrepository;
 
-
-import com.ohgiraffers.lovematchproject.match.matchmodel.entity.MatchEntity;
+import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MatchRepository extends JpaRepository<MatchEntity, Long>{
-    MatchEntity findById(long id);
+public interface MatchRepository extends JpaRepository<ProfileEntity, Long>{
+    ProfileEntity findById(long id);
 }
