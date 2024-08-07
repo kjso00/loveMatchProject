@@ -29,13 +29,13 @@ public class ProfileEntity {
     @Column(name = "profileLocation")
     public String profileLocation;
 
-//    @Column(name = "totalScore")
-//    public int totalScore;
+    @Column(name = "user_Id")
+    public String userId;
 
     public ProfileEntity() {
     }
 
-    public ProfileEntity(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation) {
+    public ProfileEntity(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, String userId) {
         this.profileNo = profileNo;
         this.profileName = profileName;
         this.profileGender = profileGender;
@@ -43,6 +43,7 @@ public class ProfileEntity {
         this.profileHeight = profileHeight;
         this.profileMBTI = profileMBTI;
         this.profileLocation = profileLocation;
+        this.userId = userId;
     }
 
     public Long getProfileNo() {
@@ -101,6 +102,14 @@ public class ProfileEntity {
         this.profileLocation = profileLocation;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "ProfileEntity{" +
@@ -111,6 +120,8 @@ public class ProfileEntity {
                 ", profileHeight=" + profileHeight +
                 ", profileMBTI='" + profileMBTI + '\'' +
                 ", profileLocation='" + profileLocation + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
+
 }
