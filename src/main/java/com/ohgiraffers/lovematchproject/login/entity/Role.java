@@ -1,23 +1,21 @@
-package com.ohgiraffers.lovematchproject.login.dto;
+package com.ohgiraffers.lovematchproject.login.entity;
 
 public enum Role {
     USER("USER"),
     GUEST("GUEST"),
     ADMIN("ADMIN");
-    private final String Role;
+    private final String role;
 
     Role(String role) {
-        Role = role;
+        this.role = role;
     }
 
-    public String getKey(){
-        return Role;
-    }
+    public String getKey(){ return role; }
 
     @Override
     public String toString() {
         return "Role{" +
-                "Role='" + Role + '\'' +
+                "role='" + role + '\'' +
                 '}';
     }
 }

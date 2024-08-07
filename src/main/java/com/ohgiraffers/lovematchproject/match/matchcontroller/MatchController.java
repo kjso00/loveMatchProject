@@ -1,12 +1,10 @@
 package com.ohgiraffers.lovematchproject.match.matchcontroller;
 
-import com.ohgiraffers.lovematchproject.match.matchmodel.dto.MatchDTO;
+import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.match.matchservice.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -22,19 +20,13 @@ public class MatchController {
         this.matchService = matchService;
     }
 
-    @GetMapping("/match/userForm")
-    public String matchUserForm(Model model) {
-        model.addAttribute("match", new MatchDTO());
-        return "match/matchUserForm";
-    }
-
     @GetMapping("/match/matchProfiles")
     public ModelAndView getMatches(ModelAndView mv) {
 
-        long loginUserId = 6; // 현재 사용자의 ID를 하드코딩
-        MatchDTO loginUser = matchService.getLoginUser(loginUserId);
-        List<MatchDTO> targetGender = matchService.getFilteringGender(loginUserId);
-        List<MatchDTO> matchResults = matchService.calculatematchScores(loginUserId);
+        long loginUserId = 7; // 현재 사용자의 ID를 하드코딩
+        ProfileDTO loginUser = matchService.getLoginUser(loginUserId);
+        List<ProfileDTO> targetGender = matchService.getFilteringGender(loginUserId);
+        List<ProfileDTO> matchResults = matchService.calculatematchScores(loginUserId);
 
         mv.addObject("loginUser", loginUser);
         mv.addObject("filterGender", targetGender);

@@ -20,12 +20,16 @@ public class KakaoMapService {
     // api 사용하기 //@Value를 이용해 yml에 있는 key를 비공개로 불러온다
     @Value("${api.kakaoMap.key}")
     private String kakaoMapApiKey;
+    // .yml 에서 api.kakaoMap.key 라는 키를 읽어와 kakaoMapApikey변수에 값을 대입한다.
 
-    private final RestTemplate restTemplate;
+    private final RestTemplate matchRestTemplate;
+    // RESTful 웹 서비스와의 통신을 쉽게 도와주는 Spring 클래스 입니다.
+    // 여기서는 matchRestTemplate 변수를 통해 REST API 요청을 보낼 때 사용 됩니다.
 
-    public KakaoMapService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public KakaoMapService(RestTemplate matchRestTemplate) {
+        this.matchRestTemplate = matchRestTemplate;
     }
+    // 이 클래스의 생성자로, RestTemplate 인스턴스를 주입받아 matchRestTemplate 변수에 할당한다.
 
     // 주소를 api로 검색해서 좌표 구하기
     public JSONObject getCoordinates(String address) {
@@ -36,7 +40,7 @@ public class KakaoMapService {
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "KakaoAK " + kakaoMapApiKey);
 
-            ResponseEntity<String> response = restTemplate.exchange(
+            ResponseEntity<String> response = matchRestTemplate.exchange(
                     url,
                     HttpMethod.GET,
                     new HttpEntity<>(headers),
@@ -82,10 +86,6 @@ public class KakaoMapService {
         return distance;
     }
 
-
-
-
-
 /*
     // 두 좌표간의 거리 구하기 //kakao api버전
     public double calculateDistance(JSONObject coord1, JSONObject coord2) {
@@ -97,7 +97,7 @@ public class KakaoMapService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK " + kakaoApiKey);
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<String> response = matchRestTemplate.exchange(
                 url + params, HttpMethod.GET, new HttpEntity<>(headers), String.class);
 
         JSONObject jsonResponse = new JSONObject(response.getBody());
@@ -122,10 +122,10 @@ public class KakaoMapService {
 
 
 /*    @Autowired
-//    private final MatchRestTemplate restTemplate;
+//    private final MatchRestTemplate matchRestTemplate;
 
-    public KakaoMapService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public KakaoMapService(RestTemplate matchRestTemplate) {
+        this.matchRestTemplate = matchRestTemplate;
     }
 
     public String getCoordinates(String address){
@@ -142,7 +142,7 @@ public class KakaoMapService {
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
             // Send the request
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            ResponseEntity<String> response = matchRestTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
             // Parse the response
             if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
@@ -181,7 +181,7 @@ public class KakaoMapService {
         headers.set("Autorization","KakaoAK " + apiKey);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(url, HttpMethod.GET, entity,
+        ResponseEntity<Map<String, Object>> response = matchRestTemplate.exchange(url, HttpMethod.GET, entity,
                 (Class<Map<String, Object>>)(Class)Map.class);
 
         Map<String, Object> body = response.getBody();

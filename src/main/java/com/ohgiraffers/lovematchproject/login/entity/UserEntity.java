@@ -1,6 +1,5 @@
 package com.ohgiraffers.lovematchproject.login.entity;
 
-import com.ohgiraffers.lovematchproject.login.dto.Role;
 import jakarta.persistence.*;
 
 @Entity
