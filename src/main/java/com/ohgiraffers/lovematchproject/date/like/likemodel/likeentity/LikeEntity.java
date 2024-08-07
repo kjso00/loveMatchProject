@@ -19,7 +19,7 @@ public class LikeEntity {
     private Long likeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false) // user_id에서 id로 변경
+    @JoinColumn(name = "user_id", nullable = false) // user_id에서 id로 변경
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -77,7 +77,7 @@ public class LikeEntity {
     public String toString() {
         return "LikeEntity{" +
                 "likeId=" + likeId +
-                ", userId=" + (user != null ? user.getId() : null) +
+                ", userId=" + (user != null ? user.getUserId() : null) +
                 ", dateId=" + (date != null ? date.getDateId() : null) +
                 ", likeCreatedAt=" + likeCreatedAt +
                 '}';

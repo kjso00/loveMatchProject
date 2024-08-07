@@ -4,7 +4,7 @@ import com.ohgiraffers.lovematchproject.login.entity.Role;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "user")
 public class UserEntity {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
