@@ -45,4 +45,5 @@ public class DateConfig {
         return 500; // 리뷰 최대 길이를 500자로 제한
     }
 
+
 }
