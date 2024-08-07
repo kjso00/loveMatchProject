@@ -7,9 +7,9 @@ import java.util.List;
 
 /**
  * DateEntity 클래스
- * 이 클래스는 데이트 장소에 대한 정보를 나타내는 엔티티입니다.
- * JPA를 사용하여 데이터베이스의 'date' 테이블과 매핑됩니다.
- * 각 필드는 데이트 장소의 특정 속성을 나타냅니다.
+ * 이 클래스는 데이트 장소에 대한 정보를 나타내는 엔티티
+ * JPA를 사용하여 데이터베이스의 'date' 테이블과 매핑
+ * 각 필드는 데이트 장소의 특정 속성을 나타냄
  */
 @Entity
 @Table(name = "dateContent")
@@ -17,7 +17,7 @@ public class DateEntity {
 
     /**
      * 데이트 장소의 고유 식별자
-     * 자동 생성되는 기본 키 입니다.
+     * 자동 생성되는 기본 키
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class DateEntity {
 
     /**
      * 데이트 장소에 대한 상세 설명
-     * 최대 1000자까지 저장할 수 있습니다.
+     * 최대 1000자까지 저장할 수 있습
      */
     @Column(length = 1000)
     private String dateDescription;
@@ -87,7 +87,7 @@ public class DateEntity {
 
     /*
      * 데이트 장소의 평균 평점
-     * 0.00에서 5.00 사이의 값을 가집니다.
+     * 0.00에서 5.00 사이의 값을 가짐
      */
     @Column(precision = 3, scale = 2)
     private BigDecimal dateAverageRating;
