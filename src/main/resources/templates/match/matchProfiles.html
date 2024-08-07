@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match Profile List</title>
+</head>
+<body>
+<h3>Login User</h3>
+<h1>Match for <span th:text="${loginUser.profileName}"></span></h1>
+<div>
+    <p th:text="'Name: ' + ${loginUser.profileName}"></p>
+    <p th:text="'Gender: ' + ${loginUser.profileGender}"></p>
+    <p th:text="'Age: ' + ${loginUser.profileAge}"></p>
+    <p th:text="'Height: ' + ${loginUser.profileHeight}"></p>
+    <p th:text="'MBTI: ' + ${loginUser.profileMBTI}"></p>
+    <p th:text="'Location: ' + ${loginUser.profileLocation}"></p>
+</div>
+
+<h1>Matches profile</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Height</th>
+            <th>MBTI</th>
+            <th>Location</th>
+            <th>Total Score</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="profile : ${matchResults}">
+            <td th:text="${profile.profileName}"></td>
+            <td th:text="${profile.profileGender}"></td>
+            <td th:text="${profile.profileAge}"></td>
+            <td th:text="${profile.profileHeight}"></td>
+            <td th:text="${profile.profileMBTI}"></td>
+            <td th:text="${profile.profileLocation}"></td>
+            <td th:text="${profile.totalScore}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

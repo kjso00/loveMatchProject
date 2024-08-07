@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit</title>
+    <link rel="stylesheet" type="text/css" href="/styleSJY.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/noticeList">공지사항</a>
+        <a href="#">데이트 컨텐츠</a>
+        <a href="#">로그아웃</a>
+    </nav>
+</header>
+<!--<form th:action="@{/postlist/{id}(id=${boardDTO.id})}" method="post">-->
+<form th:action="@{'/notice/admin/noticelist/editpost/'+ ${noticeDTO.id}}" method="post">
+    <!-- 수정할 게시글 제목 입력 폼 -->
+    <input type="text" th:value="${noticeDTO.noticeTitle}" name="noticeTitle" placeholder="게시글 제목">
+
+    <!-- 수정할 게시글 내용 입력 폼 -->
+    <textarea name="noticeContent" th:text="${noticeDTO.noticeContent}" placeholder="게시글 내용">
+    </textarea>
+
+    <!-- 저장 버튼 -->
+    <button type="submit">저장</button>
+</form>
+
+<!-- 목록으로 돌아가는 링크 -->
+<a href="/notice/admin/noticelist">목록으로 돌아가기</a>
+
+
+<footer>
+    <p>© 2024 관리자용 페이지</p>
+</footer>
+
+
+</body>
+</html>

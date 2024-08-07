@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body>
+    <h1>main page</h1>
+    <div sec:authorize="!isAuthenticated()">
+        <button onclick="location.href='/login'">로그인을 하시려면 눌러주세요</button>
+    </div>
+
+</body>
+</html>

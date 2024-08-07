@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saved Profile</title>
+</head>
+<body>
+    <h1>나의 프로필 정보</h1>
+    <p>이름: <span th:text="${profile.profileName}"></span></p>
+    <p>성별: <span th:text="${profile.profileGender}"></span></p>
+    <p>나이: <span th:text="${profile.profileAge}"></span></p>
+    <p>키: <span th:text="${profile.profileHeight}"></span></p>
+    <p>MBTI: <span th:text="${profile.profileMBTI}"></span></p>
+<p>위치: <span th:text="${profile.profileLocation}"></span></p>
+<br>
+    <button onclick="showAllProfile()" > 전체 회원들 보기 </button>
+    <br>
+<!--    <button onclick="updateMyProfile()" > 내 프로필 수정하기 </button>-->
+</body>
+<script>
+    const showAllProfile = () => {
+        location.href="/profile/list"
+    }
+
+    // const updateMyProfile = () => {
+    //
+    // }
+</script>
+</html>
+
+
+
+
