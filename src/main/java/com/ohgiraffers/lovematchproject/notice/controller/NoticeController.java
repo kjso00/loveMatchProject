@@ -28,7 +28,7 @@ public class NoticeController {
     }
 
     // 메인 페이지 요청 처리
-    @GetMapping("/manager")
+    @GetMapping("/notice/admin/mainpage")
     public String mainpage() {
         return "notice/admin/mainpage";
     }
