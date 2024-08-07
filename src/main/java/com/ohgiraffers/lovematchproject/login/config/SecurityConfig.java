@@ -1,6 +1,7 @@
 package com.ohgiraffers.lovematchproject.login.config;
 
 import com.ohgiraffers.lovematchproject.login.service.CustomOAuth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
 
+    @Autowired
     public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
         this.customOAuth2UserService = customOAuth2UserService;
     }
