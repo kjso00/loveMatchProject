@@ -29,13 +29,13 @@ public class DateService {
     private final DateRepository dateRepository;
     private final RestTemplate restTemplate;
 
-    @Value("${culture.key}")
+    @Value("${api.culture.key}")
     private String cultureApiKey;
 
-    @Value("${culture2.key}")
+    @Value("${api.culture2.key}")
     private String culture2ApiKey;
 
-    @Value("${kakao.key}")
+    @Value("${api.kakao.key}")
     private String kakaoApiKey;
 
     @Autowired
