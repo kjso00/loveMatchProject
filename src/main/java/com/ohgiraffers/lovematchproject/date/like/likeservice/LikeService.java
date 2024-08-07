@@ -8,7 +8,7 @@ import com.ohgiraffers.lovematchproject.date.daterepository.DateRepository;
 import com.ohgiraffers.lovematchproject.date.like.likemodel.likeentity.LikeEntity;
 import com.ohgiraffers.lovematchproject.date.like.likerepository.LikeRepository;
 import com.ohgiraffers.lovematchproject.login.dto.CustomOAuth2User;
-import com.ohgiraffers.lovematchproject.login.entity.UserEntity;
+import com.ohgiraffers.lovematchproject.common.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,7 +59,7 @@ public class LikeService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getPrincipal() instanceof CustomOAuth2User) {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) auth.getPrincipal();
-            return userRepository.findByUsername(oAuth2User.getUsername());
+            return userRepository.findByUserId(oAuth2User.getUsername());
         }
         return null;
     }

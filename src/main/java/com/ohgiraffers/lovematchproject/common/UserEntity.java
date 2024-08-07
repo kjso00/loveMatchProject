@@ -1,17 +1,19 @@
-package com.ohgiraffers.lovematchproject.login.entity;
+package com.ohgiraffers.lovematchproject.common;
 
+import com.ohgiraffers.lovematchproject.login.entity.Role;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tbl_user")
 public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
+//    private Long id;
 
-    @Column(name = "user_name")
-    private String username;
+    @Id
+    @Column(name = "user_id")
+    private String userId;
 
     @Column(name = "user_email")
     private String email;
@@ -20,20 +22,12 @@ public class UserEntity {
     @Column(name = "user_role")
     private Role role;
 
-    public Long getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
