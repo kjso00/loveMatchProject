@@ -33,12 +33,22 @@
         </div>
     </div>
     <br>
-    <button onclick="findMyStyle()" > 내 이상형 찾기 </button>
+    <button onclick="findMyStyle()" > 내 이상형 찾기(하영님 파트로 이동) </button>
+    <button onclick="moveToJenny()" > 다영님 파트로 이동 </button>
+    <button onclick="moveToNotice()" > 공지사항(주연님 파트로 이동) </button>
 </body>
 <script>
     const findMyStyle = () => {
         location.href="/match/matchProfiles"
     }
+    const moveToJenny = () => {
+        location.href="/data/dataMain"
+    }
+    const moveToNotice = () => {
+        location.href="/notice/admin/mainpage"
+    }
+
+
 </script>
 </html>
 
