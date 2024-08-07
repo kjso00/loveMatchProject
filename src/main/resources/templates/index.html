@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,7 +113,12 @@
 </head>
 <body>
 
-<a href="@{/login/main}" class="loginClick">loginClick</a>
+<!--<a th:href="@{/login/main}" class="loginClick">loginClick</a>-->
+<h1>main page</h1>
+<div sec:authorize="!isAuthenticated()">
+    <button onclick="location.href='/login'">로그인을 하시려면 눌러주세요</button>
+</div>
+
 
 <!-- 배경, 헤더, 푸터 이미지 -->
 <img src="../static/image/BG.svg" alt="Background" id="bg">
