@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="stylePHY.css">
     <title>LoveLink Intro</title>
     <style>
         /* 전체 페이지 기본 스타일 */
@@ -108,6 +112,14 @@
     </style>
 </head>
 <body>
+
+<!--<a th:href="@{/login/main}" class="loginClick">loginClick</a>-->
+<h1>main page</h1>
+<div sec:authorize="!isAuthenticated()">
+    <button onclick="location.href='/login'" class="loginClick">로그인을 하시려면 눌러주세요</button>
+</div>
+
+
 <!-- 배경, 헤더, 푸터 이미지 -->
 <img src="../static/image/BG.svg" alt="Background" id="bg">
 <img src="../static/image/header.svg" alt="Header" id="header">
@@ -226,5 +238,8 @@
         createFloatingHearts();
     };
 </script>
+
+
+
 </body>
 </html>

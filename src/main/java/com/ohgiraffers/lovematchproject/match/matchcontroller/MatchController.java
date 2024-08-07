@@ -23,7 +23,8 @@ public class MatchController {
     @GetMapping("/match/matchProfiles")
     public ModelAndView getMatches(ModelAndView mv) {
 
-        long loginUserId = 1; // 현재 사용자의 ID를 하드코딩
+        long loginUserId = 7; // 현재 사용자의 ID를 하드코딩
+//        long loginUserId =  // 현재 사용자의 ID
         ProfileDTO loginUser = matchService.getLoginUser(loginUserId);
         List<ProfileDTO> targetGender = matchService.getFilteringGender(loginUserId);
         List<ProfileDTO> matchResults = matchService.calculatematchScores(loginUserId);
