@@ -7,8 +7,8 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * DateConfig 클래스
- * 이 클래스는 Date 도메인과 관련된 Spring 설정을 담당합니다.
- * 빈(Bean) 설정이나 기타 구성 요소들을 이곳에서 정의합니다.
+ * 이 클래스는 Date 도메인과 관련된 Spring 설정을 담당
+ * 빈(Bean) 설정이나 기타 구성 요소들을 이곳에서 정의.
  */
 @Configuration
 public class DateConfig {
@@ -45,5 +45,4 @@ public class DateConfig {
         return 500; // 리뷰 최대 길이를 500자로 제한
     }
 
-    // 필요에 따라 추가적인 빈이나 설정을 이곳에 정의할 수 있습니다.
 }
