@@ -1,7 +1,7 @@
 package com.ohgiraffers.lovematchproject.date.like.likemodel.likeentity;
 
 import com.ohgiraffers.lovematchproject.date.datemodel.dateentity.DateEntity;
-import com.ohgiraffers.lovematchproject.common.model.UserEntity;
+import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

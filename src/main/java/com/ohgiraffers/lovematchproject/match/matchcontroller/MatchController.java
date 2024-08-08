@@ -1,7 +1,5 @@
 package com.ohgiraffers.lovematchproject.match.matchcontroller;
 
-import com.ohgiraffers.lovematchproject.login.dto.OAuth2Response;
-import com.ohgiraffers.lovematchproject.login.service.CustomOAuth2UserService;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.match.matchservice.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
