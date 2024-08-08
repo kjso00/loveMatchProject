@@ -1,7 +1,7 @@
 package com.ohgiraffers.lovematchproject.chat.service;
 
 import com.ohgiraffers.lovematchproject.chat.model.entity.User;
-import com.ohgiraffers.lovematchproject.chat.repository.UserRepository;
+import com.ohgiraffers.lovematchproject.chat.repository.ChatUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private ChatUserRepository userRepository;
 
     public User registerUser(String username, String password) {
         if (userRepository.findByUsername(username) != null) {

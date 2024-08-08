@@ -5,7 +5,7 @@ import com.ohgiraffers.lovematchproject.chat.model.entity.ChatRoom;
 import com.ohgiraffers.lovematchproject.chat.model.entity.User;
 import com.ohgiraffers.lovematchproject.chat.repository.ChatMessageRepository;
 import com.ohgiraffers.lovematchproject.chat.repository.ChatRoomRepository;
-import com.ohgiraffers.lovematchproject.chat.repository.UserRepository;
+import com.ohgiraffers.lovematchproject.chat.repository.ChatUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 @Transactional
 public class ChatService {
     @Autowired
-    private UserRepository userRepository;
+    private ChatUserRepository userRepository;
 
     @Autowired
     private ChatRoomRepository chatRoomRepository;
