@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{../static/css/login.css}" rel="stylesheet">
 </head>
 <body>
 <div>
-    <img th:src="@{/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
+    <img th:src="@{../static/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
 </div>
 <div>
-    <img th:src="@{/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
+    <img th:src="@{../static/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
 </div>
 </body>
 </html>

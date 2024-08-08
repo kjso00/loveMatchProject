@@ -1,4 +1,4 @@
-package com.ohgiraffers.lovematchproject.login.entity;
+package com.ohgiraffers.lovematchproject.login.model.entity;
 
 public enum Role {
     USER("USER"),

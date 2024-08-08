@@ -1,11 +1,10 @@
 package com.ohgiraffers.lovematchproject.login.repository;
 
-import com.ohgiraffers.lovematchproject.login.entity.UserEntity;
+import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    UserEntity findByUsername(String username);
+    UserEntity findByUserId(String userId); // id가 아닌 userId 기준으로 찾고 싶을때 쓸 수 있는 메서드
 }

@@ -1,4 +1,4 @@
-package com.ohgiraffers.lovematchproject.login.dto;
+package com.ohgiraffers.lovematchproject.login.model.dto;
 
 import java.util.Map;
 

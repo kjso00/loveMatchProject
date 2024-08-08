@@ -1,8 +1,12 @@
 package com.ohgiraffers.lovematchproject.login.service;
 
-import com.ohgiraffers.lovematchproject.login.dto.*;
-import com.ohgiraffers.lovematchproject.login.entity.Role;
-import com.ohgiraffers.lovematchproject.login.entity.UserEntity;
+import com.ohgiraffers.lovematchproject.login.model.dto.*;
+import com.ohgiraffers.lovematchproject.login.model.entity.Role;
+import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
+import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
+import com.ohgiraffers.lovematchproject.login.model.dto.GoogleResponse;
+import com.ohgiraffers.lovematchproject.login.model.dto.NaverResponse;
+import com.ohgiraffers.lovematchproject.login.model.dto.OAuth2Response;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -38,20 +42,20 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return null;
         }
 
-        String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId(); // 임의로 만들어준 id
-        UserEntity existData = userRepository.findByUsername(username); // id값으로 repo에서 찾아서 넣어줌
+        String userId = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId(); // 임의로 만들어준 id
+        UserEntity existData = userRepository.findByUserId(userId); // id값으로 repo에서 찾아서 넣어줌
 
         Role role; // enum 타입의 Role 클래스를 쓰기 위해 선언
         if (existData == null) { // 데이터가 없으면 신규회원
             UserEntity userEntity = new UserEntity();
-            userEntity.setUsername(username);
+            userEntity.setUserId(userId);
             userEntity.setEmail(oAuth2Response.getEmail());
             role = Role.USER;
             userEntity.setRole(role);
             userRepository.save(userEntity); // 제공자에게 받아온 정보 넣어주고 entity 저장
         }
         else { // 존재하는경우 새로 업데이트 시켜줌
-            existData.setUsername(username);
+            existData.setUserId(userId);
             existData.setEmail(oAuth2Response.getEmail());
             role = existData.getRole();
             existData.setRole(role);
