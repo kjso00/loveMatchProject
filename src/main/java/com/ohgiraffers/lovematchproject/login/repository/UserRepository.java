@@ -1,6 +1,6 @@
 package com.ohgiraffers.lovematchproject.login.repository;
 
-import com.ohgiraffers.lovematchproject.common.UserEntity;
+import com.ohgiraffers.lovematchproject.common.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

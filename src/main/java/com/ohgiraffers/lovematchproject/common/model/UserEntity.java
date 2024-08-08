@@ -1,4 +1,4 @@
-package com.ohgiraffers.lovematchproject.common;
+package com.ohgiraffers.lovematchproject.common.model;
 
 import com.ohgiraffers.lovematchproject.login.entity.Role;
 import jakarta.persistence.*;
