@@ -5,7 +5,7 @@ import com.ohgiraffers.lovematchproject.chat.model.dto.ChatMessageDTO;
 import com.ohgiraffers.lovematchproject.chat.model.entity.ChatMessage;
 import com.ohgiraffers.lovematchproject.chat.model.entity.ChatRoom;
 import com.ohgiraffers.lovematchproject.chat.model.entity.User;
-import com.ohgiraffers.lovematchproject.chat.repository.UserRepository;
+import com.ohgiraffers.lovematchproject.chat.repository.ChatUserRepository;
 import com.ohgiraffers.lovematchproject.chat.service.ChatService;
 import com.ohgiraffers.lovematchproject.chat.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -32,7 +32,7 @@ public class ChatController {
     // 3. 실시간 데이터 업데이트
 
     @Autowired
-    private UserRepository userRepository;
+    private ChatUserRepository userRepository;
 
     @Autowired
     private ChatService chatService;

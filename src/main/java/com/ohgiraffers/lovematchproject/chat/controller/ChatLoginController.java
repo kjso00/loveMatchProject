@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 
-public class LoginController {
+public class ChatLoginController {
 
     @Autowired
 
     private UserService userService;
 
-    @GetMapping("/login")
+    @GetMapping("/logine")
     public String loginPage() {
         return "/login";
     }
 
 
 
-    @PostMapping("/login")
+    @PostMapping("/logine")
     public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
         User user = userService.loginUser(username, password);
         if (user != null) {
