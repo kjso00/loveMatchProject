@@ -10,7 +10,7 @@ public class DateViewController {
 
     @GetMapping("/main")
     public String dateMain() {
-        return "date/dateMain";
+        return "date/datemain";
     }
 
 
