@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .httpBasic((basic) -> basic.disable())
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/oauth2/**", "/login/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**").permitAll()
+                        .requestMatchers("/logininfo/userinfo").authenticated()
                         .anyRequest().authenticated())
                 .oauth2Login((oauth2) -> oauth2
                         .loginPage("/login")
