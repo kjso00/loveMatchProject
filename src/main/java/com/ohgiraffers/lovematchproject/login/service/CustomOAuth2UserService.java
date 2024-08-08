@@ -1,8 +1,12 @@
 package com.ohgiraffers.lovematchproject.login.service;
 
-import com.ohgiraffers.lovematchproject.login.dto.*;
-import com.ohgiraffers.lovematchproject.login.entity.Role;
-import com.ohgiraffers.lovematchproject.common.model.UserEntity;
+import com.ohgiraffers.lovematchproject.login.model.dto.*;
+import com.ohgiraffers.lovematchproject.login.model.entity.Role;
+import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
+import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
+import com.ohgiraffers.lovematchproject.login.model.dto.GoogleResponse;
+import com.ohgiraffers.lovematchproject.login.model.dto.NaverResponse;
+import com.ohgiraffers.lovematchproject.login.model.dto.OAuth2Response;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
