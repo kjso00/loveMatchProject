@@ -1,17 +1,15 @@
-package com.ohgiraffers.lovematchproject.common.model;
+package com.ohgiraffers.lovematchproject.login.model.entity;
 
-import com.ohgiraffers.lovematchproject.login.entity.Role;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user")
 public class UserEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
-//    private Long id;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
     @Column(name = "user_id")
     private String userId;
 
@@ -21,6 +19,24 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private Role role;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(Long id, String userId, String email, Role role) {
+        this.id = id;
+        this.userId = userId;
+        this.email = email;
+        this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserId() {
         return userId;

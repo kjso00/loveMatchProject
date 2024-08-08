@@ -1,5 +1,4 @@
-package com.ohgiraffers.lovematchproject.login.dto;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.ohgiraffers.lovematchproject.login.model.dto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
