@@ -1,22 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>profileSaveForm</title>
-    <!--개인회원 프로필 등록 진행하는 페이지-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 등록</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+        select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 12px auto;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <form action="/profile/save" method="post">
-        Name: <input type="text" name="profileName"> <br>
-        Gender: <input type="text" name="profileGender"> <br>
-        Age: <input type="text" name="profileAge"> <br>
-        Height: <input type="text" name="profileHeight"> <br>
-        MBTI: <input type="text" name="profileMBTI"> <br>
-        Location: <input type="text" name="profileLocation"> <br>
-        <input type="submit" value="sendToDB">
-    </form>
+<form action="/profile/save" method="post">
+    <h2>프로필 등록</h2>
+    <input type="text" name="profileName" placeholder="이름을 입력하세요">
+    <select name="profileGender">
+        <option value="">성별을 선택하세요</option>
+        <option value="남">남</option>
+        <option value="여">여</option>
+    </select>
+    <input type="text" name="profileAge" placeholder="나이를 입력하세요">
+    <input type="text" name="profileHeight" placeholder="키를 입력하세요">
+    <input type="text" name="profileMBTI" placeholder="MBTI를 입력하세요">
+    <input type="text" name="profileLocation" placeholder="위치를 입력하세요">
+    <input type="submit" value="프로필 등록">
+</form>
 </body>
 </html>
-<!--        contents: <textarea name="boardContents" cols="30" rows="10"></textarea> <br>-->
-<!--        enctype="multipart/form-data"-->
-<!--        file: <input type="file" name="boardFile"> <br>-->
