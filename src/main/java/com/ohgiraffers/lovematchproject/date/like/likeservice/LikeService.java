@@ -8,7 +8,7 @@ import com.ohgiraffers.lovematchproject.date.daterepository.DateRepository;
 import com.ohgiraffers.lovematchproject.date.like.likemodel.likeentity.LikeEntity;
 import com.ohgiraffers.lovematchproject.date.like.likerepository.LikeRepository;
 import com.ohgiraffers.lovematchproject.login.dto.CustomOAuth2User;
-import com.ohgiraffers.lovematchproject.common.UserEntity;
+import com.ohgiraffers.lovematchproject.common.model.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -2,7 +2,7 @@ package com.ohgiraffers.lovematchproject.date.like.likerepository;
 
 import com.ohgiraffers.lovematchproject.date.datemodel.dateentity.DateEntity;
 import com.ohgiraffers.lovematchproject.date.like.likemodel.likeentity.LikeEntity;
-import com.ohgiraffers.lovematchproject.common.UserEntity;
+import com.ohgiraffers.lovematchproject.common.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
