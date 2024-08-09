@@ -40,7 +40,7 @@ public class CustomOAuth2User implements OAuth2User{
     }
 
     // 제공자 + 제공자에서 제공한 id로 사용자id 값을 임의로 설정함
-    public String getUsername() {
+    public String getUserId() {
         return oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
     }
 }

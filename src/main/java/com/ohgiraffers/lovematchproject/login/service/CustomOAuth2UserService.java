@@ -52,7 +52,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userEntity.setEmail(oAuth2Response.getEmail());
             role = Role.USER;
             userEntity.setRole(role);
+            userEntity.setAgree("N");
             userRepository.save(userEntity); // 제공자에게 받아온 정보 넣어주고 entity 저장
+            // 동의페이지로 리다이렉트
         }
         else { // 존재하는경우 새로 업데이트 시켜줌
             existData.setUserId(userId);
@@ -60,7 +62,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             role = existData.getRole();
             existData.setRole(role);
             userRepository.save(existData); // 업데이트 한 정보 저장
+
+            if (existData.getAgree() == null || existData.getAgree().equals("N")) {
+                // 동의페이지로 리다이렉트
+            }
+
         }
+
         return new CustomOAuth2User(oAuth2Response, role.getKey());
     }
 }
