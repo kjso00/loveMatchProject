@@ -46,13 +46,11 @@ public class NoticeController {
 
         String result = noticeService.createPost(noticeDTO, redirectAttributes);
 
-
         if (result == null) {
             // 등록 실패 시 메시지 추가
             redirectAttributes.addAttribute("message", "게시글 등록에 실패하였습니다");
             return "redirect:/notice/admin/noticeregist";
         } else {
-
             redirectAttributes.addAttribute("success", "게시글 성공적으로 등록");
             return "redirect:/notice/admin/noticelist";
         }
@@ -106,8 +104,8 @@ public class NoticeController {
         if (edits == null) {
             return "redirect:/notice/admin/noticelist";
         }
-        //boardDTO 뷰에서 참조할 키값
-        model.addAttribute("noticeDTO", edits); // boardDTO가 실제로는 Post 객체를 의미하는 것으로 가정한다.
+
+        model.addAttribute("noticeDTO", edits);
         return "notice/admin/editpost"; // editpost.html로 반환하여 게시글 수정페이지를 표시
     }
 
@@ -137,6 +135,7 @@ public class NoticeController {
     @PostMapping("/notice/admin/noticelist/{id}")
     public String deletePost(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
         String resultMessage = noticeService.deletePost(id); // 삭제 결과와 메시지를 반환받음
+
 
         // 메시지를 Flash Attribute로 추가
         if (resultMessage.contains("성공")) {

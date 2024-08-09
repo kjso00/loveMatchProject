@@ -23,14 +23,20 @@ public class NoticeService {
         this.noticeRepository = boardRepository;
     }
 
-    // 비즈니스 로직을 작성함
+    // 제목, 내용이 비어있을때!
     @Transactional
-    public String createPost(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) { // 반환타입 정하기
-        // 만약 게시글 제목이 중복된다면? findPost 게시글 제목
+    public String createPost(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
+
+        if (noticeDTO.getNoticeTitle() == null || noticeDTO.getNoticeTitle().trim().isEmpty() ||
+                noticeDTO.getNoticeContent() == null || noticeDTO.getNoticeContent().trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "제목과 내용을 입력해주세요.");
+            return "redirect:/noticeregist";
+        }
+        // 만약 게시글 제목이 중복 확인! findPost 게시글 제목
         Notice findPost = noticeRepository.findByNoticeTitle(noticeDTO.getNoticeTitle());
         // findPost 중복됨
         if (findPost != null) {
-            redirectAttributes.addFlashAttribute("message", "게시글 제목 중복");
+            redirectAttributes.addFlashAttribute("error", "게시글 제목 중복");
             return "redirect:/noticeregist";
 
         }
@@ -43,7 +49,7 @@ public class NoticeService {
 
         noticeRepository.save(notice);
         redirectAttributes.addFlashAttribute("success", "게시글 성공적으로 등록");
-        return "redirect:/noticeregist";
+        return "redirect:/notice/admin/noticeregist";
 
     }
 
@@ -52,7 +58,6 @@ public class NoticeService {
     public List<Notice> getAllPosts() {
 //        return noticeRepository.findAll();
         List<Notice> lists = noticeRepository.findAll();
-
         if (lists.isEmpty()) {
             throw new RuntimeException("게시글 목록이 비어 있습니다.");
         }
@@ -77,7 +82,7 @@ public class NoticeService {
         // 게시글 업데이트 로직
         // 게시글 ID를 사용하여 데이터베이스에서 게시글을 조회
        Notice updatedPost = noticeRepository.findById(id).get();
-        // optionalPost.isPresent() 메서드는 optionalPost가 값(게시글)을 가지고 있는지 확인
+
 
         if (updatedPost == null) {
             return null;
@@ -99,13 +104,13 @@ public class NoticeService {
 
           return modifyDTO;
     }
-
+        //게시글 삭제
     public String deletePost(int id) {
         if (noticeRepository.existsById(id)) {
             noticeRepository.deleteById(id);
-            return "게시글 삭제 성공";
+            return "공지글 삭제 성공";
         }
-        return "게시글 삭제 실패";
+        return "공지글 삭제 실패";
     }
 }
 
