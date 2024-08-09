@@ -191,7 +191,7 @@
     <header>
         <nav>
             <a href="#">선호도 설정</a>
-            <a href="/notice/admin/noticeList">공지사항</a>
+            <a href="/notice/admin/usernoticelist">공지사항</a>
             <a href="#">데이트 컨텐츠</a>
             <a href="#">MY Profile</a>
             <a href="#">로그아웃</a>
@@ -218,7 +218,7 @@
             <tr th:each="notice, iterStat : ${noticelist}">
                 <td th:text="${iterStat.count}"></td>
                 <td>
-                <a th:href="@{/notice/admin/noticelist/{id}(id=${notice.id})}" th:text="${notice.noticeTitle}"></a>
+                <a th:href="@{/notice/user/usernoticelist/{id}(id=${notice.id})}" th:text="${notice.noticeTitle}"></a>
                 </td>
                 <td th:text="${#dates.format(notice.createDate, 'yyyy.MM.dd')}"></td>
             </tr>
@@ -229,11 +229,6 @@
 
 
 
-
-
-<!--    <footer>-->
-<!--        <p>© 2024 관리자용 페이지</p>-->
-<!--    </footer>-->
 
 </body>
 </html>
