@@ -23,7 +23,9 @@ public class NoticeService {
         this.noticeRepository = boardRepository;
     }
 
-    // 제목, 내용이 비어있을때!
+
+
+    // 제목, 내용 비어있는지 확인
     @Transactional
     public String createPost(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
 
@@ -32,7 +34,7 @@ public class NoticeService {
             redirectAttributes.addFlashAttribute("error", "제목과 내용을 입력해주세요.");
             return "redirect:/noticeregist";
         }
-        // 만약 게시글 제목이 중복 확인! findPost 게시글 제목
+        //제목이 중복 확인! findPost 게시글 제목
         Notice findPost = noticeRepository.findByNoticeTitle(noticeDTO.getNoticeTitle());
         // findPost 중복됨
         if (findPost != null) {
@@ -40,7 +42,7 @@ public class NoticeService {
             return "redirect:/noticeregist";
 
         }
-
+        // 새로운 공지사항 생성 및 저장
         // 사용자 입력 데이터를 DTO로 담아줌
         Notice notice = new Notice();
         notice.setCreateDate(new Date());
@@ -52,6 +54,7 @@ public class NoticeService {
         return "redirect:/notice/admin/noticeregist";
 
     }
+
 
 
     // 모든 게시물 목록 조회
@@ -78,7 +81,7 @@ public class NoticeService {
 
 
     // 게시글 수정
-    public NoticeDTO updatePost(int id, NoticeDTO boardDTO) {
+    public NoticeDTO updatePost(int id, NoticeDTO noticeDTO) {
         // 게시글 업데이트 로직
         // 게시글 ID를 사용하여 데이터베이스에서 게시글을 조회
        Notice updatedPost = noticeRepository.findById(id).get();
@@ -88,9 +91,9 @@ public class NoticeService {
             return null;
         }
         // 업데이트된 제목 설정
-        updatedPost.setNoticeTitle(boardDTO.getNoticeTitle());
+        updatedPost.setNoticeTitle(noticeDTO.getNoticeTitle());
         // 업데이트된 내용 설정
-        updatedPost.setNoticeContent(boardDTO.getNoticeContent());
+        updatedPost.setNoticeContent(noticeDTO.getNoticeContent());
         // 변경된 내용을 existingPost 데이터베이스에 저장
         // 수정 성공 여부가 없음
         Notice modifyPost = noticeRepository.save(updatedPost);
@@ -104,13 +107,15 @@ public class NoticeService {
 
           return modifyDTO;
     }
+
+
         //게시글 삭제
-    public String deletePost(int id) {
+        public String deletePost(int id) {
         if (noticeRepository.existsById(id)) {
             noticeRepository.deleteById(id);
             return "공지글 삭제 성공";
         }
-        return "공지글 삭제 실패";
+             return "공지글 삭제 실패";
     }
 }
 
