@@ -13,16 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * DateService 클래스
- * 이 클래스는 데이트 관련 비즈니스 로직을 처리합니다.
- * DateRepository를 사용하여 데이터베이스 작업을 수행하고,
- * 필요한 경우 DateEntity와 DateDTO 간의 변환을 처리함.
- */
 @Service
 public class DateService {
 
@@ -46,6 +42,7 @@ public class DateService {
 
     /**
      * 모든 데이트 장소를 조회합니다.
+     *
      * @return 모든 데이트 장소의 DTO 리스트
      */
     public List<DateDTO> getAllDates() {
@@ -55,7 +52,8 @@ public class DateService {
     }
 
     /**
-     * ID로 특정 데이트 장소를 조회합니다.
+     * ID로 특정 데이트 장소를 조회
+     *
      * @param id 조회할 데이트 장소의 ID
      * @return 조회된 데이트 장소의 DTO, 없으면 null
      */
@@ -67,6 +65,7 @@ public class DateService {
 
     /**
      * 새로운 데이트 장소를 저장합니다.
+     *
      * @param dateDTO 저장할 데이트 장소 정보
      * @return 저장된 데이트 장소의 DTO
      */
@@ -78,8 +77,9 @@ public class DateService {
     }
 
     /**
-     * 기존 데이트 장소 정보를 업데이트합니다.
-     * @param id 업데이트할 데이트 장소의 ID
+     * 기존 데이트 장소 정보를 업데이트
+     *
+     * @param id      업데이트할 데이트 장소의 ID
      * @param dateDTO 업데이트할 정보
      * @return 업데이트된 데이트 장소의 DTO, 해당 ID의 장소가 없으면 null
      */
@@ -97,6 +97,7 @@ public class DateService {
 
     /**
      * 데이트 장소를 삭제합니다.
+     *
      * @param id 삭제할 데이트 장소의 ID
      */
     @Transactional
@@ -106,9 +107,10 @@ public class DateService {
 
     /**
      * 주어진 위치 근처의 데이트 장소를 찾습니다.
-     * @param latitude 위도
+     *
+     * @param latitude  위도
      * @param longitude 경도
-     * @param distance 검색 반경 (km)
+     * @param distance  검색 반경 (km)
      * @return 근처의 데이트 장소 DTO 리스트
      */
     public List<DateDTO> getNearbyDates(double latitude, double longitude, double distance) {
@@ -117,10 +119,9 @@ public class DateService {
                 .collect(Collectors.toList());
     }
 
-    //API
-
     /**
      * 문화 활동 정보를 가져옵니다.
+     *
      * @return 문화 활동 정보 목록
      */
     public List<Map<String, Object>> getCultureActivities() {
@@ -135,6 +136,7 @@ public class DateService {
 
     /**
      * 공연 정보를 가져옵니다.
+     *
      * @return 공연 정보 목록
      */
     public List<Map<String, Object>> getPerformances() {
@@ -145,6 +147,46 @@ public class DateService {
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
         // API 응답 구조에 따라 적절히 파싱
         return (List<Map<String, Object>>) response.getBody().get("items");
+    }
+
+    /**
+     * DateEntity를 DateDTO로 변환합니다.
+     */
+    private DateDTO convertToDTO(DateEntity dateEntity) {
+        DateDTO dateDTO = new DateDTO();
+        dateDTO.setDateId(dateEntity.getDateId());
+        dateDTO.setDateName(dateEntity.getDateName());
+        // ... 다른 필드들도 설정
+        return dateDTO;
+    }
+
+    /**
+     * DateDTO를 DateEntity로 변환합니다.
+     */
+    private DateEntity convertToEntity(DateDTO dateDTO) {
+        DateEntity dateEntity = new DateEntity();
+        dateEntity.setDateId(dateDTO.getDateId());
+        dateEntity.setDateName(dateDTO.getDateName());
+        // ... 다른 필드들도 설정
+        return dateEntity;
+    }
+
+    /**
+     * 모든 카테고리를 가져옵니다.
+     */
+    public List<Map<String, String>> getAllCategories() {
+        List<Map<String, String>> categories = new ArrayList<>();
+        categories.add(createCategory("view", "볼거리"));
+        categories.add(createCategory("eat", "먹을거리"));
+        categories.add(createCategory("enjoy", "즐길거리"));
+        return categories;
+    }
+
+    private Map<String, String> createCategory(String code, String name) {
+        Map<String, String> category = new HashMap<>();
+        category.put("code", code);
+        category.put("name", name);
+        return category;
     }
 
     /**
@@ -162,16 +204,11 @@ public class DateService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
-        // API 응답 구조에 따라 적절히 파싱
         return (List<Map<String, Object>>) response.getBody().get("documents");
     }
 
     /**
      * 카테고리별 데이트 장소 정보를 가져옵니다.
-     * @param category 카테고리 (enjoy, view, eat)
-     * @param latitude 위도 (선택적)
-     * @param longitude 경도 (선택적)
-     * @return 카테고리별 데이트 장소 정보 목록
      */
     public List<Map<String, Object>> getDatesByCategory(String category, Double latitude, Double longitude) {
         switch (category) {
@@ -189,25 +226,4 @@ public class DateService {
                 throw new IllegalArgumentException("Invalid category: " + category);
         }
     }
-
-    //API
-
-
-    /**
-     * DateEntity를 DateDTO로 변환합니다.
-     */
-    private DateDTO convertToDTO(DateEntity dateEntity) {
-        // 변환 로직
-        return new DateDTO(/* 필드 매핑 */);
-    }
-
-    /**
-     * DateDTO를 DateEntity로 변환합니다.
-     */
-    private DateEntity convertToEntity(DateDTO dateDTO) {
-        // 변환 로직
-        return new DateEntity(/* 필드 매핑 */);
-    }
-
-
 }

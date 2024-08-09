@@ -28,7 +28,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // /queue: 일대일 채팅or개인 메시지 /queue/user123 로 메시지 보내면 특정 사용자 user123만 메시지를 받음
         config.enableSimpleBroker("/queue", "/topic");
         // 클라이언트가 서버로 메시지 보낼 때 사용하는 주소 접두사를 "/app"으로 설정
-        // 이 설정으로 클라이언트가 /app으로 시작하는 경로로 메시지를 전송할 때, 해당 메시지가 @@MessageMapping이 있는 메소드에 매핑
+        // 이 설정으로 클라이언트가 /app으로 시작하는 경로로 메시지를 전송할 때, 해당 메시지가 @MessageMapping이 있는 메소드에 매핑
         // 클라이언트가 /app/hello로 메시지를 보내면 서버의 @MessageMapping("/hello") 메서드가 처리
         config.setApplicationDestinationPrefixes("/app");
     }

@@ -32,7 +32,7 @@ public class DateConfig {
      */
     @Bean
     public double defaultSearchRadius() {
-        return 5.0; // 기본 검색 반경을 5km로 설정
+        return 3.0; // 기본 검색 반경을 3km로 설정
     }
 
     /**
