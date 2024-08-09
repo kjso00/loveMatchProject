@@ -8,7 +8,7 @@ public class ProfileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "profile_id")
+    @Column(name = "profile_no")
     public Long profileNo;
 
     @Column(name = "profileName")
@@ -29,13 +29,13 @@ public class ProfileEntity {
     @Column(name = "profileLocation")
     public String profileLocation;
 
-    @Column(name = "user_Id")
-    public String userId;
+    @Column(name = "user_id")
+    public Long userId;
 
     public ProfileEntity() {
     }
 
-    public ProfileEntity(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, String userId) {
+    public ProfileEntity(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, Long userId) {
         this.profileNo = profileNo;
         this.profileName = profileName;
         this.profileGender = profileGender;
@@ -102,11 +102,11 @@ public class ProfileEntity {
         this.profileLocation = profileLocation;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
