@@ -7,19 +7,6 @@
     <link rel="stylesheet" th:href="@{/css/datemain.css}">
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a href="#" th:text="#{nav.preference}">선호도 설정</a></li>
-            <li><a href="#" th:text="#{nav.notice}">공지사항</a></li>
-            <li><a href="#" th:text="#{nav.chat}">채팅</a></li>
-            <li><a href="#" th:text="#{nav.dateContent}">데이트 컨텐츠</a></li>
-            <li><a href="#" th:text="#{nav.myProfile}">MY Profile</a></li>
-            <li><a href="#" th:text="#{nav.logout}">LOGOUT</a></li>
-        </ul>
-    </nav>
-</header>
-
 <main>
     <div class="content-container">
         <div class="left-panel">
@@ -32,7 +19,7 @@
             <button id="search-btn" th:text="#{search.button}">검색</button>
             <div class="category-buttons">
                 <button th:each="category : ${categories}"
-                        th:text="${category.name}"
+                        th:text="#{__${category.code}__}"
                         th:data-category="${category.code}"
                         class="category-btn">
                     카테고리

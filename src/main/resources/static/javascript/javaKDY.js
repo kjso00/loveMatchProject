@@ -1,5 +1,6 @@
 // DOM이 로드되면 실행
 document.addEventListener('DOMContentLoaded', function() {
+
     // DOM 요소 선택
     const categoryButtons = document.querySelectorAll('.category-btn');
     const subcategoryButtons = document.querySelector('.subcategory-buttons');
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationBtn = document.getElementById('location-btn');
     const searchBtn = document.getElementById('search-btn');
 
+
     // 카테고리 버튼 이벤트 리스너
     categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -17,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fetchDates(category);
         });
     });
+
 
     // 키워드 검색 이벤트 리스너
     keywordSearch.addEventListener('input', debounce(function() {
@@ -34,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 서브카테고리 업데이트 함수
     function updateSubcategories(category) {
+
         // API를 호출하여 해당 카테고리의 서브카테고리를 가져옴
         fetch(`/api/subcategories?category=${category}`)
             .then(response => response.json())
@@ -41,12 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 subcategoryButtons.innerHTML = data.map(sub =>
                     `<button class="subcategory-btn" data-subcategory="${sub.code}">${sub.name}</button>`
                 ).join('');
+
                 // 서브카테고리 버튼에 이벤트 리스너 추가
                 document.querySelectorAll('.subcategory-btn').forEach(btn => {
                     btn.addEventListener('click', () => fetchDates(category, btn.dataset.subcategory));
                 });
             });
     }
+
 
     // 데이트 장소 가져오기 함수
     function fetchDates(category, subcategory = null, page = 1) {
@@ -65,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+
     // 데이트 장소 표시 함수
     function displayDates(dates) {
         dateList.innerHTML = dates.map(date => `
@@ -77,10 +84,12 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
+
     // 페이지네이션 업데이트 함수
     function updatePagination(totalPages, currentPage) {
         // 페이지네이션 로직 구현
     }
+
 
     // 키워드로 검색 함수
     function searchByKeyword(keyword) {
@@ -88,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => displayDates(data));
     }
+
 
     // 내 주변 검색 함수
     function searchNearby() {
@@ -106,15 +116,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
     // 지역 설정 모달 열기 함수
     function openLocationModal() {
         // 지역 설정 모달 구현
     }
 
+
     // 검색 수행 함수
     function performSearch() {
         // 현재 선택된 카테고리, 서브카테고리, 키워드 등을 조합하여 검색 수행
     }
+
 
     // 디바운스 함수
     function debounce(func, delay) {
@@ -125,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 });
+
 
 // 데이트 장소 상세 정보 표시 함수
 function showDateDetails(dateId) {
