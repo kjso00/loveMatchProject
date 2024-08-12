@@ -3,28 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자용 공지</title>
-    <link rel="stylesheet" type="text/css" href="/css/styleSJY.css">
     <script src="/javascript/javaSJY.js"></script>
+    <style>
+        /* 전체 페이지 기본 스타일 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* 스크롤바 제거 */
+            font-family: Arial, sans-serif;
+        }
 
+        /* 배경 이미지 스타일 - 화면 전체를 커버 */
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
+            z-index: -3; /* 다른 요소들 뒤에 위치 */
+        }
+
+        /* 헤더 이미지와 네비게이션 바 스타일 */
+        #header {
+            position: relative;
+            top: 0;
+            width: 100%;
+            z-index: -2;
+        }
+
+        nav {
+            position: absolute;
+            right: 20px;
+            top: 130px; /* 헤더 아래로 약간 내려오도록 조정 */
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        nav a {
+            color: #333; /* 진한 색상으로 변경 */
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #000; /* 마우스를 올렸을 때 색상 변경 */
+        }
+
+        /* 중앙 콘텐츠 스타일 */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 텍스트 그림자 */
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ef5a39;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* 버튼 텍스트 그림자 */
+        }
+
+        .btn:hover {
+            background-color: #6d2819;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-    <nav>
-        <a href="#">선호도 설정</a>
-        <a href="/notice/admin/noticeList">공지사항</a>
-        <a href="#">데이트 컨텐츠</a>
-        <a href="#">MY Profile</a>
-        <a href="#">로그아웃</a>
-    </nav>
-</header>
-<h1>관리자용 메인페이지</h1>
+<!-- 배경, 헤더 이미지 -->
+<img src="/image/BG.svg" alt="Background" id="bg">
+<img src="/image/header.svg" alt="Header" id="header">
 
-<br>
-<button type="button" class="btn btn-primary" onclick="location.href='/noticeregist'">공지등록</button>
+<!-- 네비게이션 바 -->
+<nav>
+    <a href="#">선호도 설정</a>
+    <a href="/notice/admin/noticelist">공지사항</a>
+    <a href="#">채팅</a>
+    <a href="#">데이트 컨텐츠</a>
+    <a href="#">MY Profile</a>
+    <a href="#">LOGOUT</a>
+</nav>
 
-<!--<footer>-->
-<!--    <p>© 2024 관리자용 페이지</p>-->
-<!--</footer>-->
+<!-- 중앙 콘텐츠 -->
+<div class="center-content">
+    <h2>관리자용 메인페이지</h2>
+    <button type="button" class="btn" onclick="location.href='/noticeregist'">공지등록</button>
+</div>
+
 </body>
 </html>

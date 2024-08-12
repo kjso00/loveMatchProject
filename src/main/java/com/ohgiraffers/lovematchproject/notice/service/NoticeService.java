@@ -6,6 +6,7 @@ import com.ohgiraffers.lovematchproject.notice.repository.NoticeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
@@ -25,35 +26,42 @@ public class NoticeService {
 
 
 
-    // 제목, 내용 비어있는지 확인
-    @Transactional
-    public String createPost(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
 
+    @Transactional
+    public ModelAndView createPost(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        // 제목과 내용이 비어있는지 확인
         if (noticeDTO.getNoticeTitle() == null || noticeDTO.getNoticeTitle().trim().isEmpty() ||
                 noticeDTO.getNoticeContent() == null || noticeDTO.getNoticeContent().trim().isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "제목과 내용을 입력해주세요.");
-            return "redirect:/noticeregist";
+            modelAndView.addObject("error", "제목과 내용을 입력해주세요.");
+            modelAndView.setViewName("error"); // 에러 페이지로 포워딩
+            return modelAndView;
         }
-        //제목이 중복 확인! findPost 게시글 제목
-        Notice findPost = noticeRepository.findByNoticeTitle(noticeDTO.getNoticeTitle());
-        // findPost 중복됨
-        if (findPost != null) {
-            redirectAttributes.addFlashAttribute("error", "게시글 제목 중복");
-            return "redirect:/noticeregist";
 
+        // 제목 중복 확인
+        Notice findPost = noticeRepository.findByNoticeTitle(noticeDTO.getNoticeTitle());
+        if (findPost != null) {
+            modelAndView.addObject("error", "게시글 제목이 중복됩니다.");
+            modelAndView.setViewName("error"); // 에러 페이지로 포워딩
+            return modelAndView;
         }
+
         // 새로운 공지사항 생성 및 저장
-        // 사용자 입력 데이터를 DTO로 담아줌
         Notice notice = new Notice();
         notice.setCreateDate(new Date());
         notice.setNoticeContent(noticeDTO.getNoticeContent());
         notice.setNoticeTitle(noticeDTO.getNoticeTitle());
 
         noticeRepository.save(notice);
-        redirectAttributes.addFlashAttribute("success", "게시글 성공적으로 등록");
-        return "redirect:/notice/admin/noticeregist";
 
+        // 성공 메시지와 함께 리다이렉트
+        redirectAttributes.addFlashAttribute("success", "게시글이 성공적으로 등록되었습니다.");
+        modelAndView.setViewName("redirect:/notice/admin/noticelist");
+
+        return modelAndView;
     }
+
 
 
 
@@ -104,7 +112,6 @@ public class NoticeService {
             modifyDTO.setNoticeContent(modifyPost.getNoticeContent());
             modifyDTO.setNoticeTitle(modifyPost.getNoticeTitle());
         }
-
           return modifyDTO;
     }
 
