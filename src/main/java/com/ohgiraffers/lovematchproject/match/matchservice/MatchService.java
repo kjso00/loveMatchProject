@@ -5,7 +5,6 @@ import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileEntity;
 import com.ohgiraffers.lovematchproject.match.matchrepository.MatchRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 
@@ -25,10 +24,10 @@ public class MatchService {
         this.kakaoMapService = kakaoMapService;
     }
 
-    public ProfileDTO getLoginUser(Long ProfileNo) {
-        ProfileEntity entity = matchRepository.findById(ProfileNo).orElse(null);
+    public ProfileDTO getLoginUser(Long loginUserId) {
+        ProfileEntity entity = matchRepository.findById(loginUserId).orElse(null);
         if (entity == null) {
-            throw new IllegalArgumentException("User not found with ID: " + ProfileNo);
+            throw new IllegalArgumentException("User not found with ID: " + loginUserId);
         }
         ProfileDTO profileDTO = new ProfileDTO();
         profileDTO.setProfileNo(entity.getProfileNo());
@@ -42,7 +41,7 @@ public class MatchService {
     }
 
 
-    public List<ProfileDTO> getFilteringGender(long loginUserId) {
+    public List<ProfileDTO> getFilteringGender(Long loginUserId) {
         ProfileDTO loginUser = getLoginUser(loginUserId);
         String targetGender = loginUser.getProfileGender().equalsIgnoreCase("여") ? "남" : "여";
         // 여성이면 남성을, 남성이면 여성을 타겟으로 설정
@@ -131,9 +130,9 @@ public class MatchService {
 
 
     // 토탈스코어 계산 함수
-    public List<ProfileDTO> calculatematchScores(Long ProfileNo){
+    public List<ProfileDTO> calculatematchScores(Long loginUserId){
         List<ProfileEntity> allProfiles = matchRepository.findAll();
-        ProfileEntity userProfile = matchRepository.findById(ProfileNo).orElse(null);
+        ProfileEntity userProfile = matchRepository.findById(loginUserId).orElse(null);
 
         if(userProfile == null){
             throw new IllegalArgumentException("User profile not found");

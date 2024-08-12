@@ -28,7 +28,7 @@ public class UserController {
         Map<String, Object> userInfo = new HashMap<>();
 
         // 인증된 사용자의 넘어온 값(id, 이름, 권한을 저장)
-        userInfo.put("userid", customUser.getUsername());
+        userInfo.put("userid", customUser.getUserId());
         userInfo.put("authority", customUser.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()

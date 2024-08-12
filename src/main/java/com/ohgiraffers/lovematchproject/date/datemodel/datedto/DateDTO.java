@@ -209,7 +209,7 @@ public class DateDTO {
     }
 
     /**
-     * 객체의 문자열 표현을 반환합니다.
+     * 객체의 문자열 표현을 반환
      * @return 데이트 장소의 주요 정보를 포함한 문자열
      */
     @Override

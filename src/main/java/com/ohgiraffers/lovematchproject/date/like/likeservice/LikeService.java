@@ -59,7 +59,7 @@ public class LikeService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getPrincipal() instanceof CustomOAuth2User) {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) auth.getPrincipal();
-            return userRepository.findByUserId(oAuth2User.getUsername());
+            return userRepository.findByUserId(oAuth2User.getUserId());
         }
         return null;
     }

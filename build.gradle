@@ -43,9 +43,23 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
     implementation 'org.json:json:20210307'
-
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(ProcessResources) {
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.properties'
+        filter(org.apache.tools.ant.filters.EscapeUnicode)
+    }
+
+tasks.withType(ProcessResources) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
 }

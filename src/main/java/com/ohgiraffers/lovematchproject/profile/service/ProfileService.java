@@ -1,5 +1,7 @@
 package com.ohgiraffers.lovematchproject.profile.service;
 
+import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
+import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileEntity;
 import com.ohgiraffers.lovematchproject.profile.repository.ProfileRepository;
@@ -12,18 +14,38 @@ import java.util.List;
 @Service
 public class ProfileService {
 
-    @Autowired
-    private ProfileRepository profileRepository;
+    private final ProfileRepository profileRepository;
 
-    public ProfileDTO save(ProfileDTO profileDTO) {
+    @Autowired
+    public ProfileService(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
+
+
+    public ProfileDTO save(ProfileDTO profileDTO, UserEntity userEntity) {
         ProfileEntity profileEntity = new ProfileEntity();
+
+        profileEntity.setUserId(userEntity.getId()); // user_id 설정
         profileEntity.setProfileName(profileDTO.getProfileName());
         profileEntity.setProfileGender(profileDTO.getProfileGender());
         profileEntity.setProfileAge(profileDTO.getProfileAge());
         profileEntity.setProfileHeight(profileDTO.getProfileHeight());
         profileEntity.setProfileMBTI(profileDTO.getProfileMBTI());
         profileEntity.setProfileLocation(profileDTO.getProfileLocation());
+
+        // 프로필 저장
         profileRepository.save(profileEntity);
+
+        // 저장된 프로필을 DTO로 변환하여 반환
+        profileDTO = new ProfileDTO();
+        profileDTO.setProfileNo(profileEntity.getProfileNo());
+        profileDTO.setProfileName(profileEntity.getProfileName());
+        profileDTO.setProfileAge(profileEntity.getProfileAge());
+        profileDTO.setProfileGender(profileEntity.getProfileGender());
+        profileDTO.setProfileLocation(profileEntity.getProfileLocation());
+        profileDTO.setProfileMBTI(profileEntity.getProfileMBTI());
+        profileDTO.setProfileHeight(profileEntity.getProfileHeight());
+
         return profileDTO;
     }
 
@@ -43,9 +65,5 @@ public class ProfileService {
         }
         return profileDTOList;
     }
-
-
-
-
 
 }

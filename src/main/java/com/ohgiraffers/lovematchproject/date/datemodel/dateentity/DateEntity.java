@@ -12,7 +12,7 @@ import java.util.List;
  * 각 필드는 데이트 장소의 특정 속성을 나타냄
  */
 @Entity
-@Table(name = "dateContent")
+@Table(name = "date")
 public class DateEntity {
 
     /**
