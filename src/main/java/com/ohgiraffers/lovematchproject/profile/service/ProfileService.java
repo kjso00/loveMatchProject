@@ -16,16 +16,17 @@ public class ProfileService {
 
     private final ProfileRepository profileRepository;
 
+
     @Autowired
     public ProfileService(ProfileRepository profileRepository) {
         this.profileRepository = profileRepository;
     }
 
 
-    public ProfileDTO save(ProfileDTO profileDTO, Long userId) {
+    public ProfileDTO save(ProfileDTO profileDTO, UserEntity userEntity) {
         ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setUserId(userId); // user_id 설정
+        profileEntity.setUserId(userEntity.getId()); // user_id 설정
         profileEntity.setProfileName(profileDTO.getProfileName());
         profileEntity.setProfileGender(profileDTO.getProfileGender());
         profileEntity.setProfileAge(profileDTO.getProfileAge());
