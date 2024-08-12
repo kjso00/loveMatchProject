@@ -4,11 +4,14 @@ import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.profile.service.ProfileService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,22 +39,11 @@ public class ProfileController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ProfileDTO profileDTO, Model model) {
+    public String save(@ModelAttribute ProfileDTO profileDTO, @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
 
         // 현재 로그인한 유저의 ID 가져오기 //수정필요.
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/login";
-        }
-        String userEmail = null;
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof OAuth2User) {
-            OAuth2User oauth2User = (OAuth2User) principal;
-            userEmail = oauth2User.getAttribute("email");
-        } else if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            userEmail = userDetails.getUsername();
-        }
+        // 현재 로그인한 유저의 이메일 가져오기
+        String userEmail = oauth2User.getAttribute("email");
         if (userEmail == null) {
             throw new IllegalStateException("User email not found");
         }
@@ -64,12 +56,10 @@ public class ProfileController {
         }
 
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity.getId());
+        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity);
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }
-
-
 
 
 
