@@ -20,18 +20,14 @@ public class UserEntity {
     @Column(name = "user_role") // 사용자 권한
     private Role role;
 
-    @Column(name = "agree") // 사용자 Top5 얼굴공개 동의여부
-    private String agree;
-
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String userId, String email, Role role, String agree) {
+    public UserEntity(Long id, String userId, String email, Role role) {
         this.id = id;
         this.userId = userId;
         this.email = email;
         this.role = role;
-        this.agree = agree;
     }
 
     public Long getId() {
@@ -64,14 +60,6 @@ public class UserEntity {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public String getAgree() {
-        return agree;
-    }
-
-    public void setAgree(String agree) {
-        this.agree = agree;
     }
 
     public String getRoleKey(){

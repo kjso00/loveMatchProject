@@ -28,16 +28,15 @@ public class SecurityConfig {
                 .formLogin((login) -> login.disable())
                 .httpBasic((basic) -> basic.disable())
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/oauth2/**", "/login/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**").permitAll()
+                        .requestMatchers("/", "/oauth2/**", "/login/**","/signup/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**").permitAll()
                         .requestMatchers("/logininfo/userinfo").authenticated()
                         .anyRequest().authenticated())
                 .oauth2Login((oauth2) -> oauth2
                         .loginPage("/login")
-                        .defaultSuccessUrl("/terms",true)// 로그인 성공하면 여기로 리다이렉트
+                        .defaultSuccessUrl("/main",true)// 로그인 성공하면 여기로 리다이렉트
                         .userInfoEndpoint((userInfoEndpointConfig) ->
                                 userInfoEndpointConfig.userService(customOAuth2UserService)))
                 .logout(logout -> logout
-//                        .logoutUrl("/logout")
                         .logoutSuccessHandler(logoutSuccessHandler())
                         .permitAll());
         return http.build();
