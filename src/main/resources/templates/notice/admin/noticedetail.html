@@ -6,50 +6,83 @@
     <title>Post Detail</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+        /* 전체 페이지 기본 스타일 */
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* 배경색 설정 */
-            display: flex;
-            flex-direction: column; /* 세로 방향으로 요소 배치 */
-            min-height: 100vh; /* 전체 화면 높이 설정 */
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* 스크롤바 제거 */
+            font-family: Arial, sans-serif;
         }
 
-        header {
-            background: linear-gradient(to right, #E6ADCE, #A1A7E5,#FFA005,#F251AC);
-            background-color: #333; /* 헤더 배경색 */
-            color: #fff; /* 헤더 글자색 */
-            padding: 30px 0; /* 헤더 패딩 */
-            text-align: center; /* 중앙 정렬 */
+        /* 배경 이미지 스타일 - 화면 전체를 커버 */
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
+            z-index: -3; /* 다른 요소들 뒤에 위치 */
+        }
+
+        /* 헤더 이미지와 네비게이션 바 스타일 */
+        #header {
+            position: relative;
+            top: 0;
+            width: 100%;
+            z-index: -2;
+        }
+
+        nav {
+            position: absolute;
+            right: 20px;
+            top: 130px; /* 헤더 아래로 약간 내려오도록 조정 */
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            font-size: 18px;
+            z-index: 2;
         }
 
         nav a {
-            color: #fff;
+            color: #333; /* 진한 색상으로 변경 */
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 16px; /* 링크 글자 크기 */
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.3s;
         }
 
         nav a:hover {
-            text-decoration: underline; /* 링크에 마우스 올렸을 때 밑줄 */
+            color: #000; /* 마우스를 올렸을 때 색상 변경 */
         }
 
+        /* 공지사항 상세 스타일 */
         .board_entry {
             background-color: #fff; /* 배경색 설정 */
             border-radius: 8px; /* 모서리 둥글게 */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-            padding: 20px; /* 패딩 설정 */
-            margin: 20px auto; /* 상하 여백 및 중앙 정렬 */
-            max-width: 800px; /* 최대 너비 설정 */
-            text-align: center; /* 텍스트 중앙 정렬 */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 강화 */
+            padding: 30px; /* 패딩 설정 */
+            margin: 40px auto; /* 상하 여백 및 중앙 정렬 */
+            max-width: 900px; /* 최대 너비 설정 */
+            text-align: left; /* 텍스트 왼쪽 정렬 */
+        }
+
+        .board_entry h2 {
+            font-size: 28px; /* 제목 글자 크기 */
+            color: #333; /* 제목 글자색 */
+            margin-bottom: 20px; /* 제목 아래 여백 */
         }
 
         .board_entry p {
-            font-size: 18px; /* 글자 크기 */
-            color: #333; /* 글자색 */
+            font-size: 18px; /* 내용 글자 크기 */
+            color: #555; /* 내용 글자색 */
+            line-height: 1.6; /* 줄 간격 */
+            margin-top: 10px;
+            padding-left: 20px; /* 왼쪽 여백 추가 - 들여쓰기 */
         }
-
         .buttons {
             display: flex;
             justify-content: center;
@@ -61,7 +94,7 @@
             display: inline-block;
             padding: 10px 20px; /* 버튼 패딩 */
             font-size: 16px; /* 버튼 글자 크기 */
-            background-color: #007bff; /* 버튼 배경색 */
+            background-color: #ff832b; /* 버튼 배경색 */
             color: #fff; /* 버튼 글자색 */
             text-decoration: none; /* 링크 밑줄 제거 */
             border-radius: 5px; /* 모서리 둥글게 */
@@ -70,26 +103,17 @@
         }
 
         .button:hover {
-            background-color: #0056b3; /* 버튼에 마우스 올렸을 때 배경색 */
+            background-color: #b65a18; /* 버튼에 마우스 올렸을 때 배경색 */
         }
 
         .delete .button {
-            background-color: #dc3545; /* 삭제 버튼 배경색 */
+            background-color: #ff832b; /* 삭제 버튼 배경색 */
         }
 
         .delete .button:hover {
-            background-color: #c82333; /* 삭제 버튼에 마우스 올렸을 때 배경색 */
+            background-color: #ff832b; /* 삭제 버튼에 마우스 올렸을 때 배경색 */
         }
 
-        footer {
-            background: linear-gradient(to right, #E6ADCE, #A1A7E5,#FFA005,#F251AC);
-            background-color: #333; /* 헤더 배경색 */
-            color: #fff; /* 헤더 글자색 */
-            padding: 20px 0; /* 헤더 패딩 */
-            text-align: center;
-            margin-top: auto;
-            width: 100%;
-        }
 
         .back-to-list {
             display: block;
@@ -97,22 +121,35 @@
             text-align: center; /* 텍스트 중앙 정렬 */
             font-size: 16px; /* 글자 크기 */
         }
+
+
     </style>
 </head>
 <body>
+
+<!-- 배경, 헤더 이미지 -->
+<img src="/image/BG.svg" alt="Background" id="bg">
+<img src="/image/header.svg" alt="Header" id="header">
+
 <header>
-<nav>
-    <a href="#">선호도 설정</a>
-    <a href="/notice/admin/noticeList">공지사항</a>
-    <a href="#">데이트 컨텐츠</a>
-    <a href="#">MY Profile</a>
-    <a href="#">로그아웃</a>
-</nav>
+    <nav>
+        <a href="#">선호도 설정</a>
+        <a href="/notice/admin/noticelist">공지사항</a>
+        <a href="#">채팅</a>
+        <a href="#">데이트 컨텐츠</a>
+        <a href="#">MY Profile</a>
+        <a href="#">LOGOUT</a>
+    </nav>
+
 </header>
 <div class="board_entry">
+    <div class="title">
     <p th:text="${notice.noticeTitle}">notice title</p>
+    </div>
+    <div class="content">
     <p th:text="${notice.noticeContent}">notice content</p>
     <br/>
+</div>
 
 
 
@@ -133,9 +170,7 @@
 
 <a class="back-to-list button" th:href="@{'/notice/admin/noticelist'}">Back to list</a>
 
-<!--<footer>-->
-<!--    <p>© 2024 관리자용 페이지</p>-->
-<!--</footer>-->
+
 
 </body>
 </html>

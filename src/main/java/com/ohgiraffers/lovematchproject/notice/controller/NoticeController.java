@@ -28,8 +28,6 @@ public class NoticeController {
     }
 
 
-
-
     // 메인 페이지 요청 처리
     @GetMapping("/notice/admin/mainpage")
     public String mainpage() {
@@ -46,12 +44,13 @@ public class NoticeController {
 
     @PostMapping("/insert")
     public ModelAndView postpage(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
-        String result = noticeService.createPost(noticeDTO, redirectAttributes);
+        String result = String.valueOf(noticeService.createPost(noticeDTO, redirectAttributes));
         ModelAndView modelAndView = new ModelAndView();
 
+
         if (result == null) {
-            redirectAttributes.addFlashAttribute("message", "게시글 등록에 실패하였습니다");
-            modelAndView.setViewName("redirect:/notice/admin/noticeregist");
+            modelAndView.addObject("error", "게시글 등록에 실패하였습니다.");
+            modelAndView.setViewName("error"); // "error"는 에러 페이지로 사용될 템플릿 파일 이름입니다.
         } else {
             redirectAttributes.addFlashAttribute("success", "게시글이 성공적으로 등록되었습니다.");
             modelAndView.setViewName("redirect:/notice/admin/noticelist");

@@ -3,175 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <title>게시물 목록</title>
-    <link rel="stylesheet" type="text/css" href="/css/styleSJY.css">
     <script src="/javascript/javaSJY.js"></script>
     <style>
+        /* 전체 페이지 기본 스타일 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* 스크롤바 제거 */
+            font-family: Arial, sans-serif;
+        }
+
+        /* 배경 이미지 스타일 - 화면 전체를 커버 */
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 화면을 꽉 채우도록 설정 */
+            z-index: -3; /* 다른 요소들 뒤에 위치 */
+        }
+
+        /* 헤더 이미지와 네비게이션 바 스타일 */
+        #header {
+            position: relative;
+            top: 0;
+            width: 100%;
+            z-index: -2;
+        }
+
+        nav {
+            position: absolute;
+            right: 20px;
+            top: 130px; /* 헤더 아래로 약간 내려오도록 조정 */
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        nav a {
+            color: #333; /* 진한 색상으로 변경 */
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #000; /* 마우스를 올렸을 때 색상 변경 */
+        }
 
         table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-    section.notice {
-        padding: 80px 0;
-    }
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        section.notice {
+            padding: 80px 0;
+        }
 
-    .page-title {
-        margin-bottom: 60px;
-    }
-    .page-title h3 {
-        font-size: 28px;
-        color: #333333;
-        font-weight: 400;
-        text-align: center;
-    }
+        .page-title {
+            margin-bottom: 60px;
+        }
 
-    #board-search .search-window {
-        padding: 15px 0;
-        background-color: #f9f7f9;
-    }
-    #board-search .search-window .search-wrap {
-        position: relative;
-        /*   padding-right: 124px; */
-        margin: 0 auto;
-        width: 80%;
-        max-width: 564px;
-    }
-    #board-search .search-window .search-wrap input {
-        height: 40px;
-        width: 100%;
-        font-size: 14px;
-        padding: 7px 14px;
-        border: 1px solid #ccc;
-    }
-    #board-search .search-window .search-wrap input:focus {
-        border-color: #333;
-        outline: 0;
-        border-width: 1px;
-    }
-    #board-search .search-window .search-wrap .btn {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 108px;
-        padding: 0;
-        font-size: 16px;
-    }
+        .page-title h3 {
+            font-size: 28px;
+            color: #333333;
+            font-weight: 400;
+            text-align: center;
+        }
 
-    .board-table {
-        font-size: 13px;
-        width: 100%;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-    }
+        #board-search .search-window {
+            padding: 15px 0;
+            background-color: #f9f7f9;
+        }
 
-    .board-table a {
-        color: #333;
-        display: inline-block;
-        line-height: 1.4;
-        word-break: break-all;
-        vertical-align: middle;
-    }
-    .board-table a:hover {
-        text-decoration: underline;
-    }
-    .board-table th {
-        text-align: center;
-    }
+        #board-search .search-window .search-wrap {
+            position: relative;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 564px;
+        }
 
-    .board-table .th-num {
-        width: 100px;
-        text-align: center;
-    }
+        #board-search .search-window .search-wrap input {
+            height: 40px;
+            width: 100%;
+            font-size: 14px;
+            padding: 7px 14px;
+            border: 1px solid #ccc;
+        }
 
-    .board-table .th-date {
-        width: 200px;
-    }
+        #board-search .search-window .search-wrap input:focus {
+            border-color: #333;
+            outline: 0;
+            border-width: 1px;
+        }
 
-    .board-table th, .board-table td {
-        padding: 14px 0;
-    }
-
-    .board-table tbody td {
-        border-top: 1px solid #e7e7e7;
-        text-align: center;
-    }
-
-    .board-table tbody th {
-        padding-left: 28px;
-        padding-right: 14px;
-        border-top: 1px solid #e7e7e7;
-        text-align: left;
-    }
-
-    .board-table tbody th p{
-        display: none;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 0 30px;
-        font-size: 15px;
-        font-weight: 400;
-        background: transparent;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        border: 1px solid transparent;
-        text-transform: uppercase;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        -webkit-transition: all 0.3s;
-        -moz-transition: all 0.3s;
-        -ms-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        transition: all 0.3s;
-    }
-
-
-    /* reset */
-
-    * {
-        list-style: none;
-        text-decoration: none;
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    .clearfix:after {
-        content: '';
-        display: block;
-        clear: both;
-    }
-    .container {
-        width: 1100px;
-        margin: 0 auto;
-    }
-    .blind {
-        position: absolute;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        margin: -1px;
-        width: 1px;
-        height: 1px;
-    }
-
-        .notice-registration-btn {
+        #board-search .search-window .search-wrap .btn {
             position: absolute;
             right: 0;
             top: 0;
-            margin-right: 15px;
-            margin-top: 15px;
+            bottom: 0;
+            width: 108px;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .board-table {
+            font-size: 13px;
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .board-table a {
+            color: #333;
+            display: inline-block;
+            line-height: 1.4;
+            word-break: break-all;
+            vertical-align: middle;
+        }
+
+        .board-table a:hover {
+            text-decoration: underline;
+        }
+
+        .board-table th {
+            text-align: center;
+        }
+
+        .board-table .th-num {
+            width: 100px;
+            text-align: center;
+        }
+
+        .board-table .th-date {
+            width: 200px;
+        }
+
+        .board-table th, .board-table td {
+            padding: 14px 0;
+        }
+
+        .board-table tbody td {
+            border-top: 1px solid #e7e7e7;
+            text-align: center;
+        }
+
+        .board-table tbody th {
+            padding-left: 28px;
+            padding-right: 14px;
+            border-top: 1px solid #e7e7e7;
+            text-align: left;
+        }
+
+        .board-table tbody th p {
+            display: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0 30px;
+            font-size: 15px;
+            font-weight: 400;
+            background: transparent;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            border-radius: 0;
+            transition: all 0.3s;
+        }
+
+        .notice-registration-btn {
             padding: 10px 20px;
-            background-color: #8e4d88; /* Button color */
+            background-color: #ff832b; /* Button color */
             color: white;
             border: none;
             cursor: pointer;
@@ -182,29 +195,78 @@
         }
 
         .notice-registration-btn:hover {
-            background-color: #3d6aaf; /* Hover effect */
+            background-color: #a85f1b;
+        }
+
+        /* 메시지 스타일 */
+        .alert-success {
+            padding: 10px;
+            background-color: #fcaa2c;
+            color: #090400;
+            border: 1px solid #fcaa2c;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* reset */
+        * {
+            list-style: none;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .container {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .blind {
+            position: absolute;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            margin: -1px;
+            width: 1px;
+            height: 1px;
         }
     </style>
 </head>
 <body>
 
+<!-- 배경, 헤더 이미지 -->
+<img src="/image/BG.svg" alt="Background" id="bg">
+<img src="/image/header.svg" alt="Header" id="header">
+
 <div class="container">
     <header>
         <nav>
             <a href="#">선호도 설정</a>
-            <a href="/notice/admin/noticeList">공지사항</a>
+            <a href="/notice/admin/noticelist">공지사항</a>
+            <a href="#">채팅</a>
             <a href="#">데이트 컨텐츠</a>
             <a href="#">MY Profile</a>
-            <a href="#">로그아웃</a>
+            <a href="#">LOGOUT</a>
         </nav>
     </header>
 
-<h1>공지사항 목록</h1>
-<div th:if="${noPost}">
-    <p>현재 게시물이 없습니다.</p>
-</div>
+    <h1>공지사항 목록</h1>
+
+    <!-- 성공 메시지 표시 -->
+    <div th:if="${success}" class="alert-success" th:text="${success}"></div>
+
+    <div th:if="${noPost}">
+        <p>현재 게시물이 없습니다.</p>
+    </div>
 
 </div>
+
 <div id="board-list">
     <div class="container">
         <table class="board-table">
@@ -219,7 +281,7 @@
             <tr th:each="notice, iterStat : ${noticelist}">
                 <td th:text="${iterStat.count}"></td>
                 <td>
-                <a th:href="@{/notice/admin/noticelist/{id}(id=${notice.id})}" th:text="${notice.noticeTitle}"></a>
+                    <a th:href="@{/notice/admin/noticelist/{id}(id=${notice.id})}" th:text="${notice.noticeTitle}"></a>
                 </td>
                 <td th:text="${#dates.format(notice.createDate, 'yyyy.MM.dd')}"></td>
             </tr>
@@ -229,14 +291,6 @@
 
     <button type="button" class="notice-registration-btn" onclick="location.href='/noticeregist'">공지등록</button>
 </div>
-
-
-
-
-
-<!--    <footer>-->
-<!--        <p>© 2024 관리자용 페이지</p>-->
-<!--    </footer>-->
 
 </body>
 </html>
