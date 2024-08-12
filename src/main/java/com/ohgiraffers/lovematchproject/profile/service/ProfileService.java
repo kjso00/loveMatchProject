@@ -22,10 +22,10 @@ public class ProfileService {
     }
 
 
-    public ProfileDTO save(ProfileDTO profileDTO, UserEntity userEntity) {
+    public ProfileDTO save(ProfileDTO profileDTO, Long userId) {
         ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setUserId(userEntity.getId()); // user_id 설정
+        profileEntity.setUserId(userId); // user_id 설정
         profileEntity.setProfileName(profileDTO.getProfileName());
         profileEntity.setProfileGender(profileDTO.getProfileGender());
         profileEntity.setProfileAge(profileDTO.getProfileAge());
@@ -34,10 +34,14 @@ public class ProfileService {
         profileEntity.setProfileLocation(profileDTO.getProfileLocation());
 
         // 프로필 저장
-        profileRepository.save(profileEntity);
+        ProfileEntity savedProfile = profileRepository.save(profileEntity);
 
+        return convertToDTO(savedProfile);
         // 저장된 프로필을 DTO로 변환하여 반환
-        profileDTO = new ProfileDTO();
+    }
+
+    private ProfileDTO convertToDTO(ProfileEntity profileEntity) {
+        ProfileDTO profileDTO = new ProfileDTO();
         profileDTO.setProfileNo(profileEntity.getProfileNo());
         profileDTO.setProfileName(profileEntity.getProfileName());
         profileDTO.setProfileAge(profileEntity.getProfileAge());
@@ -45,7 +49,6 @@ public class ProfileService {
         profileDTO.setProfileLocation(profileEntity.getProfileLocation());
         profileDTO.setProfileMBTI(profileEntity.getProfileMBTI());
         profileDTO.setProfileHeight(profileEntity.getProfileHeight());
-
         return profileDTO;
     }
 
