@@ -118,6 +118,9 @@
 <div sec:authorize="!isAuthenticated()">
     <button onclick="location.href='/login'" class="loginClick">로그인을 하시려면 눌러주세요</button>
 </div>
+<div sec:authorize="!isAuthenticated()">
+    <button onclick="location.href='/signup'" class="loginClick">회원가입을 하시려면 눌러주세요</button>
+</div>
 
 
 <!-- 배경, 헤더 이미지 -->

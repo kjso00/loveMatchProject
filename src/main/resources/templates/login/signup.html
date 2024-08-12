@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../static/css/login.css}">
+</head>
+
+<body>
+<div>
+    <form>
+        <p>사이트 이용약관</p>
+        <br>LoveMatch에 회원가입을 하시게 되면, Top5 에 선정될 경우 메인페이지에 프로필 사진이 공개될 수 있습니다.<br>동의하고 이용을 원하시면 체크 후 동의 버튼을 눌러주세요.<br>
+        <input type="checkbox" id="terms" name="terms" th:value="true" />
+        <label for="terms"><button type="submit">동의 후 회원가입</button></label>
+
+    </form>
+</div>
+
+<div id="signup-button" style="display: none;">
+    <p1>회원가입페이지</p1>
+    <div>
+        <img th:src="@{../static/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
+    </div>
+    <div>
+        <img th:src="@{../static/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function () {
+        const form = document.querySelector('form'); // 첫번째 form을 선택함
+        const termsCheckbox = document.getElementById('terms');
+        const signupBox = document.getElementById('signup-button');
+        localStorage.setItem('termsAccepted', 'false');
+
+        // 회원가입 페이지의 초기상태
+        if (localStorage.getItem('termsAccepted') === 'true') {
+            signupBox.style.display = 'block';
+        } else {
+            signupBox.style.display = 'none';
+        }
+
+        form.addEventListener('submit', function (event) { // form에서 submit 누를때마다 함수 실행
+            if (!termsCheckbox.checked) { // 체크박스가 선택되지 않았다면
+                alert('사이트 이용 약관에 동의하셔야 이용이 가능합니다.');
+                event.preventDefault(); // 폼 제출 중단(서버로 전송안되는 상태)
+            } else { // 체크박스가 선택되었으면
+                localStorage.setItem('termsAccepted', 'true');
+                signupBox.style.display = 'block';
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
