@@ -51,6 +51,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userEntity = new UserEntity();
             userEntity.setUserId(userId);
             userEntity.setEmail(oAuth2Response.getEmail());
+            userEntity.setUserName(oAuth2Response.getName());
             role = Role.USER;
 
             // 임시로 관리자 권한 테스트
@@ -65,6 +66,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         } else { // 존재하는경우 새로 업데이트 시켜줌
             existData.setUserId(userId);
             existData.setEmail(oAuth2Response.getEmail());
+            existData.setUserName(oAuth2Response.getName());
             role = existData.getRole();
             existData.setRole(role);
             userRepository.save(existData); // 업데이트 한 정보 저장
