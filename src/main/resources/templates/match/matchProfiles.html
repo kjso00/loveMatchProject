@@ -31,13 +31,13 @@
 <h1>Matches profile</h1>
      <div class="profile-container">
         <div class="profile-box" th:each="profile : ${matchResults}">
-            이름 : <a th:text="${profile.profileName}"></a>
-            성별 : <p th:text="${profile.profileGender}"></p>
-            나이 : <p th:text="${profile.profileAge}"></p>
-            키 : <p th:text="${profile.profileHeight}"></p>
-            MBTI : <p th:text="${profile.profileMBTI}"></p>
-            거주지 : <p th:text="${profile.profileLocation}"></p>
-            스코어 : <p th:text="${profile.totalScore}"></p>
+            <p th:text="${profile.profileName}"></p>
+            <p th:text="${profile.profileGender}"></p>
+            <p th:text="${profile.profileAge}"></p>
+            <p th:text="${profile.profileHeight}"></p>
+            <p th:text="${profile.profileMBTI}"></p>
+            <p th:text="${profile.profileLocation}"></p>
+            <p th:text="${profile.totalScore}"></p>
         </div>
      </div>
 

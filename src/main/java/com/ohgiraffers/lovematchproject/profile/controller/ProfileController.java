@@ -39,7 +39,7 @@ public class ProfileController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ProfileDTO profileDTO, @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
+    public String save(@ModelAttribute ProfileDTO profileDTO, Model model) {
 
         // 로그인 한 유저의 인증정보 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +52,7 @@ public class ProfileController {
         Long number = customUser.getOAuth().getUserNum();
 
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity);
+        ProfileDTO savedProfile = profileService.save(profileDTO, number);
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }

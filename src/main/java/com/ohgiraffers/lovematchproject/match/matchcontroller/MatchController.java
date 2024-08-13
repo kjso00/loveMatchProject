@@ -37,8 +37,6 @@ public class MatchController {
     public ModelAndView getMatches(ModelAndView mv, HttpServletRequest request) {
 
 //        long loginUserId = 7; // 현재 사용자의 ID를 하드코딩
-//        long loginUserId =  // 현재 사용자의 ID
-
 //        long loginUserId = userEntity.getId(); // UserEntity의 실제 DB ID를 사용
 
         // 현재 인증된 사용자의 정보를 가져옴
@@ -49,8 +47,8 @@ public class MatchController {
 
         Long loginUserId = customUser.getOAuth().getUserNum();
 
-
         ProfileDTO loginUser = matchService.getLoginUser(loginUserId);
+
         List<ProfileDTO> targetGender = matchService.getFilteringGender(loginUserId);
         List<ProfileDTO> matchResults = matchService.calculatematchScores(loginUserId);
 
