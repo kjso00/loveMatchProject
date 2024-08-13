@@ -4,6 +4,7 @@ import com.ohgiraffers.lovematchproject.notice.model.dto.NoticeDTO;
 import com.ohgiraffers.lovematchproject.notice.model.entity.Notice;
 import com.ohgiraffers.lovematchproject.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +30,7 @@ public class NoticeController {
 
 
     // 메인 페이지 요청 처리
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/notice/admin/mainpage")
     public String mainpage() {
         return "notice/admin/mainpage";
