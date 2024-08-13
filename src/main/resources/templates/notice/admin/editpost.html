@@ -145,17 +145,17 @@
 <!-- 배경, 헤더 이미지 -->
 <img src="/image/BG.svg" alt="Background" id="bg">
 <img src="/image/header.svg" alt="Header" id="header">
-
+<!-- 네비바 -->
 <header>
     <nav>
-        <a href="#">선호도 설정</a>
-        <a href="/notice/admin/noticelist">공지사항</a>
+        <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
         <a href="#">채팅</a>
-        <a href="#">데이트 컨텐츠</a>
-        <a href="#">MY Profile</a>
-        <a href="#">LOGOUT</a>
+        <a th:href="@{/date/datemain}">데이트 컨텐츠</a>
+        <a th:href="@{/profile/list}">MY Profile</a>
+        <a th:href="@{/logout}">LOGOUT</a>
     </nav>
 </header>
+
 <div class="board_entry">
 <form th:action="@{'/notice/admin/noticelist/editpost/'+ ${noticeDTO.id}}" method="post">
     <!-- 수정할 게시글 제목 입력 폼 -->
