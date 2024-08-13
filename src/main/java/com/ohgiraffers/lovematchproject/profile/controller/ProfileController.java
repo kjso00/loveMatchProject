@@ -1,6 +1,5 @@
 package com.ohgiraffers.lovematchproject.profile.controller;
 
-import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
@@ -46,15 +45,20 @@ public class ProfileController {
             return "redirect:/login";
         }
 
-        CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
-        Long number = customUser.getOAuth().getUserNum();
-//        String userEmail = customUser.getOAuth().getEmail(); 이메일 가져다 쓰시려면 이거 쓰세요
+
+        // loginUserEmail로 UserEntity 조회
+        UserEntity userEntity = userRepository.findByEmail(userEmail);
+        if (userEntity == null) {
+            throw new IllegalArgumentException("User not found with userId: " + userEmail);
+        }
 
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, number);
+        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity.getId());
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }
+
+
 
     @GetMapping("/list") //DB 에서 data 가져와야해서 이때는 Model 객체 사용 해야한다.
     public String findAll(Model model){
