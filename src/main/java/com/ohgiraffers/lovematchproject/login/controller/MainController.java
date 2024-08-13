@@ -21,7 +21,7 @@ public class MainController {
         System.out.println("---------------");
         System.out.println("넘길번호 :" + number);
 
-        return "profile/home";
+        return "profile/list";
     }
 
 }
