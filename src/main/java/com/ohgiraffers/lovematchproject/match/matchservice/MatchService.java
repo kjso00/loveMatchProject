@@ -1,8 +1,11 @@
 package com.ohgiraffers.lovematchproject.match.matchservice;
 
+import com.ohgiraffers.lovematchproject.chat.service.UserService;
+import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileEntity;
 import com.ohgiraffers.lovematchproject.match.matchrepository.MatchRepository;
+import com.ohgiraffers.lovematchproject.profile.repository.ProfileRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +20,24 @@ public class MatchService {
 
     private final MatchRepository matchRepository;
     private final KakaoMapService kakaoMapService;
+    private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
 
     @Autowired
-    public MatchService(MatchRepository matchRepository, KakaoMapService kakaoMapService) {
+    public MatchService(MatchRepository matchRepository, KakaoMapService kakaoMapService, UserRepository userRepository, ProfileRepository profileRepository) {
         this.matchRepository = matchRepository;
         this.kakaoMapService = kakaoMapService;
+        this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
     }
 
     public ProfileDTO getLoginUser(Long loginUserId) {
-        ProfileEntity entity = matchRepository.findById(loginUserId).orElse(null);
+        ProfileEntity entity = profileRepository.findById(loginUserId).orElse(null);
         if (entity == null) {
             throw new IllegalArgumentException("User not found with ID: " + loginUserId);
         }
+        ////여기 왜 오류가 안나지..? 여기 뭔가 이상한데... 리뷰 및 수정필요...
+
         ProfileDTO profileDTO = new ProfileDTO();
         profileDTO.setProfileNo(entity.getProfileNo());
         profileDTO.setProfileGender(entity.getProfileGender());

@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.profile.service;
 
+import com.ohgiraffers.lovematchproject.chat.model.dto.UserDTO;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
@@ -23,10 +24,10 @@ public class ProfileService {
     }
 
 
-    public ProfileDTO save(ProfileDTO profileDTO, UserEntity userEntity) {
+    public ProfileDTO save(ProfileDTO profileDTO, Long userId) {
         ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setUserId(userEntity.getId()); // user_id 설정
+        profileEntity.setUserId(userId);
         profileEntity.setProfileName(profileDTO.getProfileName());
         profileEntity.setProfileGender(profileDTO.getProfileGender());
         profileEntity.setProfileAge(profileDTO.getProfileAge());

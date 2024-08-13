@@ -3,46 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Match Profile List</title>
+
+    <style>
+        .profile-container {
+            border: 1px black;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 30px; /* 중앙 정렬 */
+        }
+
+        .profile-box{
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+            height: 300px;
+            box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
+            text-align: center;
+        }
+    </style>
+
 </head>
 <body>
 <h3>Login User</h3>
-<h1>Match for <span th:text="${loginUser.profileName}"></span></h1>
-<div>
-    <p th:text="'Name: ' + ${loginUser.profileName}"></p>
-    <p th:text="'Gender: ' + ${loginUser.profileGender}"></p>
-    <p th:text="'Age: ' + ${loginUser.profileAge}"></p>
-    <p th:text="'Height: ' + ${loginUser.profileHeight}"></p>
-    <p th:text="'MBTI: ' + ${loginUser.profileMBTI}"></p>
-    <p th:text="'Location: ' + ${loginUser.profileLocation}"></p>
-</div>
+<h2>Match for <span th:text="${loginUser.profileName}"></span></h2>
 
 <h1>Matches profile</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Height</th>
-            <th>MBTI</th>
-            <th>Location</th>
-            <th>Total Score</th>
-        </tr>
-        </thead>
+     <div class="profile-container">
+        <div class="profile-box" th:each="profile : ${matchResults}">
+            이름 : <a th:text="${profile.profileName}"></a>
+            성별 : <p th:text="${profile.profileGender}"></p>
+            나이 : <p th:text="${profile.profileAge}"></p>
+            키 : <p th:text="${profile.profileHeight}"></p>
+            MBTI : <p th:text="${profile.profileMBTI}"></p>
+            거주지 : <p th:text="${profile.profileLocation}"></p>
+            스코어 : <p th:text="${profile.totalScore}"></p>
+        </div>
+     </div>
 
-        <tbody>
-        <tr th:each="profile : ${matchResults}">
-            <td th:text="${profile.profileName}"></td>
-            <td th:text="${profile.profileGender}"></td>
-            <td th:text="${profile.profileAge}"></td>
-            <td th:text="${profile.profileHeight}"></td>
-            <td th:text="${profile.profileMBTI}"></td>
-            <td th:text="${profile.profileLocation}"></td>
-            <td th:text="${profile.totalScore}"></td>
-        </tr>
-        </tbody>
-    </table>
+<button onclick="moveToPriority()" > 가중치 입력 페이지 </button>
 
+<script>
+    const moveToPriority = () => {
+        location.href="/match/priority"
+    }
+</script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.profile.controller;
 
+import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
@@ -25,12 +26,10 @@ import java.util.Map;
 public class ProfileController {
 
     private ProfileService profileService;
-    private UserRepository userRepository;
 
     @Autowired
-    public ProfileController(ProfileService profileService, UserRepository userRepository) {
+    public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/save")
@@ -39,24 +38,19 @@ public class ProfileController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ProfileDTO profileDTO, @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
+    public String save(@ModelAttribute ProfileDTO profileDTO, Model model) {
 
-        // 현재 로그인한 유저의 ID 가져오기 //수정필요.
-        // 현재 로그인한 유저의 이메일 가져오기
-        String userEmail = oauth2User.getAttribute("email");
-        if (userEmail == null) {
-            throw new IllegalStateException("User email not found");
-        }
+        // 현재 인증된 사용자의 정보를 가져옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        // authentication.getPrincipal() 메서드는 현재 인증된 사용자의 세부 정보를 반환
+        CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
 
-        // loginUserEmail로 UserEntity 조회
-        UserEntity userEntity = userRepository.findByEmail(userEmail);
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User not found with userId: " + userEmail);
-        }
+        Long number = customUser.getOAuth().getUserNum();
+
 
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity);
+        ProfileDTO savedProfile = profileService.save(profileDTO, number);
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }
