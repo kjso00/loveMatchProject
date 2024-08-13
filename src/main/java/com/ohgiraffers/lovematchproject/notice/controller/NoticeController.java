@@ -37,13 +37,14 @@ public class NoticeController {
     }
 
     // 게시판 페이지 요청 처리
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/noticeregist")
     public String regist() {
 
         return "notice/admin/noticeregist";
     }
 
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/insert")
     public ModelAndView postpage(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
         String result = String.valueOf(noticeService.createPost(noticeDTO, redirectAttributes));
@@ -65,6 +66,7 @@ public class NoticeController {
 
 
     // [전체 조회]
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/notice/admin/noticelist")
     public ModelAndView noticelist() {
         List<Notice> noticelist = noticeService.getAllPosts();
@@ -86,6 +88,7 @@ public class NoticeController {
 
 
     // 상세 조회
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/notice/admin/noticelist/{id}")
     public ModelAndView getPostDetail(@PathVariable("id") int id) {
         NoticeDTO noticeDTO = noticeService.getPostById(id);
@@ -106,6 +109,7 @@ public class NoticeController {
 
 
     // [수정]
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/notice/admin/noticelist/editpost/{id}")
     public ModelAndView editPost(@PathVariable("id") int id) {
         NoticeDTO edits = noticeService.getPostById(id);
@@ -120,7 +124,7 @@ public class NoticeController {
 
         return modelAndView;
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/notice/admin/noticelist/editpost/{id}")
     public ModelAndView updatePost(@PathVariable("id") int id, @ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
         NoticeDTO modifyPost = noticeService.updatePost(id, noticeDTO);
@@ -140,6 +144,7 @@ public class NoticeController {
 
 
     // [삭제]
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/notice/admin/noticelist/{id}")
     public ModelAndView deletePost(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         String resultMessage = noticeService.deletePost(id);
