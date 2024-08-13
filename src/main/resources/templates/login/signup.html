@@ -3,28 +3,35 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
     <link rel="stylesheet" th:href="@{../static/css/login.css}">
+    <link rel="stylesheet" th:href="@{../static/css/background.css}">
 </head>
 
 <body>
-<div>
-    <form>
-        <p>사이트 이용약관</p>
-        <br>LoveMatch에 회원가입을 하시게 되면, Top5 에 선정될 경우 메인페이지에 프로필 사진이 공개될 수 있습니다.<br>동의하고 이용을 원하시면 체크 후 동의 버튼을 눌러주세요.<br>
-        <input type="checkbox" id="terms" name="terms" th:value="true" />
-        <label for="terms"><button type="submit">동의 후 회원가입</button></label>
+<img src="/image/BG.svg" alt="Background" id="bg">
+<img src="/image/header.svg" alt="Header" id="header">
 
-    </form>
+<div class="container">
+    <div id="terms-box" style="display: block; text-align: center" class="btn-box">
+        <form>
+            <p style="font-size: 2em;">사이트 이용약관</p>
+            <br><p style="font-size: 1.3em;">LoveMatch에 회원가입을 하시게 되면, Top5 에 선정될 경우 메인페이지에 프로필 사진이 공개될 수 있습니다.<br>동의하고 이용을 원하시면 체크 후 동의 버튼을 눌러주세요.<br></p>
+            <input type="checkbox" id="terms" name="terms" th:value="true" />
+            <label for="terms"><button type="submit" class="default-btn">동의 후 회원가입</button></label>
+        </form>
+    </div>
 </div>
 
-<div id="signup-button" style="display: none;">
-    <p1>회원가입페이지</p1>
-    <div>
-        <img th:src="@{../static/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
-    </div>
-    <div>
-        <img th:src="@{../static/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
+<div class="container">
+    <div id="signup-button" style="display: none;" class="btn-box">
+        <div>
+            <img th:src="@{../static/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
+        </div>
+        <div>
+            <img th:src="@{../static/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
+        </div>
     </div>
 </div>
 
@@ -33,6 +40,8 @@
         const form = document.querySelector('form'); // 첫번째 form을 선택함
         const termsCheckbox = document.getElementById('terms');
         const signupBox = document.getElementById('signup-button');
+        const termsBox = document.getElementById('terms-box');
+
         localStorage.setItem('termsAccepted', 'false');
 
         // 회원가입 페이지의 초기상태
@@ -49,6 +58,7 @@
             } else { // 체크박스가 선택되었으면
                 localStorage.setItem('termsAccepted', 'true');
                 signupBox.style.display = 'block';
+                termsBox.style.display = 'none';
                 event.preventDefault();
             }
         });

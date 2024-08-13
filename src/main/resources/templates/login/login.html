@@ -3,16 +3,25 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
     <link rel="stylesheet" th:href="@{../static/css/login.css}">
+    <link rel="stylesheet" th:href="@{../static/css/background.css}">
 </head>
 <body>
-<p1>로그인페이지</p1>
-<div>
-    <img th:src="@{../static/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
+<img src="/image/BG.svg" alt="Background" id="bg">
+<img src="/image/header.svg" alt="Header" id="header">
+
+<div class="container">
+    <div class="btn-box">
+        <div>
+            <img th:src="@{../static/img/login-google.png}" onclick="location.href='/oauth2/authorization/google'" class="btn-login"/>
+        </div>
+        <div>
+            <img th:src="@{../static/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
+        </div>
+    </div>
 </div>
-<div>
-    <img th:src="@{../static/img/login-naver.png}" onclick="location.href='/oauth2/authorization/naver'" class="btn-login"/>
-</div>
+
 </body>
 </html>
