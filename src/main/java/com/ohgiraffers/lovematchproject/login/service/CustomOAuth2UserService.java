@@ -42,31 +42,33 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return null;
         }
 
-        String userId = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId(); // 임의로 만들어준 id
+        String userId = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId(); // 임의로 만들어준 id
         UserEntity existData = userRepository.findByUserId(userId); // id값으로 repo에서 찾아서 넣어줌
 
         Role role; // enum 타입의 Role 클래스를 쓰기 위해 선언
+        UserEntity userEntity = null;
         if (existData == null) { // 데이터가 없으면 신규회원
-            UserEntity userEntity = new UserEntity();
+            userEntity = new UserEntity();
             userEntity.setUserId(userId);
             userEntity.setEmail(oAuth2Response.getEmail());
             role = Role.USER;
-            userEntity.setRole(role);
-            userEntity.setAgree("N");
+
+            // 임시로 관리자 권한 테스트
+            if (oAuth2Response.getEmail().equals("zhuyaan93@gmail.com") || oAuth2Response.getEmail().equals("dansunmusik7@gmail.com")) {
+                userEntity.setRole(Role.ADMIN);
+            } else {
+                userEntity.setRole(Role.USER);
+            }
             userRepository.save(userEntity); // 제공자에게 받아온 정보 넣어주고 entity 저장
-            // 동의페이지로 리다이렉트
-        }
-        else { // 존재하는경우 새로 업데이트 시켜줌
+            oAuth2Response.setUserNum(userEntity.getId()); // user엔터티에 있는 id 번호를 UserNum에 그대로 넣어줌
+
+        } else { // 존재하는경우 새로 업데이트 시켜줌
             existData.setUserId(userId);
             existData.setEmail(oAuth2Response.getEmail());
             role = existData.getRole();
             existData.setRole(role);
             userRepository.save(existData); // 업데이트 한 정보 저장
-
-            if (existData.getAgree() == null || existData.getAgree().equals("N")) {
-                // 동의페이지로 리다이렉트
-            }
-
+            oAuth2Response.setUserNum(existData.getId());
         }
 
         return new CustomOAuth2User(oAuth2Response, role.getKey());
