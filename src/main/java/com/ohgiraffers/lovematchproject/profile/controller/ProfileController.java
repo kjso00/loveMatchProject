@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.profile.controller;
 
+import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
@@ -38,40 +39,22 @@ public class ProfileController {
     @PostMapping("/save")
     public String save(@ModelAttribute ProfileDTO profileDTO, Model model) {
 
-        // 현재 로그인한 유저의 ID 가져오기 //수정필요.
+        // 로그인 한 유저의 인증정보 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 인증정보가 없으면 login 페이지로 redirect
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/login";
         }
-        String userEmail = null;
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof OAuth2User) {
-            OAuth2User oauth2User = (OAuth2User) principal;
-            userEmail = oauth2User.getAttribute("email");
-        } else if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            userEmail = userDetails.getUsername();
-        }
-        if (userEmail == null) {
-            throw new IllegalStateException("User email not found");
-        }
 
-
-        // loginUserEmail로 UserEntity 조회
-        UserEntity userEntity = userRepository.findByEmail(userEmail);
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User not found with userId: " + userEmail);
-        }
+        CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
+        Long number = customUser.getOAuth().getUserNum();
+//        String userEmail = customUser.getOAuth().getEmail(); 이메일 가져다 쓰시려면 이거 쓰세요
 
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity.getId());
+        ProfileDTO savedProfile = profileService.save(profileDTO, number);
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }
-
-
-
-
 
     @GetMapping("/list") //DB 에서 data 가져와야해서 이때는 Model 객체 사용 해야한다.
     public String findAll(Model model){
