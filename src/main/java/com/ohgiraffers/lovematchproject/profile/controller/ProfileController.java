@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.profile.controller;
 
+import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
@@ -45,15 +46,11 @@ public class ProfileController {
             return "redirect:/login";
         }
 
-
-        // loginUserEmail로 UserEntity 조회
-        UserEntity userEntity = userRepository.findByEmail(userEmail);
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User not found with userId: " + userEmail);
-        }
+        CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
+        Long number = customUser.getOAuth().getUserNum();
 
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity.getId());
+        ProfileDTO savedProfile = profileService.save(profileDTO, number);
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }
