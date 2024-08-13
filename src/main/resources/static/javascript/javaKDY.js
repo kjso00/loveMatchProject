@@ -1,5 +1,3 @@
-var kakaoMapKey = kakaoMapKey || 'f21943e0271305ea9a7bb98bc1b976d2'; // 기본값 설정
-
 // 전역 변수 선언
 var markers = [];
 var map;
@@ -30,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 키워드 검색 함수
 function searchPlaces() {
-    var keyword = document.getElementById('keyword').value;
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+    var keyword = document.getElementById('keyword').value.trim();
+    if (!keyword) {
         alert('키워드를 입력해주세요!');
         return false;
     }
@@ -46,10 +44,13 @@ function placesSearchCB(data, status, pagination) {
         displayPagination(pagination);
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색 결과가 존재하지 않습니다.');
-        return;
     } else if (status === kakao.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.');
-        return;
+        console.error('검색 중 오류가 발생했습니다.', {
+            data: data,
+            status: status,
+            pagination: pagination
+        });
+        alert('검색 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     }
 }
 
@@ -61,7 +62,7 @@ function displayPlaces(places) {
         bounds = new kakao.maps.LatLngBounds(),
         listStr = '';
 
-    removeAllChildNods(listEl);
+    removeAllChildNodes(listEl);
     removeMarker();
 
     for ( var i=0; i<places.length; i++ ) {
@@ -98,43 +99,150 @@ function displayPlaces(places) {
     map.setBounds(bounds);
 }
 
-// 나머지 함수들 (getListItem, addMarker, removeMarker, displayPagination, displayInfowindow, removeAllChildNods)은
-// 이전과 동일하게 유지하면 됩니다.
+// 검색결과 항목을 Element로 반환하는 함수입니다
+
+function getListItem(index, places) {
+    var el = document.createElement('li'),
+        itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+            '<div class="info">' +
+            '   <h5>' + places.place_name + '</h5>';
+
+    if (places.road_address_name) {
+        itemStr += '    <span>' + places.road_address_name + '</span>' +
+            '   <span class="jibun gray">' +  places.address_name  + '</span>';
+    } else {
+        itemStr += '    <span>' +  places.address_name  + '</span>';
+    }
+
+    itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+        '</div>';
+
+    el.innerHTML = itemStr;
+    el.className = 'item';
+
+    return el;
+}
+
+function addMarker(position, idx, title) {
+    var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
+        imageSize = new kakao.maps.Size(36, 37),
+        imgOptions =  {
+            spriteSize: new kakao.maps.Size(36, 691),
+            spriteOrigin: new kakao.maps.Point(0, (idx*46)+10),
+            offset: new kakao.maps.Point(13, 37)
+        },
+        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+        marker = new kakao.maps.Marker({
+            position: position,
+            image: markerImage
+        });
+
+    marker.setMap(map);
+    markers.push(marker);
+
+    return marker;
+}
+
+
+function removeMarker() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
+
+function displayPagination(pagination) {
+    function displayPagination(pagination) {
+        var paginationEl = document.getElementById('pagination'),
+            fragment = document.createDocumentFragment(),
+            i;
+
+        while (paginationEl.hasChildNodes()) {
+            paginationEl.removeChild(paginationEl.lastChild);
+        }
+
+        for (i=1; i<=pagination.last; i++) {
+            var el = document.createElement('a');
+            el.href = "#";
+            el.innerHTML = i;
+
+            if (i === pagination.current) {
+                el.className = 'on';
+            } else {
+                el.onclick = (function(i) {
+                    return function() {
+                        pagination.gotoPage(i);
+                    }
+                })(i);
+            }
+
+            fragment.appendChild(el);
+        }
+        paginationEl.appendChild(fragment);
+    }
+
+}
+
+function displayInfowindow(marker, title) {
+    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+    infowindow.setContent(content);
+    infowindow.open(map, marker);
+}
+
+
+function removeAllChildNodes(el) {
+    while (el.hasChildNodes()) {
+        el.removeChild(el.lastChild);
+    }
+}
+
+
 
 // 팝업 표시 함수
-function showPopup(place) {
-    document.getElementById('place-name').textContent = place.place_name;
-    document.getElementById('place-address').textContent = place.address_name;
-    document.getElementById('place-phone').textContent = place.phone;
-    document.getElementById('popup').style.display = 'block';
-}
+document.addEventListener("DOMContentLoaded", function() {
+    var mapContainer = document.getElementById('map');
+    var keywordInput = document.getElementById('keyword');
+    var likeButton = document.getElementById('like-button');
+    var mapOption = {
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 서울 시청 좌표
+        level: 3 // 지도 확대 레벨
+    };
 
-// 팝업 닫기 함수
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-}
+    // 지도 생성
+    map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 찜하기 버튼 이벤트 리스너
-document.getElementById('like-button').addEventListener('click', function() {
-    const placeName = document.getElementById('place-name').textContent;
-    // TODO: 서버에 찜하기 요청 보내기
-    fetch('/api/likes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            placeName: placeName,
-            // 필요한 다른 데이터 추가
-        }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert('찜하기 완료!');
-            // TODO: 필요한 경우 UI 업데이트
+    // 장소 검색 객체 생성
+    ps = new kakao.maps.services.Places();
+
+    // 인포윈도우 생성
+    infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+    // 찜하기 버튼 이벤트 리스너
+    likeButton.addEventListener('click', function() {
+        const placeName = document.getElementById('place-name').textContent;
+        fetch('/api/likes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                placeName: placeName,
+                // 필요한 다른 데이터 추가
+            }),
         })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('찜하기 실패. 다시 시도해주세요.');
-        });
+            .then(response => response.json())
+            .then(data => {
+                alert('찜하기 완료!');
+                // TODO: 필요한 경우 UI 업데이트
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('찜하기 실패. 다시 시도해주세요.');
+            });
+    });
+
+    // 초기 검색 실행
+    searchPlaces();
 });
