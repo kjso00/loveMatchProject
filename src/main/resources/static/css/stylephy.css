@@ -36,7 +36,6 @@
     position: relative;
     top: 130px;
     margin-top: 100px;
-    padding: 20px;
     height: calc(100vh - 200px); /* 화면 높이에서 헤더와 네비게이션 바 높이를 뺀 나머지 */
     overflow-y: auto; /* 세로 스크롤 활성화 */
 }

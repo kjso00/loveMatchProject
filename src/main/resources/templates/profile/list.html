@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" th:href="@{/commonStyle.css}">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/profileList.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profileList.css}">
     <title>list Profile</title>
 
     <!--개인회원 프로필 등록 완료된 페이지-->
 </head>
 <body>
 <!-- 배경, 헤더 이미지 css -->
-<img src="/image/BG.svg" alt="Background" id="bg">
-<img src="/image/header.svg" alt="Header" id="header">
+<img src="/static/image/BG.svg" alt="Background" id="bg">
+<img src="/static/image/header.svg" alt="Header" id="header">
 <!-- 네비게이션 바 -->
 <div>
     <header>
@@ -25,25 +25,29 @@
     </header>
 </div>
 
+<div class="container">
 <div class="content-container">
-
-    <h1>전체 회원들</h1>
-    <div class="profile-container" th:each="profileList: ${profileDTOList}">
-        <div class="profile-box">
-        <p th:text="${profileList.profileNo}"></p>
-        <p th:text="${profileList.profileName}"></p>
-        <p th:text="${profileList.profileGender}"></p>
+        <h1>전체 회원들</h1>
+        <div class="profile-container" th:each="profileList: ${profileDTOList}">
+            <div class="profile-box">
+            <p th:text="${profileList.profileNo}"></p>
+            <p th:text="${profileList.profileName}"></p>
+            <p th:text="${profileList.profileGender}"></p>
+            </div>
         </div>
-    </div>
-
-    <div class="footerBTN">
-        <br>
-        <button onclick="findMyStyle()" class="footButton"> 내 이상형 찾기(하영님 파트로 이동) </button>
-        <button onclick="moveToJenny()" class="footButton"> 다영님 파트로 이동 </button>
-        <button onclick="moveToNotice()" class="footButton"> 공지사항(주연님 파트로 이동) </button>
-        <button onclick="saveProfile()" class="footButton"> 프로필을 등록 해주세요.</button>
-    </div>
+        <br><br>
+        <div class="footerBTN">
+            <br>
+            <button onclick="findMyStyle()" class="footButton"> 내 이상형 찾기(하영님 파트로 이동) </button>
+            <button onclick="moveToJenny()" class="footButton"> 다영님 파트로 이동 </button>
+            <button onclick="moveToNotice()" class="footButton"> 공지사항(주연님 파트로 이동) </button>
+            <button onclick="saveProfile()" class="footButton"> 프로필을 등록 해주세요.</button>
+        </div>
 </div>
+</div>
+
+
+
 
 </body>
 
