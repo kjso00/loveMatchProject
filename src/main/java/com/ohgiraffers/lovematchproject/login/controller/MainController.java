@@ -1,16 +1,26 @@
 package com.ohgiraffers.lovematchproject.login.controller;
 
 import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
+import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
+import com.ohgiraffers.lovematchproject.profile.service.ProfileService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class MainController {
 
+    private final ProfileService profileService;
+    public MainController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
+
     @GetMapping("/main")
-    public String mainPage() {
+    public String mainPage(Model model) {
         // 현재 인증된 사용자의 정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -20,6 +30,10 @@ public class MainController {
         System.out.println("인증정보 :" + authentication);
         System.out.println("---------------");
         System.out.println("넘길번호 :" + number);
+
+        // 등록된 회원들의 리스트 불러오기
+        List<ProfileDTO> profileDTOList = profileService.findAll();
+        model.addAttribute("profileDTOList", profileDTOList);
 
         return "profile/list";
     }
