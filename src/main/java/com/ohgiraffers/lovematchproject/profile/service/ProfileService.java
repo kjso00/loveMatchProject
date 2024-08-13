@@ -23,10 +23,10 @@ public class ProfileService {
     }
 
 
-    public ProfileDTO save(ProfileDTO profileDTO, UserEntity userEntity) {
+    public ProfileDTO save(ProfileDTO profileDTO, Long userId) {
         ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setUserId(userEntity.getId()); // user_id 설정
+        profileEntity.setUserId(userId); // user_id 설정
         profileEntity.setProfileName(profileDTO.getProfileName());
         profileEntity.setProfileGender(profileDTO.getProfileGender());
         profileEntity.setProfileAge(profileDTO.getProfileAge());
