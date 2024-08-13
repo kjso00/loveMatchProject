@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AccessController {
-    @GetMapping("/roleerror")
+    @GetMapping("/noaccess")
     public String accessError() {
-        return "login/admin/roleerror";
+        return "noaccess";
     }
 }
