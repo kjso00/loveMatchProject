@@ -1,36 +1,27 @@
 package com.ohgiraffers.lovematchproject.profile.controller;
 
 import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
-import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
-import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.profile.service.ProfileService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
 
-    private ProfileService profileService;
-    private UserRepository userRepository;
+    private final ProfileService profileService;
 
     @Autowired
-    public ProfileController(ProfileService profileService, UserRepository userRepository) {
+    public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/save")

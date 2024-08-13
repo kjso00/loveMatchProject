@@ -1,3 +1,18 @@
+/* 메인 컨테이너 스타일 */
+.container{
+    display: flex;
+    align-items: center;
+    gap: 20px 2%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: calc(100vh - 200px); /* 화면 높이에서 헤더와 네비게이션 바 높이를 뺀 나머지 */
+    z-index: 2;
+}
+.content-container{
+    margin-top: 350px;
+    width: 40%;
+}
+
 .profile-container {
     border: 1px black;
     display: inline-block;
@@ -15,24 +30,18 @@
     text-align: center;
 }
 
-/* 메인 컨테이너 스타일 */
-.container {
-    position: relative;
-    top: 100px;
-    /*height: 100vh;*/
-    /*width: 100vw;*/
-    display: flex;
-    z-index: 2;
-}
-.content-container{
-    position: relative;
-    top: 130px;
-    flex-direction: column;
-    margin-top: 200px;
-    padding: 20px;
-    height: calc(100vh - 200px); /* 화면 높이에서 헤더와 네비게이션 바 높이를 뺀 나머지 */
-    /*overflow-y: auto; !* 세로 스크롤 활성화 *!*/
-}
+/*.container {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    !*height: 100vh;*!*/
+/*    !*width: 100vw;*!*/
+/*}*/
+/*.content-container{
+    margin-top: 330px;
+
+    !*overflow-y: auto; !* 세로 스크롤 활성화 *!*!
+}*/
+
 
 .footerBTN{
     display: flex;
