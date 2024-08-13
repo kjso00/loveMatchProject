@@ -16,8 +16,11 @@ public class MainController {
 
         // authentication.getPrincipal() 메서드는 현재 인증된 사용자의 세부 정보를 반환
         CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
-
         Long number = customUser.getOAuth().getUserNum();
+        System.out.println("인증정보 :" + authentication);
+        System.out.println("---------------");
+        System.out.println("넘길번호 :" + number);
+
         return "profile/home";
     }
 
