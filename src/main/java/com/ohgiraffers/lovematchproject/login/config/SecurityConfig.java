@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .formLogin((login) -> login.disable())
                 .httpBasic((basic) -> basic.disable())
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/oauth2/**", "/login/**","/signup/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**").permitAll()
+                        .requestMatchers("/", "/oauth2/**", "/login/**","/signup/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**", "/profile/**").permitAll()
                         .requestMatchers("/logininfo/userinfo").authenticated()
                         .anyRequest().authenticated())
                 .oauth2Login((oauth2) -> oauth2

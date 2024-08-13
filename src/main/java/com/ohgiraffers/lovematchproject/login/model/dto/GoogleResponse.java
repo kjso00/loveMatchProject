@@ -4,9 +4,20 @@ import java.util.Map;
 
 public class GoogleResponse implements OAuth2Response{
     private final Map<String, Object> attribute;
+    private Long userNum;
 
     public GoogleResponse(Map<String, Object> attribute) {
         this.attribute = attribute;
+    }
+
+    @Override
+    public void setUserNum(Long id) {
+        userNum = id;
+    }
+
+    @Override
+    public Long getUserNum() {
+        return userNum;
     }
 
     @Override
