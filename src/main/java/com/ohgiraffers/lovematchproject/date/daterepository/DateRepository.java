@@ -14,4 +14,5 @@ public interface DateRepository extends JpaRepository<DateEntity, Long> {
 
     // 특정 장소에서의 데이트 조회
     List<DateEntity> findByPlaceName(String placeName);
+
 }

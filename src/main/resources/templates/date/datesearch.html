@@ -13,7 +13,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="데이트 장소" id="keyword" size="15">
+                    키워드 : <input type="text" placeholder="키워드를 입력하세요" id="keyword" size="15">
                     <button type="submit">검색하기</button>
                 </form>
             </div>
@@ -24,13 +24,14 @@
     </div>
 </div>
 
-<div id="popup" class="popup">
+<div id="popup" class="popup" role="dialog" aria-labelledby="place-name" aria-describedby="place-address place-phone">
     <h2 id="place-name"></h2>
     <p id="place-address"></p>
     <p id="place-phone"></p>
     <button id="like-button">찜하기</button>
     <button onclick="closePopup()">닫기</button>
 </div>
+
 
 <!-- 카카오 맵 API 스크립트 -->
 <script th:inline="javascript">
