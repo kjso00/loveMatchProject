@@ -30,7 +30,7 @@ public class ProfileEntity {
     public String profileLocation;
 
     @Column(name = "user_id")
-    public Long userId;
+    private Long userId;
 
     public ProfileEntity() {
     }

@@ -1,7 +1,9 @@
 package com.ohgiraffers.lovematchproject.match.matchcontroller;
 
+import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
@@ -29,30 +31,24 @@ public class MatchController {
     public MatchController(MatchService matchService, UserRepository userRepository) {
         this.matchService = matchService;
         this.userRepository = userRepository;
-
-
     }
 
     @GetMapping("/match/matchProfiles")
-    public ModelAndView getMatches(ModelAndView mv) {
+    public ModelAndView getMatches(ModelAndView mv, HttpServletRequest request) {
 
 //        long loginUserId = 7; // 현재 사용자의 ID를 하드코딩
-//        long loginUserId =  // 현재 사용자의 ID
+//        long loginUserId = userEntity.getId(); // UserEntity의 실제 DB ID를 사용
 
         // 현재 인증된 사용자의 정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2User principal = (OAuth2User) authentication.getPrincipal();
-        String loginUserIdName = principal.getName(); // OAuth2User의 고유 ID를 가져옴
 
-        // UserEntity 를 가져옴
-        UserEntity userEntity = userRepository.findByUserId(loginUserIdName);
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User not found with id " + loginUserIdName);
+        // authentication.getPrincipal() 메서드는 현재 인증된 사용자의 세부 정보를 반환
+        CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
 
-        }
+        Long loginUserId = customUser.getOAuth().getUserNum();
 
-        long loginUserId = userEntity.getId(); // UserEntity의 실제 DB ID를 사용
         ProfileDTO loginUser = matchService.getLoginUser(loginUserId);
+
         List<ProfileDTO> targetGender = matchService.getFilteringGender(loginUserId);
         List<ProfileDTO> matchResults = matchService.calculatematchScores(loginUserId);
 
@@ -64,10 +60,6 @@ public class MatchController {
 
         return mv;
 
-//        long loginUser = 1; //현재 사용자의 ID를 하드코딩 -> 로그인사용자로 변경필요
     }
-
-
-
 
 }

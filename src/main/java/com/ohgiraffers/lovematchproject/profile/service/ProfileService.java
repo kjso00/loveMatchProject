@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.profile.service;
 
+import com.ohgiraffers.lovematchproject.chat.model.dto.UserDTO;
 import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
