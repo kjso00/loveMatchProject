@@ -26,6 +26,7 @@ async function renderPage() {
                     <button onclick="location.href='/logout'">로그아웃</button>`;
         } else if (userInfo.authority === 'ADMIN') { // 관리자가 로그인 했을 경우
             userInfoDiv.innerHTML = `<p>관리자 로그인 성공, ${userInfo.name}님 환영합니다!(main)</p>
+                    <button onclick="location.href='/login/admin'">관리자페이지</button>
                     <button onclick="location.href='/logout'">로그아웃</button>`;
         }
     } else {
