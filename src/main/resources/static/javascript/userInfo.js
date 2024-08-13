@@ -23,10 +23,11 @@ async function renderPage() {
 
         if (userInfo.authority === 'USER') { // 사용자 권한이 USER 면
             userInfoDiv.innerHTML = `<p>로그인 성공, ${userInfo.name}님 환영합니다!(main)</p>
-                    <button onclick="location.href='/logout'">로그아웃</button>`;
+                    <button onclick="location.href='/logout'" class="default-btn" style="width: 10%;">로그아웃</button>`;
         } else if (userInfo.authority === 'ADMIN') { // 관리자가 로그인 했을 경우
             userInfoDiv.innerHTML = `<p>관리자 로그인 성공, ${userInfo.name}님 환영합니다!(main)</p>
-                    <button onclick="location.href='/logout'">로그아웃</button>`;
+                    <button onclick="location.href='/login/admin'" class="default-btn" style="width: 10%;">관리자페이지</button>
+                    <button onclick="location.href='/logout'" class="default-btn" style="width: 10%;">로그아웃</button>`;
         }
     } else {
         userInfoDiv.innerHTML = `<p>로그인 정보가 없습니다.</p>`;

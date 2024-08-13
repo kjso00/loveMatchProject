@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="stylePHY.css">
+    <link rel="stylesheet" th:href="@{/static/css/login.css}">
+    <link rel="stylesheet" th:href="@{/static/css/background.css}">
     <title>LoveLink Intro</title>
     <style>
         /* 전체 페이지 기본 스타일 */
@@ -116,10 +118,10 @@
 <!--<a th:href="@{/login/main}" class="loginClick">loginClick</a>-->
 <h1></h1>
 <div sec:authorize="!isAuthenticated()">
-    <button onclick="location.href='/login'" class="loginClick">로그인을 하시려면 눌러주세요</button>
+    <button onclick="location.href='/login'" class="default-btn" style="width: 10%">로그인</button>
 </div>
 <div sec:authorize="!isAuthenticated()">
-    <button onclick="location.href='/signup'" class="loginClick">회원가입을 하시려면 눌러주세요</button>
+    <button onclick="location.href='/signup'" class="default-btn" style="width: 10%">회원가입</button>
 </div>
 <div sec:authorize="isAuthenticated()">
     <script th:src="@{static/javascript/userInfo.js}"></script>

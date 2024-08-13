@@ -43,6 +43,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
     implementation 'org.json:json:20210307'
+
+    runtimeOnly 'org.webjars:bootstrap:4.5.0' // 관리자페이지에 사용할 부트스트랩
 }
 
 tasks.named('test') {

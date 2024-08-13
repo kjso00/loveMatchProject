@@ -1,5 +1,6 @@
 package com.ohgiraffers.lovematchproject.login.config;
 
+import com.ohgiraffers.lovematchproject.login.handler.CustomAccessHandler;
 import com.ohgiraffers.lovematchproject.login.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +19,12 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomAccessHandler customAccessHandler;
 
     @Autowired
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomAccessHandler customAccessHandler) {
         this.customOAuth2UserService = customOAuth2UserService;
+        this.customAccessHandler = customAccessHandler;
     }
 
     @Bean
@@ -31,7 +34,7 @@ public class SecurityConfig {
                 .formLogin((login) -> login.disable())
                 .httpBasic((basic) -> basic.disable())
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/oauth2/**", "/login/**","/signup/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**", "/profile/**").permitAll()
+                        .requestMatchers("/", "/oauth2/**", "/login/**","/signup/**","/static/**", "/image/**", "/img/**", "/css/**", "/javascript/**","/font/**").permitAll()
                         .requestMatchers("/logininfo/userinfo").authenticated()
                         .anyRequest().authenticated())
                 .oauth2Login((oauth2) -> oauth2
@@ -41,7 +44,10 @@ public class SecurityConfig {
                                 userInfoEndpointConfig.userService(customOAuth2UserService)))
                 .logout(logout -> logout
                         .logoutSuccessHandler(logoutSuccessHandler())
-                        .permitAll());
+                        .permitAll())
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.accessDeniedHandler(customAccessHandler));
+
         return http.build();
     }
 
