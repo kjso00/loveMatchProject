@@ -12,7 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +25,12 @@ import java.util.Map;
 public class ProfileController {
 
     private ProfileService profileService;
+    private UserRepository userRepository;
 
     @Autowired
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService, UserRepository userRepository) {
         this.profileService = profileService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/save")
@@ -38,19 +39,20 @@ public class ProfileController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ProfileDTO profileDTO, Model model) {
+    public String save(@ModelAttribute ProfileDTO profileDTO, @AuthenticationPrincipal OAuth2User oauth2User, Model model) {
 
-        // 현재 인증된 사용자의 정보를 가져옴
+        // 로그인 한 유저의 인증정보 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 인증정보가 없으면 login 페이지로 redirect
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
 
-        // authentication.getPrincipal() 메서드는 현재 인증된 사용자의 세부 정보를 반환
         CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
-
         Long number = customUser.getOAuth().getUserNum();
 
-
         //프로필 생성 및 저장
-        ProfileDTO savedProfile = profileService.save(profileDTO, number);
+        ProfileDTO savedProfile = profileService.save(profileDTO, userEntity);
         model.addAttribute("profile", savedProfile);
         return "profile/saved";
     }

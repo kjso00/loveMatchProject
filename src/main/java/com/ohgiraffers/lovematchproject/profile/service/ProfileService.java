@@ -27,7 +27,7 @@ public class ProfileService {
     public ProfileDTO save(ProfileDTO profileDTO, Long userId) {
         ProfileEntity profileEntity = new ProfileEntity();
 
-        profileEntity.setUserId(userId);
+        profileEntity.setUserId(userId); // user_id 설정
         profileEntity.setProfileName(profileDTO.getProfileName());
         profileEntity.setProfileGender(profileDTO.getProfileGender());
         profileEntity.setProfileAge(profileDTO.getProfileAge());
