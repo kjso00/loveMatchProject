@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profileList.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profilecss/profilelist.css}">
     <title>list Profile</title>
 
     <!--개인회원 프로필 등록 완료된 페이지-->
@@ -28,16 +28,30 @@
 <div class="container">
 <div class="content-container">
         <h1>전체 회원들</h1>
-        <div class="profile-container" th:each="profileList: ${profileDTOList}">
-            <div class="profile-box">
-            <p th:text="${profileList.profileNo}"></p>
-            <p th:text="${profileList.profileName}"></p>
-            <p th:text="${profileList.profileGender}"></p>
+        <div class="profile-container">
+            <div class="profile-box" th:each="profileList: ${profileDTOList}">
+                <img th:if="${profileList.storedFileName != null and !profileList.storedFileName.isEmpty()}"
+                     th:src="@{'/profile-images/' + ${profileList.storedFileName}}"
+                     alt="프로필 사진" class="profile-image">
+                <p th:unless="${profileList.storedFileName != null and !profileList.storedFileName.isEmpty()}">
+                    사진 없음
+                </p>
+                <input type="hidden" th:value="${profileList.profileNo}" />
+                <p>이름: <a th:href="@{|/profile/${profileList.profileNo}|}" th:text="${profileList.profileName}"></a></p>
+                <p>주소: <span th:text="${profileList.profileLocation}"></span></p>
+                <p>MBTI: <span th:text="${profileList.profileMBTI}"></span></p>
             </div>
         </div>
         <br><br>
+        <div class="pagination">
+            <a th:if="${profileDTOList.hasPrevious()}" th:href="@{/profile/list(page=${profileDTOList.number - 1})}">이전</a>
+
+            <span th:text="${profileDTOList.number + 1}"></span> / <span th:text="${profileDTOList.totalPages}"></span>
+
+            <a th:if="${profileDTOList.hasNext()}" th:href="@{/profile/list(page=${profileDTOList.number + 1})}">다음</a>
+        </div>
+        <br><br>
         <div class="footerBTN">
-            <br>
             <button onclick="findMyStyle()" class="footButton"> 내 이상형 찾기(하영님 파트로 이동) </button>
             <button onclick="moveToJenny()" class="footButton"> 다영님 파트로 이동 </button>
             <button onclick="moveToNotice()" class="footButton"> 공지사항(주연님 파트로 이동) </button>
@@ -45,9 +59,6 @@
         </div>
 </div>
 </div>
-
-
-
 
 </body>
 
