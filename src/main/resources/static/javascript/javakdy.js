@@ -101,6 +101,8 @@ function displayPlaces(places) {
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
 
+
+// 검색된 장소의 목록 항목을 HTML 요소로 만들어 반환
 function getListItem(index, places) {
     var el = document.createElement('li'),
         itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
@@ -123,6 +125,7 @@ function getListItem(index, places) {
     return el;
 }
 
+// 지도의 특정 위치에 마커를 추가
 function addMarker(position, idx, title) {
     var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
         imageSize = new kakao.maps.Size(36, 37),
@@ -143,6 +146,7 @@ function addMarker(position, idx, title) {
     return marker;
 }
 
+//현재 지도에 표시된 모든 마커를 제거
 
 function removeMarker() {
     for (var i = 0; i < markers.length; i++) {
@@ -151,7 +155,7 @@ function removeMarker() {
     markers = [];
 }
 
-
+// 검색 결과가 여러 페이지로 나눠져 있을 경우, 페이지 번호를 표시하고 이동할 수 있도록 함
 function displayPagination(pagination) {
     function displayPagination(pagination) {
         var paginationEl = document.getElementById('pagination'),
@@ -184,6 +188,8 @@ function displayPagination(pagination) {
 
 }
 
+// 마커 위에 정보창을 표시
+
 function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
@@ -191,7 +197,7 @@ function displayInfowindow(marker, title) {
     infowindow.open(map, marker);
 }
 
-
+// 주어진 요소의 모든 자식 노드를 제거
 function removeAllChildNodes(el) {
     while (el.hasChildNodes()) {
         el.removeChild(el.lastChild);
