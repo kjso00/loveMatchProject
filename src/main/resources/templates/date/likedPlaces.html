@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>찜한 장소 목록</title>
-    <link rel="stylesheet" th:href="@{/css/styleKDY.css}">
+    <link rel="stylesheet" th:href="@{/css/stylekdy.css}">
 </head>
 <body>
 <h1>찜한 장소 목록</h1>
@@ -16,6 +16,6 @@
         <span th:text="${#temporals.format(place.likedAt, 'yyyy-MM-dd HH:mm')}">찜한 날짜</span>
     </li>
 </ul>
-<script th:src="@{/javascript/javaKDY.js}"></script>
+<script th:src="@{/javascript/javakdy.js}"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class DateDTO {
     // 장소 주소
     private String placeAddress;
 
-    // 데이트 관련 메모
+    // 시간
     private LocalDateTime dateTime;
 
 

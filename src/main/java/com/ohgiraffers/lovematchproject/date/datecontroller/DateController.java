@@ -6,12 +6,12 @@ import com.ohgiraffers.lovematchproject.date.dateservice.DateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/date")
+@Controller
 public class DateController {
 
     private final DateService dateService;
@@ -20,6 +20,14 @@ public class DateController {
     public DateController(DateService dateService) {
         this.dateService = dateService;
     }
+
+    @GetMapping("/date/datesearch")
+    public String dateSearch() {
+        return "date/datesearch";
+    }
+
+
+
 
     @PostMapping
     public ResponseEntity<DateEntity> addDate(@RequestBody DateEntity dateRequest) {

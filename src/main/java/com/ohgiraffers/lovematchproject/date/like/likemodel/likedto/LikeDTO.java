@@ -9,9 +9,6 @@ public class LikeDTO {
     private String placeAddress;
     private LocalDateTime likedAt;
 
-    // 생성자, getter, setter 메서드
-
-
     public LikeDTO() {
     }
 
