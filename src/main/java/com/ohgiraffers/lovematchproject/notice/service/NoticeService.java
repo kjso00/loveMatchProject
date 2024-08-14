@@ -70,7 +70,7 @@ public class NoticeService {
 //        return noticeRepository.findAll();
         List<Notice> lists = noticeRepository.findAll();
         if (lists.isEmpty()) {
-            throw new RuntimeException("게시글 목록이 비어 있습니다.");
+            return null;
         }
         return lists;
     }
