@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class DateController {
     }
 
     @GetMapping("/date/datesearch")
-    public String dateSearch() {
+    public String dateSearch(Model model) {
+        model.addAttribute("kakaoAppKey","95e178d0770fb28588aaa64253f3ae29");
         return "date/datesearch";
     }
 
