@@ -56,12 +56,12 @@
 }
 
 
-
 .footerBTN{
     display: flex;
     margin: 0 auto;
 
 }
+
 .footButton{
     border: none;
     border-radius: 8px;
