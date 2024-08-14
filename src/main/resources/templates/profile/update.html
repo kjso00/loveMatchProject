@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profilecss/profileinput.css}">
+    <title>profileUpdateForm</title>
+    <!--개인회원 프로필 수정 진행하는 페이지-->
+</head>
+<body>
+<form th:action="@{'/profile/update/' + ${profileNo}}" method="post" name="updateForm"  enctype="multipart/form-data">
+    <h2>프로필 수정</h2>
+    <input type="hidden" name="id" th:value="${profileUpdate.profileNo}">
+    <input type="text" name="profileName" th:value="${profileUpdate.profileName}">
+    <input type="text" name="profilePassword" id="profilePassword"> <br>
+    <select name="profileGender">
+        <option value="">성별을 선택하세요</option>
+        <option value="남">남</option>
+        <option value="여">여</option>
+    </select>
+    <input type="text" name="profileAge" th:value="${profileUpdate.profileAge}">
+    <input type="text" name="profileHeight" th:value="${profileUpdate.profileHeight}">
+    <input type="text" name="profileMBTI" th:value="${profileUpdate.profileMBTI}">
+    <input type="text" name="profileLocation" th:value="${profileUpdate.profileLocation}">
+    <input type="file" name="profileFile"> <br>
+    <input type="submit" value="프로필 수정">
+
+    <!--<input type="button" value="sendToDB" onclick="profileUpdate()">-->
+    <!-- 아래 스크립트랑 연결되는 버튼 코드 잘 모르겠어요 ㅠㅂㄷ; -->
+</form>
+<script th:inline="javascript">
+    const profileUpdate = () => {
+        const pass = [[${profileUpdate.profilePassword}]];
+        const inputPass = document.getElementById("profilePassword").value;
+        if(pass == inputPass){
+            document.updateForm.submit();
+        }else{
+            alert("비밀번호가 일치하지 않습니다.")
+        }
+    }
+</script>
+</body>
+</html>

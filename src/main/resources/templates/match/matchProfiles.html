@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/stylephy.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profilecss/profiledetail.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
     <title>Match Profile List</title>
 
@@ -23,7 +22,7 @@
         <nav>
             <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
             <a href="#">채팅</a>
-            <a th:href="@{/date/datemain}">데이트 컨텐츠</a>
+            <a th:href="@{/date/datesearch}">데이트 컨텐츠</a>
             <a th:href="@{/profile/list}">MY Profile</a>
             <a th:href="@{/logout}">LOGOUT</a>
         </nav>
@@ -31,25 +30,42 @@
 </div>
 
 <div class="container">
-<h2 id="forName">Match for <span th:text="${loginUser.profileName}"></span></h2>
-
     <div class="content-container">
-    <h1>Matches profile</h1>
+        <div class="profile-container">
+                <h2 id="forName">Match for <span th:text="${loginUser.profileName}"></span></h2>
+                <!--<h1>Matches profile</h1>-->
+        </div>
          <div class="profile-container">
-            <div class="profile-box" th:each="profile : ${matchResults}">
-                <p th:text="${profile.profileName}"></p>
-                <p th:text="${profile.profileGender}"></p>
-                <p th:text="${profile.profileAge}"></p>
-                <p th:text="${profile.profileHeight}"></p>
-                <p th:text="${profile.profileMBTI}"></p>
-                <p th:text="${profile.profileLocation}"></p>
-                <p th:text="${profile.totalScore}"></p>
-            </div>
+             <div class="profile-box" th:each="profileDTOList: ${profileDTOList}">
+                 <img th:if="${profileDTOList.storedFileName != null and !profileDTOList.storedFileName.isEmpty()}"
+                      th:src="@{'/profile-images/' + ${profileDTOList.storedFileName}}"
+                      alt="프로필 사진" class="profile-image">
+                 <p th:unless="${profileDTOList.storedFileName != null and !profileDTOList.storedFileName.isEmpty()}">
+                     사진 없음
+                 </p>
+                 <input type="hidden" th:value="${profileDTOList.profileNo}" />
+                 <a th:href="@{|/profile/${profileDTOList.profileNo}|}" th:text="${profileDTOList.profileName}"></a></p>
+                 <p th:text="${profileDTOList.profileGender}"></p>
+                 <p th:text="${profileDTOList.profileAge}"></p>
+                 <p th:text="${profileDTOList.profileHeight}"></p>
+                 <p th:text="${profileDTOList.profileMBTI}"></p>
+                 <p th:text="${profileDTOList.profileLocation}"></p>
+                 <p th:text="${profileDTOList.totalScore}"></p>
+             </div>
+         </div>
+         <div class="pagination">
+            <a th:if="${profileDTOList.hasPrevious()}" th:href="@{/match/matchProfiles(page=${profileDTOList.number - 1})}">이전</a>
+
+            <span th:text="${profileDTOList.number + 1}"></span> / <span th:text="${profileDTOList.totalPages}"></span>
+
+            <a th:if="${profileDTOList.hasNext()}" th:href="@{/match/matchProfiles(page=${profileDTOList.number + 1})}">다음</a>
+         </div>
+         <div class="footerBTN">
+            <button onclick="listall()" class="footButton"> 전체회원보기 </button>
          </div>
     </div>
 </div>
 
-<button onclick="listall()" > 전체회원보기 </button>
 </body>
 <script>
     const listall = () => {
@@ -58,13 +74,13 @@
 </script>
 
 
-<button onclick="moveToPriority()" > 가중치 입력 페이지 </button>
+<!--<button onclick="moveToPriority()" > 가중치 입력 페이지 </button>
 
 <script>
     const moveToPriority = () => {
         location.href="/match/priority"
     }
-</script>
+</script>-->
 
 </body>
 </html>

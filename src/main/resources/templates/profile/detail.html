@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profilecss/profilelist.css}">
+    <title>detail Profile</title>
+
+</head>
+<body>
+<!-- 배경, 헤더 이미지 css -->
+<img src="/static/image/BG.svg" alt="Background" id="bg">
+<img src="/static/image/header.svg" alt="Header" id="header">
+<!-- 네비게이션 바 -->
+<div>
+    <header>
+        <nav>
+            <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
+            <a href="#">채팅</a>
+            <a th:href="@{/date/datesearch}">데이트 컨텐츠</a>
+            <a th:href="@{/profile/list}">MY Profile</a>
+            <a th:href="@{/logout}">LOGOUT</a>
+        </nav>
+    </header>
+</div>
+
+<div class="container">
+    <div class="content-container">
+        <h1>반가워요.</h1>
+        <div class="profile-container">
+            <input type="hidden" id="profileId" th:value="${profile.profileNo}">
+            <div class="profile-box">
+                <div class="profile-image">
+                    <div th:if="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
+                        <h2>프로필 사진</h2>
+                        <!--    <img th:src="@{'/profile-images/' + ${profile.storedFileName}}" alt="프로필 사진" style="width: 100%; max-width: 300px; height:150px;">-->
+                        <img th:src="@{|/profile-images/${profile.storedFileName}|}" alt="프로필 사진" style="width: 100%; max-width: 300px; height:150px;"/>
+                    </div>
+                    <div th:unless="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
+                        프로필 사진이 없습니다.
+                    </div>
+                </div>
+                <p>이름: <span th:text="${profile.profileName}"></span></p>
+                <p>성별: <span th:text="${profile.profileGender}"></span></p>
+                <p>나이: <span th:text="${profile.profileAge}"></span></p>
+                <p>키: <span th:text="${profile.profileHeight}"></span></p>
+                <p>MBTI: <span th:text="${profile.profileMBTI}"></span></p>
+                <p>위치: <span th:text="${profile.profileLocation}"></span></p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- 버튼들 -->
+    <button onclick="showAllProfile()" > Home </button>
+</div>
+</body>
+<script>
+    const showAllProfile = () => {
+        location.href="/profile/list"
+    }
+</script>
+
+</html>

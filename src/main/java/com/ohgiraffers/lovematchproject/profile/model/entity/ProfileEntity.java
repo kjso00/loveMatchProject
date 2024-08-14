@@ -1,6 +1,10 @@
 package com.ohgiraffers.lovematchproject.profile.model.entity;
 
+import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileFileEntity;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "profile")
@@ -13,6 +17,9 @@ public class ProfileEntity {
 
     @Column(name = "profileName")
     public String profileName;
+
+    @Column(name = "profilePassword")
+    public String profilePassword;
 
     @Column(name = "profileGender")
     public String profileGender;
@@ -29,20 +36,28 @@ public class ProfileEntity {
     @Column(name = "profileLocation")
     public String profileLocation;
 
+    @Column(name = "storedFileName")
+    private String storedFileName;
+
     @Column(name = "user_id")
-    private Long userId;
+    public Long userId;
+
+    @OneToMany(mappedBy = "profileEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch=FetchType.LAZY)
+    public List<ProfileFileEntity> profileEntities = new ArrayList<>();
 
     public ProfileEntity() {
     }
 
-    public ProfileEntity(Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, Long userId) {
+    public ProfileEntity(Long profileNo, String profileName, String profilePassword, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, String storedFileName, Long userId) {
         this.profileNo = profileNo;
         this.profileName = profileName;
+        this.profilePassword = profilePassword;
         this.profileGender = profileGender;
         this.profileAge = profileAge;
         this.profileHeight = profileHeight;
         this.profileMBTI = profileMBTI;
         this.profileLocation = profileLocation;
+        this.storedFileName = storedFileName;
         this.userId = userId;
     }
 
@@ -60,6 +75,14 @@ public class ProfileEntity {
 
     public void setProfileName(String profileName) {
         this.profileName = profileName;
+    }
+
+    public String getProfilePassword() {
+        return profilePassword;
+    }
+
+    public void setProfilePassword(String profilePassword) {
+        this.profilePassword = profilePassword;
     }
 
     public String getProfileGender() {
@@ -102,6 +125,14 @@ public class ProfileEntity {
         this.profileLocation = profileLocation;
     }
 
+    public String getStoredFileName() {
+        return storedFileName;
+    }
+
+    public void setStoredFileName(String storedFileName) {
+        this.storedFileName = storedFileName;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -110,18 +141,27 @@ public class ProfileEntity {
         this.userId = userId;
     }
 
+    public List<ProfileFileEntity> getProfileEntities() {
+        return profileEntities;
+    }
+
+    public void setProfileEntities(List<ProfileFileEntity> profileEntities) {
+        this.profileEntities = profileEntities;
+    }
+
     @Override
     public String toString() {
         return "ProfileEntity{" +
                 "profileNo=" + profileNo +
                 ", profileName='" + profileName + '\'' +
+                ", profilePassword='" + profilePassword + '\'' +
                 ", profileGender='" + profileGender + '\'' +
                 ", profileAge=" + profileAge +
                 ", profileHeight=" + profileHeight +
                 ", profileMBTI='" + profileMBTI + '\'' +
                 ", profileLocation='" + profileLocation + '\'' +
-                ", userId='" + userId + '\'' +
+                ", storedFileName='" + storedFileName + '\'' +
+                ", userId=" + userId +
                 '}';
     }
-
 }

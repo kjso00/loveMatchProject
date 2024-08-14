@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profilecss/profileinput.css}">
     <title>프로필 등록</title>
-    <style>
+<!--    <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
@@ -59,12 +61,28 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-    </style>
+        input[name="profileFile"]{
+            width: 90%;
+            padding: 10px;
+            background-color: #80d5e4;
+            color: #191b77;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        input[name="profileFile"]:hover {
+            background-color: #fd822b;
+            color: white;
+        }
+    </style>-->
 </head>
 <body>
-<form action="/profile/save" method="post">
+<form action="/profile/save" method="post" enctype="multipart/form-data">
     <h2>프로필 등록</h2>
     <input type="text" name="profileName" placeholder="이름을 입력하세요">
+    <input type="text" name="profilePassword" placeholder="암호를 입력하세요"> <br>
     <select name="profileGender">
         <option value="">성별을 선택하세요</option>
         <option value="남">남</option>
@@ -73,7 +91,8 @@
     <input type="text" name="profileAge" placeholder="나이를 입력하세요">
     <input type="text" name="profileHeight" placeholder="키를 입력하세요">
     <input type="text" name="profileMBTI" placeholder="MBTI를 입력하세요">
-    <input type="text" name="profileLocation" placeholder="위치를 입력하세요">
+    <input type="text" name="profileLocation" placeholder="거주지 시/구 를 입력하세요">
+    <input type="file" name="profileFile"> <br>
     <input type="submit" value="프로필 등록">
 </form>
 </body>
