@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" th:href="@{/static/css/stylephy.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/ststic/css/profilecss/profilelist.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
     <title>Match Profile List</title>
 
@@ -23,20 +22,25 @@
         <nav>
             <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
             <a href="#">채팅</a>
-            <a th:href="@{/date/datemain}">데이트 컨텐츠</a>
+            <a th:href="@{/date/datesearch}">데이트 컨텐츠</a>
             <a th:href="@{/profile/list}">MY Profile</a>
             <a th:href="@{/logout}">LOGOUT</a>
         </nav>
     </header>
 </div>
 
-<div class="container">
 <h2 id="forName">Match for <span th:text="${loginUser.profileName}"></span></h2>
-
-    <div class="content-container">
+<div class="container">
     <h1>Matches profile</h1>
+    <div class="content-container">
          <div class="profile-container">
             <div class="profile-box" th:each="profile : ${matchResults}">
+                <img th:if="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}"
+                     th:src="@{'/profile-images/' + ${profileList.storedFileName}}"
+                     alt="프로필 사진" class="profile-image">
+                <p th:unless="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
+                    사진 없음
+                </p>
                 <p th:text="${profile.profileName}"></p>
                 <p th:text="${profile.profileGender}"></p>
                 <p th:text="${profile.profileAge}"></p>
@@ -49,7 +53,7 @@
     </div>
 </div>
 
-<button onclick="listall()" > 전체회원보기 </button>
+<button onclick="listall()" class="footButton"> 전체회원보기 </button>
 </body>
 <script>
     const listall = () => {
@@ -58,13 +62,13 @@
 </script>
 
 
-<button onclick="moveToPriority()" > 가중치 입력 페이지 </button>
+<!--<button onclick="moveToPriority()" > 가중치 입력 페이지 </button>
 
 <script>
     const moveToPriority = () => {
         location.href="/match/priority"
     }
-</script>
+</script>-->
 
 </body>
 </html>

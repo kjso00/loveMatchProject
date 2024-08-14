@@ -1,6 +1,5 @@
 package com.ohgiraffers.lovematchproject.match.matchservice;
 
-import com.ohgiraffers.lovematchproject.chat.service.UserService;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileEntity;
@@ -8,6 +7,7 @@ import com.ohgiraffers.lovematchproject.match.matchrepository.MatchRepository;
 import com.ohgiraffers.lovematchproject.profile.repository.ProfileRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
@@ -24,7 +24,7 @@ public class MatchService {
     private final ProfileRepository profileRepository;
 
     @Autowired
-    public MatchService(MatchRepository matchRepository, KakaoMapService kakaoMapService, UserRepository userRepository, ProfileRepository profileRepository) {
+    public MatchService(MatchRepository matchRepository,@Qualifier("kakao") KakaoMapService kakaoMapService, UserRepository userRepository, ProfileRepository profileRepository) {
         this.matchRepository = matchRepository;
         this.kakaoMapService = kakaoMapService;
         this.userRepository = userRepository;

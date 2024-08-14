@@ -1,6 +1,8 @@
 package com.ohgiraffers.lovematchproject.match.matchservice;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +13,7 @@ import org.springframework.http.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-@Service
+@Service("kakao")
 public class KakaoMapService {
 
     // 주소를 좌표로 바꾸고
@@ -25,8 +27,8 @@ public class KakaoMapService {
     private final RestTemplate matchRestTemplate;
     // RESTful 웹 서비스와의 통신을 쉽게 도와주는 Spring 클래스 입니다.
     // 여기서는 matchRestTemplate 변수를 통해 REST API 요청을 보낼 때 사용 됩니다.
-
-    public KakaoMapService(RestTemplate matchRestTemplate) {
+    @Autowired
+    public KakaoMapService(@Qualifier("matchRestTemplate") RestTemplate matchRestTemplate) {
         this.matchRestTemplate = matchRestTemplate;
     }
     // 이 클래스의 생성자로, RestTemplate 인스턴스를 주입받아 matchRestTemplate 변수에 할당한다.
