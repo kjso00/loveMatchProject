@@ -1,6 +1,5 @@
 package com.ohgiraffers.lovematchproject.match.matchservice;
 
-import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.profile.model.entity.ProfileEntity;
 import com.ohgiraffers.lovematchproject.match.matchrepository.MatchRepository;
@@ -8,6 +7,8 @@ import com.ohgiraffers.lovematchproject.profile.repository.ProfileRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -20,14 +21,12 @@ public class MatchService {
 
     private final MatchRepository matchRepository;
     private final KakaoMapService kakaoMapService;
-    private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
 
     @Autowired
-    public MatchService(MatchRepository matchRepository,@Qualifier("kakao") KakaoMapService kakaoMapService, UserRepository userRepository, ProfileRepository profileRepository) {
+    public MatchService(MatchRepository matchRepository,@Qualifier("kakao") KakaoMapService kakaoMapService, ProfileRepository profileRepository) {
         this.matchRepository = matchRepository;
         this.kakaoMapService = kakaoMapService;
-        this.userRepository = userRepository;
         this.profileRepository = profileRepository;
     }
 
@@ -50,16 +49,18 @@ public class MatchService {
     }
 
 
-    public List<ProfileDTO> getFilteringGender(Long loginUserId) {
+    public Page<ProfileDTO> getFilteringGender(Long loginUserId, Pageable pageable) {
+        Page<ProfileEntity> entities = matchRepository.findAll(pageable);
+        return entities.map(entity -> toDTO(loginUserId, entity));
+    }
+
+    private ProfileDTO toDTO(Long loginUserId, ProfileEntity entity) {
         ProfileDTO loginUser = getLoginUser(loginUserId);
         String targetGender = loginUser.getProfileGender().equalsIgnoreCase("여") ? "남" : "여";
         // 여성이면 남성을, 남성이면 여성을 타겟으로 설정
-
-        List<ProfileEntity> entities = matchRepository.findAll();
-        List<ProfileDTO> profileDTOList = new ArrayList<>();
-        for (ProfileEntity entity : entities) {
+        ProfileDTO profileDTO = new ProfileDTO();
             if (!entity.getProfileNo().equals(loginUserId) && entity.getProfileGender().equalsIgnoreCase(targetGender)) {
-                ProfileDTO profileDTO = new ProfileDTO();
+
                 profileDTO.setProfileNo(entity.getProfileNo());
                 profileDTO.setProfileGender(entity.getProfileGender());
                 profileDTO.setProfileName(entity.getProfileName());
@@ -67,10 +68,9 @@ public class MatchService {
                 profileDTO.setProfileHeight(entity.getProfileHeight());
                 profileDTO.setProfileMBTI(entity.getProfileMBTI());
                 profileDTO.setProfileLocation(entity.getProfileLocation());
-                profileDTOList.add(profileDTO);
             }
-        }
-        return profileDTOList;
+
+        return profileDTO;
     }
 
 
@@ -139,40 +139,35 @@ public class MatchService {
 
 
     // 토탈스코어 계산 함수
-    public List<ProfileDTO> calculatematchScores(Long loginUserId){
-        List<ProfileEntity> allProfiles = matchRepository.findAll();
-        ProfileEntity userProfile = matchRepository.findById(loginUserId).orElse(null);
+    public Page<ProfileDTO> calculatematchScores(Long loginUserId, Pageable pageable) {
+        Page<ProfileEntity> allProfiles = matchRepository.findAll(pageable);
+        return allProfiles.map(profile -> toScoreDTO(loginUserId, profile));
+    }
 
-        if(userProfile == null){
-            throw new IllegalArgumentException("User profile not found");
+    private ProfileDTO toScoreDTO(Long loginUserId, ProfileEntity profile) {
+        ProfileDTO loginUser = getLoginUser(loginUserId);
+        String targetGender = loginUser.getProfileGender().equalsIgnoreCase("여") ? "남" : "여";
+        // 여성이면 남성을, 남성이면 여성을 타겟으로 설정
+
+        ProfileDTO profileDTO = new ProfileDTO();
+        if (!profile.getProfileNo().equals(loginUserId) && profile.getProfileGender().equalsIgnoreCase(targetGender)) {
+            int heightScore = calculateHeightScore(loginUser.getProfileGender(), profile.getProfileHeight());
+            int ageScore = calculateAgeScore(loginUser.getProfileAge(), profile.getProfileAge());
+            int locationScore = calculateDistanceScore(loginUser.getProfileLocation(), profile.getProfileLocation());
+
+            int totalScore = heightScore + ageScore + locationScore;
+
+            profileDTO.setProfileNo(profile.getProfileNo());
+            profileDTO.setStoredFileName(profile.getStoredFileName());
+            profileDTO.setProfileGender(profile.getProfileGender());
+            profileDTO.setProfileName(profile.getProfileName());
+            profileDTO.setProfileAge(profile.getProfileAge());
+            profileDTO.setProfileHeight(profile.getProfileHeight());
+            profileDTO.setProfileMBTI(profile.getProfileMBTI());
+            profileDTO.setProfileLocation(profile.getProfileLocation());
+            profileDTO.setTotalScore(totalScore);
         }
 
-        String targetGender = userProfile.getProfileGender().equalsIgnoreCase("여") ? "남" : "여";
-
-        List<ProfileDTO> matchScores = new ArrayList<>();
-        for (ProfileEntity profile : allProfiles){
-            if (!profile.getProfileNo().equals(userProfile.getProfileNo()) && profile.getProfileGender().equalsIgnoreCase(targetGender)) {
-
-                int heightScore = calculateHeightScore(userProfile.getProfileGender(), profile.getProfileHeight());
-                int ageScore = calculateAgeScore(userProfile.getProfileAge(), profile.getProfileAge());
-                int locationScore = calculateDistanceScore(userProfile.getProfileLocation(), profile.getProfileLocation());
-
-                int totalScore = heightScore + ageScore + locationScore;
-
-
-                ProfileDTO profileDTO = new ProfileDTO();
-                profileDTO.setProfileNo(profile.getProfileNo());
-                profileDTO.setProfileGender(profile.getProfileGender());
-                profileDTO.setProfileName(profile.getProfileName());
-                profileDTO.setProfileAge(profile.getProfileAge());
-                profileDTO.setProfileHeight(profile.getProfileHeight());
-                profileDTO.setProfileMBTI(profile.getProfileMBTI());
-                profileDTO.setProfileLocation(profile.getProfileLocation());
-                profileDTO.setTotalScore(totalScore);
-                matchScores.add(profileDTO);
-            }
-        }
-        matchScores.sort(Comparator.comparingInt(ProfileDTO::getTotalScore).reversed());
-        return matchScores;
+        return profileDTO;
     }
 }
