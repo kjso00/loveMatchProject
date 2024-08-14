@@ -19,7 +19,7 @@ public class CustomOAuth2User implements OAuth2User{
     @Override
     public Map<String, Object> getAttributes() { // 리소스 서버로부터 넘어오는 데이터
         return null;
-    }
+    } // 리소스 서버에서 넘어오는 데이터
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { // role 값

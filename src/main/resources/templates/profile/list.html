@@ -2,41 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profileList.css}">
     <title>list Profile</title>
-    <!--개인회원 프로필 등록 완료된 페이지-->
-    <style>
-        .profile-container {
-            border: 1px black;
-            display: inline-block;
-            flex-wrap: wrap;
-            margin: 0 auto; /* 중앙 정렬 */
-        }
 
-        .profile-box{
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
-            height: 300px;
-            box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
-            text-align: center;
-        }
-    </style>
+    <!--개인회원 프로필 등록 완료된 페이지-->
 </head>
 <body>
-    <h1>전체 회원들</h1>
-    <div class="profile-container" th:each="profileList: ${profileDTOList}">
-        <div class="profile-box">
-        <p th:text="${profileList.profileNo}"></p>
-        <p th:text="${profileList.profileName}"></p>
-        <p th:text="${profileList.profileGender}"></p>
+<!-- 배경, 헤더 이미지 css -->
+<img src="/static/image/BG.svg" alt="Background" id="bg">
+<img src="/static/image/header.svg" alt="Header" id="header">
+<!-- 네비게이션 바 -->
+<div>
+    <header>
+         <nav>
+             <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
+             <a href="#">채팅</a>
+             <a th:href="@{/date/datesearch}">데이트 컨텐츠</a>
+             <a th:href="@{/profile/list}">MY Profile</a>
+             <a th:href="@{/logout}">LOGOUT</a>
+         </nav>
+    </header>
+</div>
+
+<div class="container">
+<div class="content-container">
+        <h1>전체 회원들</h1>
+        <div class="profile-container" th:each="profileList: ${profileDTOList}">
+            <div class="profile-box">
+            <p th:text="${profileList.profileNo}"></p>
+            <p th:text="${profileList.profileName}"></p>
+            <p th:text="${profileList.profileGender}"></p>
+            </div>
         </div>
-    </div>
-    <br>
-    <button onclick="findMyStyle()" > 내 이상형 찾기(하영님 파트로 이동) </button>
-    <button onclick="moveToJenny()" > 다영님 파트로 이동 </button>
-    <button onclick="moveToNotice()" > 공지사항(주연님 파트로 이동) </button>
+        <br><br>
+        <div class="footerBTN">
+            <br>
+            <button onclick="findMyStyle()" class="footButton"> 내 이상형 찾기(하영님 파트로 이동) </button>
+            <button onclick="moveToJenny()" class="footButton"> 다영님 파트로 이동 </button>
+            <button onclick="moveToNotice()" class="footButton"> 공지사항(주연님 파트로 이동) </button>
+            <button onclick="saveProfile()" class="footButton"> 프로필을 등록 해주세요.</button>
+        </div>
+</div>
+</div>
+
+
+
+
 </body>
+
 
 <script>
     // 하영님 파트
@@ -45,13 +59,16 @@
     }
 
     const moveToJenny = () => {
-        location.href="/date/datemain"
+        location.href="/date/datesearch"
     }
 
     const moveToNotice = () => {
         location.href="/notice/user/usernoticelist"
     }
 
+    const saveProfile = () => {
+        location.href="/profile/save"
+    }
 
 </script>
 </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>찜한 장소 목록</title>
+    <link rel="stylesheet" th:href="@{/css/stylekdy.css}">
+</head>
+<body>
+<h1>찜한 장소 목록</h1>
+<ul id="likedPlacesList">
+    <!-- 타임리프를 사용하여 서버에서 전달받은 찜한 장소 목록을 반복하여 표시 -->
+    <li th:each="place : ${likedPlaces}">
+        <span th:text="${place.placeName}">장소 이름</span>
+        <span th:text="${place.placeAddress}">장소 주소</span>
+        <span th:text="${#temporals.format(place.likedAt, 'yyyy-MM-dd HH:mm')}">찜한 날짜</span>
+    </li>
+</ul>
+<script th:src="@{/javascript/javakdy.js}"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin-user management-detail</title>
+    <link rel="stylesheet" th:href="@{../static/css/login.css}">
+    <link rel="stylesheet" th:href="@{../static/css/background.css}">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${user.id}"></h5>
+            <p class="card-text" th:text="'이름 : ' + ${user.name}"></p>
+            <p class="card-text" th:text="'이메일 : ' + ${user.email}"></p>
+            <p class="card-text" th:text="'권한 : ' + ${user.role}"></p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-auto">
+            <a class="btn btn-info" th:href="@{'/modify/' + ${user.id}}" role="button">회원권한수정</a>
+        </div>
+        <div class="col-auto">
+            <form id="delete-form" th:action="@{'/delete/' + ${user.id}}" method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button id="delete-btn" type="submit" class="btn btn-danger">회원삭제</button>
+            </form>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-back" th:href="@{/login/admin/admin}" th:method="get">회원목록</a>
+        </div>
+    </div>
+</div>
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

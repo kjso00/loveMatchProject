@@ -1,6 +1,7 @@
 package com.ohgiraffers.lovematchproject.date.datemodel.datedto;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -10,216 +11,83 @@ import java.util.List;
  */
 public class DateDTO {
 
-    /**
-     * 데이트 장소의 고유 식별자
-     */
-    private Long dateId;
+    // 고유 식별자
+    private Long userId;
 
-    /**
-     * 데이트 장소의 이름
-     */
-    private String dateName;
+    // 장소 이름
+    private String placeName;
 
-    /**
-     * 데이트 장소에 대한 상세 설명
-     */
-    private String dateDescription;
+    // 장소 주소
+    private String placeAddress;
 
-    /**
-     * 데이트 장소의 주소
-     */
-    private String dateAddress;
+    // 시간
+    private LocalDateTime dateTime;
 
-    /**
-     * 데이트 장소의 위도
-     */
-    private double dateLatitude;
 
-    /**
-     * 데이트 장소의 경도
-     */
-    private double dateLongitude;
+// 데이트 관련 메모
 
-    /**
-     * 데이트 장소의 이용 가격
-     */
-    private BigDecimal datePrice;
+    private String notes;
 
-    /**
-     * 데이트 장소의 대분류 카테고리
-     */
-    private String dateCategory;
-
-    /**
-     * 데이트 장소의 소분류 카테고리
-     */
-    private String dateSubCategory;
-
-    /**
-     * 데이트 장소의 대표 이미지 URL
-     */
-    private String dateImageUrl;
-
-    /**
-     * 데이트 장소의 운영 시간
-     */
-    private String dateOperatingHours;
-
-    /**
-     * 데이트 장소의 평균 평점
-     */
-    private double dateAverageRating;
-
-    /**
-     * 데이트 장소에 대한 리뷰 목록
-     */
-    private List<String> dateReviews;
-
-    // 기본 생성자
-    public DateDTO() {}
-
-    // 모든 필드를 포함하는 생성자
-    public DateDTO(Long dateId, String dateName, String dateDescription, String dateAddress,
-                   double dateLatitude, double dateLongitude, BigDecimal datePrice,
-                   String dateCategory, String dateSubCategory, String dateImageUrl,
-                   String dateOperatingHours, double dateAverageRating, List<String> dateReviews) {
-        this.dateId = dateId;
-        this.dateName = dateName;
-        this.dateDescription = dateDescription;
-        this.dateAddress = dateAddress;
-        this.dateLatitude = dateLatitude;
-        this.dateLongitude = dateLongitude;
-        this.datePrice = datePrice;
-        this.dateCategory = dateCategory;
-        this.dateSubCategory = dateSubCategory;
-        this.dateImageUrl = dateImageUrl;
-        this.dateOperatingHours = dateOperatingHours;
-        this.dateAverageRating = dateAverageRating;
-        this.dateReviews = dateReviews;
+    public DateDTO() {
     }
 
-    // Getter
-
-
-    public Long getDateId() {
-        return dateId;
+    public DateDTO(Long userId, String placeName, String placeAddress, LocalDateTime dateTime, String notes) {
+        this.userId = userId;
+        this.placeName = placeName;
+        this.placeAddress = placeAddress;
+        this.dateTime = dateTime;
+        this.notes = notes;
     }
 
-    public String getDateName() {
-        return dateName;
+    public Long getUserId() {
+        return userId;
     }
 
-    public String getDateDescription() {
-        return dateDescription;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getDateAddress() {
-        return dateAddress;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public double getDateLatitude() {
-        return dateLatitude;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
-    public double getDateLongitude() {
-        return dateLongitude;
+    public String getPlaceAddress() {
+        return placeAddress;
     }
 
-    public BigDecimal getDatePrice() {
-        return datePrice;
+    public void setPlaceAddress(String placeAddress) {
+        this.placeAddress = placeAddress;
     }
 
-    public String getDateCategory() {
-        return dateCategory;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public String getDateSubCategory() {
-        return dateSubCategory;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
-    public String getDateImageUrl() {
-        return dateImageUrl;
+    public String getNotes() {
+        return notes;
     }
 
-    public String getDateOperatingHours() {
-        return dateOperatingHours;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
-    public double getDateAverageRating() {
-        return dateAverageRating;
-    }
-
-    public List<String> getDateReviews() {
-        return dateReviews;
-    }
-
-    //setter
-
-
-    public void setDateId(Long dateId) {
-        this.dateId = dateId;
-    }
-
-    public void setDateName(String dateName) {
-        this.dateName = dateName;
-    }
-
-    public void setDateDescription(String dateDescription) {
-        this.dateDescription = dateDescription;
-    }
-
-    public void setDateAddress(String dateAddress) {
-        this.dateAddress = dateAddress;
-    }
-
-    public void setDateLatitude(double dateLatitude) {
-        this.dateLatitude = dateLatitude;
-    }
-
-    public void setDateLongitude(double dateLongitude) {
-        this.dateLongitude = dateLongitude;
-    }
-
-    public void setDatePrice(BigDecimal datePrice) {
-        this.datePrice = datePrice;
-    }
-
-    public void setDateCategory(String dateCategory) {
-        this.dateCategory = dateCategory;
-    }
-
-    public void setDateSubCategory(String dateSubCategory) {
-        this.dateSubCategory = dateSubCategory;
-    }
-
-    public void setDateImageUrl(String dateImageUrl) {
-        this.dateImageUrl = dateImageUrl;
-    }
-
-    public void setDateOperatingHours(String dateOperatingHours) {
-        this.dateOperatingHours = dateOperatingHours;
-    }
-
-    public void setDateAverageRating(double dateAverageRating) {
-        this.dateAverageRating = dateAverageRating;
-    }
-
-    public void setDateReviews(List<String> dateReviews) {
-        this.dateReviews = dateReviews;
-    }
-
-    /**
-     * 객체의 문자열 표현을 반환
-     * @return 데이트 장소의 주요 정보를 포함한 문자열
-     */
     @Override
     public String toString() {
         return "DateDTO{" +
-                "dateId=" + dateId +
-                ", dateName='" + dateName + '\'' +
-                ", dateCategory='" + dateCategory + '\'' +
-                ", dateSubCategory='" + dateSubCategory + '\'' +
-                ", dateAverageRating=" + dateAverageRating +
+                "userId=" + userId +
+                ", placeName='" + placeName + '\'' +
+                ", placeAddress='" + placeAddress + '\'' +
+                ", dateTime=" + dateTime +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 }
+

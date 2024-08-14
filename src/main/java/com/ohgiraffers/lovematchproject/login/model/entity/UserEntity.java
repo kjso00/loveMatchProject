@@ -13,7 +13,10 @@ public class UserEntity {
     @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "user_email")
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name = "user_email", unique = true, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -23,9 +26,10 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String userId, String email, Role role) {
+    public UserEntity(Long id, String userId, String userName, String email, Role role) {
         this.id = id;
         this.userId = userId;
+        this.userName = userName;
         this.email = email;
         this.role = role;
     }
@@ -44,6 +48,14 @@ public class UserEntity {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {

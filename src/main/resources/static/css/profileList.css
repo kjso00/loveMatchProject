@@ -1,0 +1,67 @@
+/* 메인 컨테이너 스타일 */
+.container{
+    display: flex;
+    align-items: center;
+    gap: 20px 2%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: calc(100vh - 200px); /* 화면 높이에서 헤더와 네비게이션 바 높이를 뺀 나머지 */
+    z-index: 2;
+}
+.content-container{
+    margin-top: 350px;
+    width: 40%;
+}
+
+.profile-container {
+    border: 1px black;
+    display: inline-block;
+    flex-wrap: wrap;
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.profile-box{
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+    height: 300px;
+    box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
+    text-align: center;
+}
+
+/*.container {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    !*height: 100vh;*!*/
+/*    !*width: 100vw;*!*/
+/*}*/
+/*.content-container{
+    margin-top: 330px;
+
+    !*overflow-y: auto; !* 세로 스크롤 활성화 *!*!
+}*/
+
+
+.footerBTN{
+    display: flex;
+    margin: 0 auto;
+
+}
+.footButton{
+    border: none;
+    border-radius: 8px;
+    display: inline-block;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    margin: 20px;
+    color: #FF832B;
+    background-color: #ffffff;
+    z-index: 5;
+}
+
+.footButton:hover {/* 마우스를 올렸을 때 색상 변경 */
+    color: white;
+    background-color: #f34406;
+}
