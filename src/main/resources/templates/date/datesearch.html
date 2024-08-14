@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이트 장소 검색</title>
+    <link rel="stylesheet" th:href="@{/css/styleKDY.css}">
+</head>
+<body>
+<div class="map_wrap">
+    <div id="map"></div>
+    <div id="menu_wrap">
+        <div class="option">
+            <div>
+                <form onsubmit="searchPlaces(); return false;">
+                    키워드 : <input type="text" placeholder="키워드를 입력하세요" id="keyword" size="15">
+                    <button type="submit">검색하기</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+</div>
+
+<div id="popup" class="popup" role="dialog" aria-labelledby="place-name" aria-describedby="place-address place-phone">
+    <h2 id="place-name"></h2>
+    <p id="place-address"></p>
+    <p id="place-phone"></p>
+    <button id="like-button">찜하기</button>
+    <button onclick="closePopup()">닫기</button>
+</div>
+
+
+<!-- 카카오 맵 API 스크립트 -->
+<script th:inline="javascript">
+    var kakaoMapKey = [[${@environment.getProperty('api.kakaoMap.key')}]];
+</script>
+<script th:src="@{https://dapi.kakao.com/v2/maps/sdk.js(appkey=${@environment.getProperty('api.kakaoMap.key')},libraries='services')}"></script>
+<script th:src="@{/javascript/javaKDY.js}"></script>
+</body>
+</html>

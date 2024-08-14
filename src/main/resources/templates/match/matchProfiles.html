@@ -1,46 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/stylephy.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
     <title>Match Profile List</title>
 
-    <style>
-        .profile-container {
-            border: 1px black;
-            display: flex;
-            flex-wrap: wrap;
-            margin: 30px; /* 중앙 정렬 */
-        }
-
-        .profile-box{
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
-            height: 300px;
-            box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
-            text-align: center;
-        }
-    </style>
 
 </head>
 <body>
-<h3>Login User</h3>
-<h2>Match for <span th:text="${loginUser.profileName}"></span></h2>
+<!-- 배경, 헤더 이미지 css -->
+<img src="/static/image/BG.svg" alt="Background" id="bg">
+<img src="/static/image/header.svg" alt="Header" id="header">
 
-<h1>Matches profile</h1>
-     <div class="profile-container">
-        <div class="profile-box" th:each="profile : ${matchResults}">
-            <p th:text="${profile.profileName}"></p>
-            <p th:text="${profile.profileGender}"></p>
-            <p th:text="${profile.profileAge}"></p>
-            <p th:text="${profile.profileHeight}"></p>
-            <p th:text="${profile.profileMBTI}"></p>
-            <p th:text="${profile.profileLocation}"></p>
-            <p th:text="${profile.totalScore}"></p>
-        </div>
-     </div>
+<!-- 네비게이션 바 -->
+<div>
+    <header>
+        <nav>
+            <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
+            <a href="#">채팅</a>
+            <a th:href="@{/date/datemain}">데이트 컨텐츠</a>
+            <a th:href="@{/profile/list}">MY Profile</a>
+            <a th:href="@{/logout}">LOGOUT</a>
+        </nav>
+    </header>
+</div>
 
+<div class="container">
+<h2 id="forName">Match for <span th:text="${loginUser.profileName}"></span></h2>
+
+    <div class="content-container">
+    <h1>Matches profile</h1>
+         <div class="profile-container">
+            <div class="profile-box" th:each="profile : ${matchResults}">
+                <p th:text="${profile.profileName}"></p>
+                <p th:text="${profile.profileGender}"></p>
+                <p th:text="${profile.profileAge}"></p>
+                <p th:text="${profile.profileHeight}"></p>
+                <p th:text="${profile.profileMBTI}"></p>
+                <p th:text="${profile.profileLocation}"></p>
+                <p th:text="${profile.totalScore}"></p>
+            </div>
+         </div>
+    </div>
+</div>
 
 <button onclick="listall()" > 전체회원보기 </button>
 </body>

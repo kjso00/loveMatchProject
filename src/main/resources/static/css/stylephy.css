@@ -1,0 +1,41 @@
+.profile-container {
+    border: 1px black;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.profile-box{
+    border: 1px solid #0bc284;
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+    height: 300px;
+    box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
+    text-align: center;
+}
+
+#forName {
+
+}
+
+
+/* 메인 컨테이너 스타일 */
+.container {
+    position: relative;
+    top: 100px;
+    /*height: 100vh;*/
+    /*width: 100vw;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.content-container{
+    position: relative;
+    top: 130px;
+    margin-top: 100px;
+    height: calc(100vh - 200px); /* 화면 높이에서 헤더와 네비게이션 바 높이를 뺀 나머지 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+}

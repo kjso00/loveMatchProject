@@ -1,85 +1,91 @@
 package com.ohgiraffers.lovematchproject.date.like.likemodel.likeentity;
 
-import com.ohgiraffers.lovematchproject.date.datemodel.dateentity.DateEntity;
-import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
-/**
- * LikeEntity 클래스
- * 이 클래스는 사용자가 데이트 장소에 대해 '찜'한 정보를 나타냄
- */
 @Entity
 @Table(name = "likes")
 public class LikeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false) // user_id에서 id로 변경
-    private UserEntity user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "date_id", nullable = false)
-    private DateEntity date;
+    private Long id;  // 좋아요 고유 식별자
 
     @Column(nullable = false)
-    private LocalDateTime likeCreatedAt;
+    private Long userId;  // 사용자 ID
 
-    // 기본 생성자
+    @Column(nullable = false)
+    private String placeName;  // 장소 이름
+
+    @Column(nullable = false)
+    private String placeAddress;  // 장소 주소
+
+    @Column(nullable = false)
+    private LocalDateTime likedAt;  // 좋아요 누른 시간
+
+
     public LikeEntity() {
     }
 
-    // 모든 필드를 포함하는 생성자
-    public LikeEntity(UserEntity user, DateEntity date) {
-        this.user = user;
-        this.date = date;
-        this.likeCreatedAt = LocalDateTime.now();
+    public LikeEntity(Long id, Long userId, String placeName, String placeAddress, LocalDateTime likedAt) {
+        this.id = id;
+        this.userId = userId;
+        this.placeName = placeName;
+        this.placeAddress = placeAddress;
+        this.likedAt = likedAt;
     }
 
-    // Getter와 Setter 메서드
-    public Long getLikeId() {
-        return likeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setLikeId(Long likeId) {
-        this.likeId = likeId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public DateEntity getDate() {
-        return date;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public void setDate(DateEntity date) {
-        this.date = date;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
-    public LocalDateTime getLikeCreatedAt() {
-        return likeCreatedAt;
+    public String getPlaceAddress() {
+        return placeAddress;
     }
 
-    public void setLikeCreatedAt(LocalDateTime likeCreatedAt) {
-        this.likeCreatedAt = likeCreatedAt;
+    public void setPlaceAddress(String placeAddress) {
+        this.placeAddress = placeAddress;
+    }
+
+    public LocalDateTime getLikedAt() {
+        return likedAt;
+    }
+
+    public void setLikedAt(LocalDateTime likedAt) {
+        this.likedAt = likedAt;
     }
 
     @Override
     public String toString() {
         return "LikeEntity{" +
-                "likeId=" + likeId +
-                ", userId=" + (user != null ? user.getUserId() : null) +
-                ", dateId=" + (date != null ? date.getDateId() : null) +
-                ", likeCreatedAt=" + likeCreatedAt +
+                "id=" + id +
+                ", userId=" + userId +
+                ", placeName='" + placeName + '\'' +
+                ", placeAddress='" + placeAddress + '\'' +
+                ", likedAt=" + likedAt +
                 '}';
     }
 }
