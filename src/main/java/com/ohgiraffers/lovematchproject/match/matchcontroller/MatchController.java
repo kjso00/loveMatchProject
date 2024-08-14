@@ -1,11 +1,9 @@
 package com.ohgiraffers.lovematchproject.match.matchcontroller;
 
 import com.ohgiraffers.lovematchproject.login.model.dto.CustomOAuth2User;
-import com.ohgiraffers.lovematchproject.login.model.entity.UserEntity;
 import com.ohgiraffers.lovematchproject.login.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import com.ohgiraffers.lovematchproject.profile.model.dto.ProfileDTO;
 import com.ohgiraffers.lovematchproject.match.matchservice.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +23,10 @@ public class MatchController {
 
 
     private final MatchService matchService;
-    private final UserRepository userRepository;
 
     @Autowired
-    public MatchController(MatchService matchService, UserRepository userRepository) {
+    public MatchController(MatchService matchService) {
         this.matchService = matchService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/match/matchProfiles")
