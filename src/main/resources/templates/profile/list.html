@@ -27,7 +27,9 @@
 
 <div class="container">
 <div class="content-container">
+    <div class="profile-container">
         <h1>전체 회원들</h1>
+    </div>
         <div class="profile-container">
             <div class="profile-box" th:each="profileList: ${profileDTOList}">
                 <img th:if="${profileList.storedFileName != null and !profileList.storedFileName.isEmpty()}"

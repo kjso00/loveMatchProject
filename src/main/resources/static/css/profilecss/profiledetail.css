@@ -24,11 +24,12 @@
 
 .profile-box{
     justify-content: center; /* 가로 중앙 정렬 */
-    border: 1px solid #ccc;
+    border: 1px solid #fff198;
+    border-radius: 15px;
     padding: 10px;
     margin: 10px;
-    width: 200px;
-    height: 350px;
+    width: 230px;
+    height: 550px;
     box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
     text-align: center;
 }
