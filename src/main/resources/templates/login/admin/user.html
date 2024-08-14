@@ -13,9 +13,9 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title" th:text="${user.id}"></h5>
-            <p class="card-text" th:text="${user.name}"></p>
-            <p class="card-text" th:text="${user.email}"></p>
-            <p class="card-text" th:text="${user.role}"></p>
+            <p class="card-text" th:text="'이름 : ' + ${user.name}"></p>
+            <p class="card-text" th:text="'이메일 : ' + ${user.email}"></p>
+            <p class="card-text" th:text="'권한 : ' + ${user.role}"></p>
         </div>
     </div>
     <div class="row mt-3">
@@ -29,7 +29,7 @@
             </form>
         </div>
         <div class="col-auto">
-            <a class="btn btn-back" th:href="@{/}" th:method="get">회원목록</a>
+            <a class="btn btn-back" th:href="@{/login/admin/admin}" th:method="get">회원목록</a>
         </div>
     </div>
 </div>
