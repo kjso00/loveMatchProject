@@ -1,37 +1,45 @@
 package com.ohgiraffers.lovematchproject.profile.model.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProfileDTO {
 
     private Long userId;
-    public Long profileNo; // 폼에서 입력x
+    private Long profileNo; // 폼에서 입력x
 
-    public String profileName; // 실명 인증 받아야 하는데
-    // private String profileEmail; 이메일 인증 받아야 하는데
-    // SNS 로그인 받으면 인증정보가 어디까지 연결되는거지?
-    // 이름, 비밀번호, 이메일.. 은 자동으로 실명 인증된거 아닌가? 흐음..
+    private String profileName; // 이름
+    private String profilePassword; //비밀번호
 
-    public String profileGender;
-    public int profileAge;
-    public int profileHeight;
+    private String profileGender; // 성별
+    private int profileAge; // 나이
+    private int profileHeight; // 키
+    private String profileLocation; // 위치
 
-    public String profileMBTI;
-    public String profileLocation;
+    private String profileMBTI; // MBTI
 
-    public int totalScore; // 폼에서 입력x
+    private int totalScore; // 총 점수 폼에서 입력x
+
+    private MultipartFile profileFile;
+    private String originalFileName;
+    private String storedFileName;
 
     public ProfileDTO() {
     }
 
-    public ProfileDTO(Long userId, Long profileNo, String profileName, String profileGender, int profileAge, int profileHeight, String profileMBTI, String profileLocation, int totalScore) {
+    public ProfileDTO(Long userId, Long profileNo, String profileName, String profilePassword, String profileGender, int profileAge, int profileHeight, String profileLocation, String profileMBTI, int totalScore, MultipartFile profileFile, String originalFileName, String storedFileName) {
         this.userId = userId;
         this.profileNo = profileNo;
         this.profileName = profileName;
+        this.profilePassword = profilePassword;
         this.profileGender = profileGender;
         this.profileAge = profileAge;
         this.profileHeight = profileHeight;
-        this.profileMBTI = profileMBTI;
         this.profileLocation = profileLocation;
+        this.profileMBTI = profileMBTI;
         this.totalScore = totalScore;
+        this.profileFile = profileFile;
+        this.originalFileName = originalFileName;
+        this.storedFileName = storedFileName;
     }
 
     public Long getUserId() {
@@ -58,6 +66,14 @@ public class ProfileDTO {
         this.profileName = profileName;
     }
 
+    public String getProfilePassword() {
+        return profilePassword;
+    }
+
+    public void setProfilePassword(String profilePassword) {
+        this.profilePassword = profilePassword;
+    }
+
     public String getProfileGender() {
         return profileGender;
     }
@@ -82,20 +98,20 @@ public class ProfileDTO {
         this.profileHeight = profileHeight;
     }
 
-    public String getProfileMBTI() {
-        return profileMBTI;
-    }
-
-    public void setProfileMBTI(String profileMBTI) {
-        this.profileMBTI = profileMBTI;
-    }
-
     public String getProfileLocation() {
         return profileLocation;
     }
 
     public void setProfileLocation(String profileLocation) {
         this.profileLocation = profileLocation;
+    }
+
+    public String getProfileMBTI() {
+        return profileMBTI;
+    }
+
+    public void setProfileMBTI(String profileMBTI) {
+        this.profileMBTI = profileMBTI;
     }
 
     public int getTotalScore() {
@@ -106,18 +122,46 @@ public class ProfileDTO {
         this.totalScore = totalScore;
     }
 
+    public MultipartFile getProfileFile() {
+        return profileFile;
+    }
+
+    public void setProfileFile(MultipartFile profileFile) {
+        this.profileFile = profileFile;
+    }
+
+    public String getOriginalFileName() {
+        return originalFileName;
+    }
+
+    public void setOriginalFileName(String originalFileName) {
+        this.originalFileName = originalFileName;
+    }
+
+    public String getStoredFileName() {
+        return storedFileName;
+    }
+
+    public void setStoredFileName(String storedFileName) {
+        this.storedFileName = storedFileName;
+    }
+
     @Override
     public String toString() {
         return "ProfileDTO{" +
                 "userId=" + userId +
                 ", profileNo=" + profileNo +
                 ", profileName='" + profileName + '\'' +
+                ", profilePassword='" + profilePassword + '\'' +
                 ", profileGender='" + profileGender + '\'' +
                 ", profileAge=" + profileAge +
                 ", profileHeight=" + profileHeight +
-                ", profileMBTI='" + profileMBTI + '\'' +
                 ", profileLocation='" + profileLocation + '\'' +
+                ", profileMBTI='" + profileMBTI + '\'' +
                 ", totalScore=" + totalScore +
+                ", profileFile=" + profileFile +
+                ", originalFileName='" + originalFileName + '\'' +
+                ", storedFileName='" + storedFileName + '\'' +
                 '}';
     }
 }
