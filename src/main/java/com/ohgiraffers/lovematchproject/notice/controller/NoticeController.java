@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-
 @Controller
 public class NoticeController {
 
@@ -176,7 +175,7 @@ public class NoticeController {
 
     // 사용자용 공지사항 상세 페이지
     @GetMapping("/notice/user/usernoticelist/{id}")
-    public ModelAndView userPostDetail(@PathVariable("id") int id) {
+    public ModelAndView userPostDetail(@PathVariable("id") int id ) {
         NoticeDTO noticeDTO = noticeService.getPostById(id);
         ModelAndView modelAndView = new ModelAndView();
 
