@@ -32,7 +32,7 @@
     border-right: none; /* border-right: 1px solid #acacac; 제거 */
     border-bottom: 1px solid #acacac; /* 추가 */
     padding: 10px 0; /* padding: 6px 0; 에서 변경 */
-    text-align: left; /* text-align: center; 에서 변경 */
+    text-align: right; /* text-align: center; 에서 변경 */
     cursor: pointer;
 }
 
@@ -161,6 +161,7 @@ nav a:hover {
 }
 
 /*date 폼*/
+
 .container {
     width: 1500px;
     height: 690px;

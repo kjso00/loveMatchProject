@@ -1,19 +1,36 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>찜한 장소 목록</title>
-    <link rel="stylesheet" th:href="@{/css/stylekdy.css}">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; }
+    </style>
 </head>
 <body>
 <h1>찜한 장소 목록</h1>
-<ul>
-    <li th:each="place : ${likedPlaces}">
-        <span th:text="${place.placeName}">장소 이름</span>
-        <span th:text="${place.placeAddress}">장소 주소</span>
-        <span th:text="${#temporals.format(place.likedAt, 'yyyy-MM-dd HH:mm')}">찜한 날짜</span>
-    </li>
-</ul>
+<ul id="likedPlacesList"></ul>
 <a href="/date/datesearch">장소 검색으로 돌아가기</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || {};
+        const listElement = document.getElementById('likedPlacesList');
+
+        for (const placeId in favorites) {
+            const place = favorites[placeId];
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <h3>${place.place_name}</h3>
+                <p>${place.address_name}</p>
+                <p>찜한 날짜: ${new Date(place.likedAt).toLocaleString()}</p>
+            `;
+            listElement.appendChild(li);
+        }
+    });
+</script>
 </body>
 </html>

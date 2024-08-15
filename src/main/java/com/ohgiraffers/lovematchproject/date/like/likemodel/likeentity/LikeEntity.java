@@ -12,30 +12,25 @@ public class LikeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // 좋아요 고유 식별자
+    private Long id;
 
-    @Column(nullable = false)
-    private Long userId;  // 사용자 ID
+    private Long userId;
 
-    @Column(nullable = false)
-    private String placeName;  // 장소 이름
+    private String placeName;
 
-    @Column(nullable = false)
-    private String placeAddress;  // 장소 주소
+    private String placeAddress;
 
-    @Column(nullable = false)
-    private LocalDateTime likedAt;  // 좋아요 누른 시간
-
+    private LocalDateTime likedAt;
 
     public LikeEntity() {
+        this.likedAt = LocalDateTime.now();  // 기본값으로 현재 시간을 설정
     }
 
-    public LikeEntity(Long id, Long userId, String placeName, String placeAddress, LocalDateTime likedAt) {
-        this.id = id;
+    public LikeEntity(Long userId, String placeName, String placeAddress) {
         this.userId = userId;
         this.placeName = placeName;
         this.placeAddress = placeAddress;
-        this.likedAt = likedAt;
+        this.likedAt = LocalDateTime.now();  // 기본값으로 현재 시간을 설정
     }
 
     public Long getId() {
@@ -89,3 +84,4 @@ public class LikeEntity {
                 '}';
     }
 }
+
