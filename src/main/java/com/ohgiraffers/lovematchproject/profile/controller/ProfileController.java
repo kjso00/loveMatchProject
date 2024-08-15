@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/profile")
@@ -57,15 +56,29 @@ public class ProfileController {
     }
 
     @GetMapping("/update/{profileNo}")
-    public String update(@PathVariable Long profileNo, Model model) {
+    public String update(@PathVariable("profileNo") Long profileNo, Model model) {
         ProfileDTO profileDTO = profileService.findById(profileNo);
         model.addAttribute("profileUpdate", profileDTO);
         return "profile/update";
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute ProfileDTO profileDTO, Model model) {
-        ProfileDTO profile = profileService.update(profileDTO);
+    @PostMapping("/update/{profileNo}")
+    public String update(@PathVariable("profileNo") Long profileNo, @ModelAttribute ProfileDTO profileDTO,Model model) throws IOException {
+        ProfileDTO update = profileService.findById(profileNo);
+        //▽ DTO가 데이터를 담고있는지 확인. null이 아니면 if함수 실행
+        if(update != null){
+            //▽ 위에 @GetMapping에서 담아온 DTO가 get한 데이터들을 여기서 선언한DTO에 set해줌
+            update.setProfileNo(profileDTO.getProfileNo());
+            update.setProfileFile(profileDTO.getProfileFile());
+            update.setProfileName(profileDTO.getProfileName());
+            update.setProfilePassword(profileDTO.getProfilePassword());
+            update.setProfileGender(profileDTO.getProfileGender());
+            update.setProfileAge(profileDTO.getProfileAge());
+            update.setProfileHeight(profileDTO.getProfileHeight());
+            update.setProfileMBTI(profileDTO.getProfileMBTI());
+            update.setProfileLocation(profileDTO.getProfileLocation());
+        }
+        ProfileDTO profile = profileService.update(update, profileNo);
         model.addAttribute("profile", profile);
         return "profile/saved";
     }
