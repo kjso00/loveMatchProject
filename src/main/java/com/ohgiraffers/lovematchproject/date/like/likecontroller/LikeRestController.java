@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/likes")
-public class LikeController {
+public class LikeRestController {
 
     @Autowired
     private LikeService likeService;
@@ -41,6 +41,6 @@ public class LikeController {
         Long userId = 1L;
         List<LikeEntity> likedPlaces = likeService.getUserLikes(userId);
         model.addAttribute("likedPlaces", likedPlaces);
-        return "likedPlaces";
+        return "/date/likedPlaces";
     }
 }

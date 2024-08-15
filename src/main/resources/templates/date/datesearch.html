@@ -42,32 +42,32 @@
                     <div id="menu_wrap">
                         <div class="option">
                             <div>
-                                키워드 : <input type="text" id="keyword" size="15">
-                                <button onclick="searchPlaces()">검색하기</button>
+                                키워드 : <input type="text" value="강남역" id="keyword" size="15">
+                                <button id="search-button">검색하기</button>
                             </div>
                         </div>
+                        <ul id="placesList"></ul>
                         <div id="pagination"></div>
+                    </div>
+                    <div id="category">
+                        <ul>
+                            <li id="CT1" class="category-btn"><span class="category_bg culture"></span> 문화시설</li>
+                            <li id="AT4" class="category-btn"><span class="category_bg tour"></span> 관광명소</li>
+                            <li id="FD6" class="category-btn"><span class="category_bg Restaurant"></span> 음식점</li>
+                            <li id="CE7" class="category-btn"><span class="category_bg cafe"></span> 카페</li>
+                            <li id="CS2" class="category-btn"><span class="category_bg store"></span> 편의점</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <div id="category">
-                <ul>
-                    <li id="CT1" data-order="0"><span class="category_bg culture"></span> 문화시설</li>
-                    <li id="AT4" data-order="1"><span class="category_bg tour"></span> 관광명소</li>
-                    <li id="FD6" data-order="2"><span class="category_bg Restaurant"></span> 음식점</li>
-                    <li id="CE7" data-order="3"><span class="category_bg cafe"></span> 카페</li>
-                    <li id="CS2" data-order="4"><span class="category_bg store"></span> 편의점</li>
-                </ul>
-            </div>
-
-            <a href="/date/likedplaces" class="likedplaces-link">찜한 장소 목록 보기</a>
         </main>
     </div>
 </div>
 
 
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=95e178d0770fb28588aaa64253f3ae29&libraries=services"></script>
 <script th:src="@{/javascript/javakdy.js}"></script>
+<a href="/date/likedPlaces" class="liked-Places-link" style="display: block; margin-top: 10px; padding: 10px; background-color: #4169E1; color: white; text-decoration: none; text-align: center;">찜한 장소 목록 보기</a>
 </body>
 </html>

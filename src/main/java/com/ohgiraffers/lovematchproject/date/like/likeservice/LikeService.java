@@ -33,7 +33,6 @@ public class LikeService {
         like.setUserId(userId);
         like.setPlaceName(placeName);
         like.setPlaceAddress(placeAddress);
-        like.setLikedAt(LocalDateTime.now());
 
         return likeRepository.save(like);
     }
