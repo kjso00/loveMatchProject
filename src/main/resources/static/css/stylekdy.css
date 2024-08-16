@@ -138,8 +138,8 @@ body, html {
 
 nav {
     position: absolute;
-    right: 20px;
-    top: 130px; /* 헤더 아래로 약간 내려오도록 조정 */
+    left: 50%;
+    top: 180px;
     display: flex;
     justify-content: flex-end;
     gap: 30px;

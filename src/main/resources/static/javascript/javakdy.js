@@ -24,7 +24,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 카테고리 클릭 이벤트 등록
     addCategoryClickEvent();
+    displayFavorites();
+
 });
+
+
+
 
 // 통합 검색 함수
 function searchPlaces() {
@@ -73,6 +78,7 @@ function onClickCategory() {
 function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
         currentPlaces = data;
+        console.log('currentPlaces updated:', currentPlaces);
         displayPlaces(data);
         displayPagination(pagination);
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
@@ -264,33 +270,65 @@ function displayPlaceInfo(place) {
     infowindow.setContent(content);
     infowindow.setPosition(new kakao.maps.LatLng(place.y, place.x));
     infowindow.open(map);
+
+
+
+    // 인포윈도우 닫기 이벤트 추가
+    var closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '닫기';
+    closeBtn.onclick = function() {
+        infowindow.close();
+    };
+    infowindow.setContent(infowindow.getContent() + closeBtn.outerHTML);
+
 }
 
 function toggleFavorite(placeId) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || {};
-    let place = currentPlaces.find(p => p.id === placeId);
+    let favorites = localStorage.getItem('favorites');
+    favorites = favorites ? favorites.split(',') : [];
 
-    if (favorites[placeId]) {
-        delete favorites[placeId];
-        console.log('찜 제거: ' + placeId);
-    } else if (place) {
-        favorites[placeId] = {
-            id: place.id,
-            place_name: place.place_name,
-            address_name: place.address_name,
-            likedAt: new Date().toISOString()
-        };
-        console.log('찜 추가: ' + placeId);
+    let index = favorites.indexOf(placeId);
+    if (index > -1) {
+        favorites.splice(index, 1); // 찜 제거
+        console.log('찜 제거:', placeId);
+    } else {
+        favorites.push(placeId); // 찜 추가
+        console.log('찜 추가:', placeId);
     }
 
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    function displayFavorites() {
+        let favorites = localStorage.getItem('favorites');
+        favorites = favorites ? favorites.split(',') : [];
+
+        let favoritesList = document.getElementById('favoritesList');
+        favoritesList.innerHTML = '';
+        favorites.forEach(placeId => {
+            let place = currentPlaces.find(p => p.id === placeId);
+            if (place) {
+                let li = document.createElement('li');
+                li.textContent = place.place_name;
+                favoritesList.appendChild(li);
+            }
+        });
+    }
+
+    localStorage.setItem('favorites', favorites.join(','));
     updateFavoriteButton(placeId);
+
+    // 인포윈도우 내용 업데이트
+    var content = infowindow.getContent();
+    content = content.replace(
+        isFavorite(placeId) ? '찜하기' : '찜 해제',
+        isFavorite(placeId) ? '찜 해제' : '찜하기'
+    );
+    infowindow.setContent(content);
 }
 
 // 새로운 함수 추가
 function isFavorite(placeId) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || {};
-    return !!favorites[placeId];
+    let favorites = localStorage.getItem('favorites');
+    favorites = favorites ? favorites.split(',') : [];
+    return favorites.includes(placeId);
 }
 
 
@@ -299,6 +337,7 @@ function updateFavoriteButton(placeId) {
     if (button) {
         button.textContent = isFavorite(placeId) ? '찜 해제' : '찜하기';
     }
+    displayFavorites();
 }
 
 
