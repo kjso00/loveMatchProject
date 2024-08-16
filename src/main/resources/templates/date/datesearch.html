@@ -9,6 +9,23 @@
         var kakaoAppKey = /*[[${kakaoAppKey}]]*/ '95e178d0770fb28588aaa64253f3ae29';
     </script>
     <script th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoAppKey} + '&libraries=services'}"></script>
+    <style>
+        .infowindow-content {
+            padding: 10px;
+            width: 300px;
+        }
+        .infowindow-content h5 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .infowindow-content p {
+            margin: 5px 0;
+        }
+        .infowindow-content button, .infowindow-content a {
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 
 <body>
