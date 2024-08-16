@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping // 관리자 메인페이지
+    @GetMapping // 관리자 메인페이지 (회원리스트 노출)
     public ModelAndView adminPage(ModelAndView mv){
         List<UserDTO> userList = adminService.allUserList();
         mv.addObject("userList", userList);
@@ -35,7 +36,7 @@ public class AdminController {
         return mv;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{id}") // 회원정보 상세페이지
     public String detail(@PathVariable Integer id, Model model) {
         UserDTO userDTO = adminService.userDetail(id); // id 값을 기준으로 상세조회한 결과값을 DTO에 담음
 
@@ -47,4 +48,8 @@ public class AdminController {
         }
         return "/login/admin/user";
     }
+
+//    @GetMapping("/user/delete/{id}")
+//    public ModelAndView deleteUser(@PathVariable Integer id, RedirectAttributes rdat, ModelAndView mv){
+//    }
 }
