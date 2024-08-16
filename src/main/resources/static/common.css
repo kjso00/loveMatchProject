@@ -44,8 +44,8 @@ footer {
 
 nav {
     position: absolute;
-    right: 20px;
-    top: 130px; /* 헤더 아래로 약간 내려오도록 조정 */
+    right: 10%;
+    top: 200px; /* 헤더 아래로 약간 내려오도록 조정 */
     display: flex;
     justify-content: flex-end;
     gap: 30px;

@@ -22,7 +22,7 @@
     <nav>
         <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
         <a href="@{/chat/chatroom}">채팅</a>
-        <a th:href="@{/date/datemain}">데이트 컨텐츠</a>
+        <a th:href="@{/date/datesearch}">데이트 컨텐츠</a>
         <a th:href="@{/profile/list}">MY Profile</a>
         <a th:href="@{/logout}">LOGOUT</a>
     </nav>
@@ -49,18 +49,8 @@
                         <ul id="placesList"></ul>
                         <div id="pagination"></div>
                     </div>
-                    <div id="category">
-                        <ul>
-                            <li id="CT1" class="category-btn"><span class="category_bg culture"></span> 문화시설</li>
-                            <li id="AT4" class="category-btn"><span class="category_bg tour"></span> 관광명소</li>
-                            <li id="FD6" class="category-btn"><span class="category_bg Restaurant"></span> 음식점</li>
-                            <li id="CE7" class="category-btn"><span class="category_bg cafe"></span> 카페</li>
-                            <li id="CS2" class="category-btn"><span class="category_bg store"></span> 편의점</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
-
         </main>
     </div>
 </div>
