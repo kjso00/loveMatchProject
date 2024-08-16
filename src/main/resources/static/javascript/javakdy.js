@@ -120,23 +120,16 @@ function displayPlaces(places) {
 
         bounds.extend(placePosition);
 
-        (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
+        (function(marker, place) {
+            kakao.maps.event.addListener(marker, 'click', function() {
+                displayPlaceInfo(place);
             });
 
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
-
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
+            itemEl.onclick = function() {
+                displayPlaceInfo(place);
+                map.panTo(new kakao.maps.LatLng(place.y, place.x));
             };
-
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
-        })(marker, places[i].place_name);
+        })(marker, places[i]);
 
         fragment.appendChild(itemEl);
     }
@@ -258,22 +251,24 @@ function displayInfowindow(marker, title) {
 
 // 장소 정보 표시 함수 구현
 function displayPlaceInfo(place) {
-    var content = '<div style="padding:5px;width:300px;">' +
+    var content = '<div class="infowindow-content">' +
         '<h5>' + place.place_name + '</h5>' +
         '<p>' + place.address_name + '</p>' +
         '<p>' + place.phone + '</p>' +
         '<button onclick="toggleFavorite(\'' + place.id + '\')" data-place-id="' + place.id + '">' +
         (isFavorite(place.id) ? '찜 해제' : '찜하기') +
         '</button>' +
+        '<br><a href="https://map.kakao.com/link/map/' + place.place_name + ',' + place.y + ',' + place.x + '" style="color:blue" target="_blank">큰지도보기</a> ' +
+        '<a href="https://map.kakao.com/link/to/' + place.place_name + ',' + place.y + ',' + place.x + '" style="color:blue" target="_blank">길찾기</a>' +
+        '<button onclick="infowindow.close()">닫기</button>' +
         '</div>';
 
     infowindow.setContent(content);
     infowindow.setPosition(new kakao.maps.LatLng(place.y, place.x));
     infowindow.open(map);
+}
 
-
-
-    // 인포윈도우 닫기 이벤트 추가
+    // 인포윈도우 닫기 버튼 추가
     var closeBtn = document.createElement('button');
     closeBtn.innerHTML = '닫기';
     closeBtn.onclick = function() {
@@ -281,7 +276,8 @@ function displayPlaceInfo(place) {
     };
     infowindow.setContent(infowindow.getContent() + closeBtn.outerHTML);
 
-}
+
+
 
 function toggleFavorite(placeId) {
     let favorites = localStorage.getItem('favorites');
