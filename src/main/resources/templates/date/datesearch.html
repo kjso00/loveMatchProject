@@ -3,44 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>데이트 장소 검색</title>
+    <title>LoveLink - 데이트 장소 검색</title>
+    <link rel="stylesheet" th:href="@{/css/stylekdy.css}">
     <script th:inline="javascript">
-        /*<![CDATA[*/
-        var kakaoAppKey = /*[[${kakaoAppKey}]]*/ '22dc2cc9700d3d83be0a2bb9612cda7f';
-        /*]]>*/
+        var kakaoAppKey = /*[[${kakaoAppKey}]]*/ '95e178d0770fb28588aaa64253f3ae29';
     </script>
-
-    <!-- 카카오 맵 API 스크립트 -->
-    <script th:src="@{//dapi.kakao.com/v2/maps/sdk.js(appkey=${kakaoAppKey},libraries='services')}" type="text/javascript"></script>
-
-    <link rel="stylesheet" th:href="@{/static/css/stylekdy.css}">
-
-
+    <script th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoAppKey} + '&libraries=services'}"></script>
 </head>
+
 <body>
-<div class="map_wrap">
-    <div id="map" style="width:100%;height:400px;"></div>
-    <div id="menu_wrap">
-        <div class="option">
-            <div>
-                키워드 : <input type="text" id="keyword" size="15">
-                <button onclick="searchPlaces()">검색하기</button>
+
+<!-- 배경, 헤더 이미지 -->
+<img src="/image/BG.svg" alt="Background" id="bg">
+<img src="/image/header.svg" alt="Header" id="header">
+
+<!-- 네비게이션 바 -->
+<header style="height: 30%; width: 100%">
+    <nav>
+        <a th:href="@{/notice/user/usernoticelist}">공지사항</a>
+        <a href="@{/chat/chatroom}">채팅</a>
+        <a th:href="@{/date/datemain}">데이트 컨텐츠</a>
+        <a th:href="@{/profile/list}">MY Profile</a>
+        <a th:href="@{/logout}">LOGOUT</a>
+    </nav>
+</header>
+
+<div style="display: flex; justify-content: center; justify-items: center">
+    <div class="container">
+        <main role="main">
+            <div class="search-section">
+                <div class="orange-section">우리오늘 뭐할까?</div>
+                <div class="blue-section">찾아보기</div>
             </div>
-        </div>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
+
+            <div class="content-section">
+                <div class="map_wrap">
+                    <div id="map" style="width:1500px;height:690px;"></div>
+                    <div id="menu_wrap">
+                        <div class="option">
+                            <div>
+                                키워드 : <input type="text" id="keyword" size="15">
+                                <button onclick="searchPlaces()">검색하기</button>
+                            </div>
+                        </div>
+                        <div id="pagination"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="category">
+                <ul>
+                    <li id="CT1" data-order="0"><span class="category_bg culture"></span> 문화시설</li>
+                    <li id="AT4" data-order="1"><span class="category_bg tour"></span> 관광명소</li>
+                    <li id="FD6" data-order="2"><span class="category_bg Restaurant"></span> 음식점</li>
+                    <li id="CE7" data-order="3"><span class="category_bg cafe"></span> 카페</li>
+                    <li id="CS2" data-order="4"><span class="category_bg store"></span> 편의점</li>
+                </ul>
+            </div>
+
+            <a href="/date/likedplaces" class="likedplaces-link">찜한 장소 목록 보기</a>
+        </main>
     </div>
 </div>
 
-<div id="popup" class="popup" role="dialog" aria-labelledby="place-name" aria-describedby="place-address place-phone">
-    <h2 id="place-name"></h2>
-    <p id="place-address"></p>
-    <p id="place-phone"></p>
-    <button id="like-button">찜하기</button>
-    <button onclick="closePopup()">닫기</button>
-</div>
 
 
-<script th:src="@{/static/javascript/javakdy.js}"></script>
+<script th:src="@{/javascript/javakdy.js}"></script>
 </body>
 </html>

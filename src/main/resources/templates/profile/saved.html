@@ -15,6 +15,8 @@
             font-family: 'Arial', sans-serif;
         }
         .profile-card {
+            align-content: center;
+            justify-content: center; /* 가로 중앙 정렬 */
             background-color: white;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -22,18 +24,21 @@
             margin-top: 50px;
         }
         .profile-title {
+            justify-content: center; /* 가로 중앙 정렬 */
             color: #007bff;
             margin-bottom: 30px;
         }
-        .profile-info p {
-            display: flex;
-            margin-bottom: 15px;
+        .profile-info {
+            justify-content: center; /* 가로 중앙 정렬 */
+            margin:0 auto;
         }
         .profile-label {
+            justify-content: center; /* 가로 중앙 정렬 */
             font-weight: bold;
             color: #6c757d;
         }
         .btn-custom {
+            justify-content: center; /* 가로 중앙 정렬 */
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
@@ -59,10 +64,10 @@
                 <h1 class="text-center profile-title">나의 프로필 정보</h1>
                 <div class="profile-info">
                     <div type="hidden" id="profileNo" th:value="${profile.profileNo}"></div>
-                    <div th:if="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
-                        <h2>프로필 사진</h2>
-                        <img th:src="@{'/profile-images/' + ${profile.storedFileName}}" alt="프로필 사진" style="width: 100%; max-width: 300px; height:150px;">
-                    </div>
+                        <div th:if="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
+                            <h2>프로필 사진</h2>
+                            <img th:src="@{'/profile-images/' + ${profile.storedFileName}}" alt="프로필 사진" style="width: 100%; max-width: 300px; height:150px;">
+                        </div>
                     <div th:unless="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
                         <p>프로필 사진이 없습니다.</p>
                     </div>

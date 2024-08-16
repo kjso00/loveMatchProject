@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link type="text/css" rel="stylesheet" th:href="@{/ststic/css/profilecss/stylephy.css}">
-    <link type="text/css" rel="stylesheet" th:href="@{/ststic/css/profilecss/profilelist.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/static/css/profilecss/profiledetail.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/static/common.css}">
     <title>Match Profile List</title>
 
@@ -30,31 +29,43 @@
     </header>
 </div>
 
-<h2 id="forName">Match for <span th:text="${loginUser.profileName}"></span></h2>
 <div class="container">
     <div class="content-container">
-    <h1>Matches profile</h1>
+        <div class="profile-container">
+                <h2 id="forName">Match for <span th:text="${loginUser.profileName}"></span></h2>
+                <!--<h1>Matches profile</h1>-->
+        </div>
          <div class="profile-container">
-            <div class="profile-box" th:each="profile : ${matchResults}">
-                <img th:if="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}"
-                     th:src="@{'/profile-images/' + ${profileList.storedFileName}}"
-                     alt="프로필 사진" class="profile-image">
-                <p th:unless="${profile.storedFileName != null and !profile.storedFileName.isEmpty()}">
-                    사진 없음
-                </p>
-                <p th:text="${profile.profileName}"></p>
-                <p th:text="${profile.profileGender}"></p>
-                <p th:text="${profile.profileAge}"></p>
-                <p th:text="${profile.profileHeight}"></p>
-                <p th:text="${profile.profileMBTI}"></p>
-                <p th:text="${profile.profileLocation}"></p>
-                <p th:text="${profile.totalScore}"></p>
-            </div>
+             <div class="profile-box" th:each="profileDTOList: ${profileDTOList}">
+                 <img th:if="${profileDTOList.storedFileName != null and !profileDTOList.storedFileName.isEmpty()}"
+                      th:src="@{'/profile-images/' + ${profileDTOList.storedFileName}}"
+                      alt="프로필 사진" class="profile-image">
+                 <p th:unless="${profileDTOList.storedFileName != null and !profileDTOList.storedFileName.isEmpty()}">
+                     사진 없음
+                 </p>
+                 <input type="hidden" th:value="${profileDTOList.profileNo}" />
+                 <a th:href="@{|/profile/${profileDTOList.profileNo}|}" th:text="${profileDTOList.profileName}"></a></p>
+                 <p th:text="${profileDTOList.profileGender}"></p>
+                 <p th:text="${profileDTOList.profileAge}"></p>
+                 <p th:text="${profileDTOList.profileHeight}"></p>
+                 <p th:text="${profileDTOList.profileMBTI}"></p>
+                 <p th:text="${profileDTOList.profileLocation}"></p>
+                 <p th:text="${profileDTOList.totalScore}"></p>
+             </div>
+         </div>
+         <div class="pagination">
+            <a th:if="${profileDTOList.hasPrevious()}" th:href="@{/match/matchProfiles(page=${profileDTOList.number - 1})}">이전</a>
+
+            <span th:text="${profileDTOList.number + 1}"></span> / <span th:text="${profileDTOList.totalPages}"></span>
+
+            <a th:if="${profileDTOList.hasNext()}" th:href="@{/match/matchProfiles(page=${profileDTOList.number + 1})}">다음</a>
+         </div>
+         <div class="footerBTN">
+            <button onclick="listall()" class="footButton"> 전체회원보기 </button>
          </div>
     </div>
 </div>
 
-<button onclick="listall()" class="footButton"> 전체회원보기 </button>
 </body>
 <script>
     const listall = () => {

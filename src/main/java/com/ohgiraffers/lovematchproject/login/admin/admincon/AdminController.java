@@ -36,17 +36,16 @@ public class AdminController {
         return mv;
     }
 
-    @GetMapping("/user/{id}") // 회원정보 상세페이지
-    public String detail(@PathVariable Integer id, Model model) {
+    @GetMapping("/user/{id}")
+    public String detail(@PathVariable("id") Integer id, Model model) {
         UserDTO userDTO = adminService.userDetail(id); // id 값을 기준으로 상세조회한 결과값을 DTO에 담음
 
         if(userDTO != null) {
             model.addAttribute("user", userDTO);
-            return "/login/admin/user";
         }else {
             model.addAttribute("message","조회에 실패했습니다. 다시 시도해주세요.");
         }
-        return "/login/admin/user";
+        return "login/admin/user";
     }
 
 //    @GetMapping("/user/delete/{id}")

@@ -52,7 +52,7 @@ public class ProfileService {
             profileEntity.getProfileEntities().add(profileFileEntity);
         }
 
-        ProfileEntity savedProfile = profileRepository.save(profileEntity);
+        profileEntity = profileRepository.save(profileEntity);
 //        return convertToDTO(savedProfile);
         return findById(profileEntity.getProfileNo());
     }
@@ -107,10 +107,44 @@ public class ProfileService {
         return profileFileEntity;
     }
 
-    public ProfileDTO update(ProfileDTO profileDTO) {
-        ProfileEntity profileEntity = toUpdateEntity(profileDTO);
-        profileRepository.save(profileEntity);
-        return findById(profileEntity.getProfileNo());
+    public ProfileDTO update(ProfileDTO updateDTO, Long userId) throws IOException {
+        ProfileEntity updateEntity = toUpdateEntity(updateDTO);
+
+        MultipartFile profileFile = updateDTO.getProfileFile();
+        if (profileFile != null && !profileFile.isEmpty()) {
+            String originalFilename = profileFile.getOriginalFilename();
+            String storedFilename = System.currentTimeMillis() + "_" + originalFilename;
+            String savePath = "C:/lovematch_img/" + storedFilename;
+
+            // ProfileFileEntity 생성
+            ProfileFileEntity profileFileEntity = new ProfileFileEntity();
+
+            // 파일 저장
+            profileFile.transferTo(new File(savePath));
+
+            // ProfileEntity에 storedFileName 설정
+            updateEntity.setStoredFileName(storedFilename);
+
+            // ProfileFileEntity 저장
+            profileFileEntity.setOriginalFileName(originalFilename);
+            profileFileEntity.setStoredFileName(storedFilename);
+            profileFileEntity.setProfileEntity(updateEntity);
+
+            // user_id 설정
+            updateEntity.setUserId(userId);
+            updateEntity.getProfileEntities().add(profileFileEntity);
+        }
+
+        profileRepository.save(updateEntity);
+        return findById(updateEntity.getProfileNo());
+    }
+
+    public ProfileFileEntity toUpdateFileEntity(ProfileEntity updateEntity, String originalFilename, String storedFilename) {
+        ProfileFileEntity updateFileEntity = new ProfileFileEntity();
+        updateFileEntity.setOriginalFileName(originalFilename);
+        updateFileEntity.setStoredFileName(storedFilename);
+        updateFileEntity.setProfileEntity(updateEntity);
+        return updateFileEntity;
     }
 
     public Page<ProfileDTO> findAll(Pageable pageable) {
@@ -149,17 +183,17 @@ public class ProfileService {
         return profileDTO;
     }
 
-    public ProfileEntity toUpdateEntity(ProfileDTO profileDTO) {
-        ProfileEntity profileEntity = new ProfileEntity();
-        profileEntity.setProfileNo(profileDTO.getProfileNo());
-        profileEntity.setProfileName(profileDTO.getProfileName());
-        profileEntity.setProfilePassword(profileDTO.getProfilePassword());
-        profileEntity.setProfileGender(profileDTO.getProfileGender());
-        profileEntity.setProfileAge(profileDTO.getProfileAge());
-        profileEntity.setProfileHeight(profileDTO.getProfileHeight());
-        profileEntity.setProfileMBTI(profileDTO.getProfileMBTI());
-        profileEntity.setProfileLocation(profileDTO.getProfileLocation());
-        return profileEntity;
+    public ProfileEntity toUpdateEntity(ProfileDTO updateDTO) {
+        ProfileEntity updateEntity = profileRepository.findById(updateDTO.getProfileNo()).get();
+        updateEntity.setProfileNo(updateDTO.getProfileNo());
+        updateEntity.setProfileName(updateDTO.getProfileName());
+        updateEntity.setProfilePassword(updateDTO.getProfilePassword());
+        updateEntity.setProfileGender(updateDTO.getProfileGender());
+        updateEntity.setProfileAge(updateDTO.getProfileAge());
+        updateEntity.setProfileHeight(updateDTO.getProfileHeight());
+        updateEntity.setProfileMBTI(updateDTO.getProfileMBTI());
+        updateEntity.setProfileLocation(updateDTO.getProfileLocation());
+        return updateEntity;
     }
 
     public ProfileDTO findByDetailId(Long profileNo) {
